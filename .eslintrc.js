@@ -33,7 +33,7 @@ module.exports = {
     'import/no-dynamic-require': 1, // CommonJS的require方法用于从不同文件导入模块。与ES6导入语法不同，可以为其提供将在运行时解析的表达式。虽然这有时是必要且有用的，但在大多数情况下并非如此。使用表达式（例如，连接路径和变量）作为参数使得工具更难以进行静态代码分析，或者在代码库中找到使用模块的位置。
     'import/extensions': 0, // 某些文件解析算法允许您在导入源路径中省略文件扩展名。例如，节点解析器可以将./foo/bar解析为绝对路径/User/someone/foo/bar.js，因为默认情况下会自动解析.js扩展名。根据解析程序，您可以配置更多扩展程序以自动解决。
     'import/no-unresolved': 0, // 确保导入的模块可以解析为本地文件系统上的模块，如标准Node require.resolve行为所定义。
-    'import/prefer-default-export': 1, // 当模块中只有一个导出时，更喜欢使用默认导出而不是命名导出。
+    'import/prefer-default-export': 0, // 当模块中只有一个导出时，更喜欢使用默认导出而不是命名导出。
     'vue/no-async-in-computed-properties': 1, // 计算属性应该是同步的。其中的异步操作可能无法按预期工作，并可能导致意外行为，这就是您应该避免它们的原因。如果您需要异步计算属性，可能需要考虑使用其他插件[vue-async-computed]
     'vue/no-side-effects-in-computed-properties': 1, // 在计算属性中引入副作用被认为是一种非常糟糕的做法。它使代码无法预测且难以理解。
     'vue/no-reserved-keys': 1, // 此规则阻止使用保留名称以避免冲突和意外行为。

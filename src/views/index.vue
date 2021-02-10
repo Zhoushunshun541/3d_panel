@@ -2,21 +2,32 @@
   <div class="index_page">
     <Header></Header>
     <div class="index_content">
-      <div class="index_first"></div>
+      <div class="index_first">
+        <water-polo></water-polo>
+      </div>
+      <div class="index_sec">
+        <div class="top_left">
+          <earth></earth>
+        </div>
+      </div>
     </div>
-    <Footer :list="options"></Footer>
+    <zss-footer :list="options"></zss-footer>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ZssFooter from '@/components/Tabs';
+import WaterPolo from '@/components/WaterPolo';
+import Earth from '../components/Earth.vue';
 
 export default {
   name: 'index',
   components: {
     Header,
-    Footer,
+    ZssFooter,
+    WaterPolo,
+    Earth,
   },
   data() {
     return {
