@@ -51,7 +51,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-param-reassign': 1, // 禁止对 function 的参数进行重新赋值
     'no-underscore-dangle': 1, // 禁止标识符中有悬空下划线"_"
-    'global-require': 1, // 要求 require() 出现在顶层模块作用域中
+    'global-require': 0, // 要求 require() 出现在顶层模块作用域中
     'no-var': 1, // 要求使用 let 或 const 而不是 var
     'vars-on-top': 1, // 要求所有的 var 声明出现在它们所在的作用域顶部
     'prefer-destructuring': 1, // 优先使用数组和对象解构
@@ -59,7 +59,6 @@ module.exports = {
     'no-shadow': 1, // 禁止变量声明与外层作用域的变量同名
     'guard-for-in': 1, // 要求 for-in 循环中有一个 if 语句,旨在防止使用for in循环而不过滤循环中的结果时可能出现的意外行为。
     'no-restricted-syntax': 1, // 禁用特定的语法
-    'global-require': 1, // 要求 require() 出现在顶层模块作用域中
     'consistent-return': 0, // 要求 return 语句要么总是指定返回的值，要么不指定
     "eqeqeq": 1, // 要求使用 === 和 !==
     'no-unused-expressions': 1, // 禁止出现未使用过的表达式

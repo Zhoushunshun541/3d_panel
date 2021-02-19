@@ -2,8 +2,50 @@
   <div class="index_page">
     <Header></Header>
     <div class="index_content">
-      <div class="index_first">
-        <water-polo></water-polo>
+      <div class="index-first">
+        <!-- 左侧的顶部 -->
+        <div class="index-first__top flex">
+          <div class="top-left">
+            <span class="title mb25">2020年接单情况</span>
+            <div class="title_tip">今年总接单</div>
+            <div class="flex order-num">
+              <div class="amount">
+                {{ 21065 | toThousandFilter }}
+                <span class="fs24">万元</span>
+              </div>
+              <div class="compare flex">
+                <div>同比：<span class="red">+0.05%</span></div>
+                <div>相比目标：<span class="green">+0.05%</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="top-right">
+            <line-chart></line-chart>
+          </div>
+        </div>
+        <!-- 2020年完成与目标比 -->
+        <div class="meet-target flex">
+          <div style="flex-grow: 1;">
+            <span class="title_1">2020年完成与目标比</span>
+            <div class="target-info flex">
+              <div>
+                <span>2020目标</span>
+                <span class="amount-num">
+                  {{ 100000 | toThousandFilter }}
+                  <span class="fs14">万元</span>
+                </span>
+              </div>
+              <div>
+                <span>2020目标</span>
+                <span class="amount-num">
+                  {{ -100000 | toThousandFilter }}
+                  <span class="fs14">万元</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <water-polo></water-polo>
+        </div>
       </div>
       <div class="index_sec">
         <div class="top_left">
@@ -20,6 +62,7 @@ import Header from '@/components/Header';
 import ZssFooter from '@/components/Tabs';
 import WaterPolo from '@/components/WaterPolo';
 import Earth from '../components/Earth.vue';
+import LineChart from '@/components/LineChart';
 
 export default {
   name: 'index',
@@ -28,6 +71,7 @@ export default {
     ZssFooter,
     WaterPolo,
     Earth,
+    LineChart,
   },
   data() {
     return {
@@ -42,6 +86,13 @@ export default {
         { id: 8, name: '制造部看板' },
       ], // 底部选项
     };
+  },
+  filters: {
+    toThousandFilter(num) {
+      return (+num || 0)
+        .toFixed(0)
+        .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+    },
   },
 };
 </script>

@@ -2,7 +2,6 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router/router';
 import echarts from 'echarts';
-import 'echarts-liquidfill';
 import 'echarts-gl';
 import '../node_modules/echarts/map/js/world.js';
 

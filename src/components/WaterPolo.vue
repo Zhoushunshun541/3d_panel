@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import 'echarts-liquidfill';
 import { Echart } from '../utils/echart';
 
 export default {
@@ -22,7 +23,7 @@ export default {
           text: '',
           textStyle: {
             fontWeight: 'normal',
-            fontSize: 14,
+            fontSize: 25,
             color: 'rgb(97, 142, 205)',
           },
         },
@@ -40,7 +41,7 @@ export default {
               normal: {
                 formatter: `${(0.5 * 100).toFixed(2)}%`,
                 textStyle: {
-                  fontSize: 14,
+                  fontSize: 50,
                 },
               },
             },
@@ -84,7 +85,7 @@ export default {
                   normal: {
                     color: '#5886f0',
                     borderColor: '#5886f0',
-                    // borderWidth: 20,
+                    borderWidth: 20,
                     // borderRadius: '100%'
                   },
                 },
