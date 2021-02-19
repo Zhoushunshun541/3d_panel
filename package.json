@@ -13,7 +13,8 @@
     "echarts-gl": "^1.1.1",
     "echarts-liquidfill": "^2.0.6",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vue-seamless-scroll": "^1.1.23"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

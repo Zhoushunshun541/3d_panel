@@ -46,6 +46,7 @@
           </div>
           <water-polo></water-polo>
         </div>
+        <quarter-xrd></quarter-xrd>
       </div>
       <div class="index_sec">
         <div class="top_left">
@@ -63,6 +64,7 @@ import ZssFooter from '@/components/Tabs';
 import WaterPolo from '@/components/WaterPolo';
 import Earth from '../components/Earth.vue';
 import LineChart from '@/components/LineChart';
+import QuarterXrd from '@/components/QuarterXrd';
 
 export default {
   name: 'index',
@@ -72,6 +74,7 @@ export default {
     WaterPolo,
     Earth,
     LineChart,
+    QuarterXrd,
   },
   data() {
     return {

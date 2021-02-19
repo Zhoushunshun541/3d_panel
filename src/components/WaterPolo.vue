@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       options: {
-        backgroundColor: '#050038',
+        backgroundColor: '',
         title: {
           text: '',
           textStyle: {
@@ -30,7 +30,7 @@ export default {
         series: [
           {
             type: 'liquidFill',
-            radius: '45%',
+            radius: '90%',
             center: ['50%', '50%'],
             data: [0.5, 0.5, 0.5], // data个数代表波浪数
             backgroundStyle: {
@@ -39,9 +39,9 @@ export default {
             },
             label: {
               normal: {
-                formatter: `${(0.5 * 100).toFixed(2)}%`,
+                formatter: `${(0.5 * 100).toFixed(2)}% \n完成与目标比`,
                 textStyle: {
-                  fontSize: 50,
+                  fontSize: 12,
                 },
               },
             },
@@ -52,7 +52,7 @@ export default {
           {
             type: 'pie',
             center: ['50%', '50%'],
-            radius: ['50%', '52%'],
+            radius: ['96%', '100%'],
             hoverAnimation: false,
             data: [
               {
@@ -76,7 +76,7 @@ export default {
               {
                 // 画中间的图标
                 name: '',
-                value: 4,
+                value: 1,
                 labelLine: {
                   show: false,
                 },
@@ -85,8 +85,8 @@ export default {
                   normal: {
                     color: '#5886f0',
                     borderColor: '#5886f0',
-                    borderWidth: 20,
-                    // borderRadius: '100%'
+                    borderWidth: 4,
+                    borderRadius: '100%',
                   },
                 },
                 label: {
