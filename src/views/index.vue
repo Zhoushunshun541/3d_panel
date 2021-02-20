@@ -117,7 +117,12 @@
               <BarChart2d></BarChart2d>
             </div>
           </div>
-          <div class="bottom-right border_warp"></div>
+          <div class="bottom-right border_warp">
+            <span class="title" style="line-height:40px;">
+              2020年10月费用公示
+            </span>
+            <ScrollTable></ScrollTable>
+          </div>
         </div>
       </div>
     </div>
@@ -137,6 +142,7 @@ import Progress from '@/components/Progress';
 import VueSeamlessScroll from 'vue-seamless-scroll';
 import TitleTip from '@/components/TitleTip';
 import BarChart2d from '@/components/BarChart2d';
+import ScrollTable from '@/components/ScrollTable';
 
 export default {
   name: 'index',
@@ -152,6 +158,7 @@ export default {
     VueSeamlessScroll,
     TitleTip,
     BarChart2d,
+    ScrollTable,
   },
   data() {
     return {
