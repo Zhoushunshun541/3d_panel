@@ -1,5 +1,18 @@
 <template>
-  <div class="bar-chart" :id="id"></div>
+  <div class="complate-situation">
+    <div class="flex complate-situation_title">
+      <span class="title_1">{{ title }}</span>
+      <div class="custom-radio">
+        <div :class="{ active: active === 1 }" @click="active = 1">
+          上个月
+        </div>
+        <div :class="{ active: active === 2 }" @click="active = 2">
+          上季度
+        </div>
+      </div>
+    </div>
+    <div class="bar-chart" :id="id"></div>
+  </div>
 </template>
 
 <script>
@@ -12,6 +25,10 @@ export default {
     id: {
       type: String,
       default: 'barChart',
+    },
+    title: {
+      type: String,
+      default: '2020年四季度销售完成情况',
     },
   },
   data() {
@@ -77,8 +94,9 @@ export default {
     const MAX = [3000, 3000, 1000, 1800, 1600, 2600, 3000];
     const VALUE = [2012, 1230, 2349, 1654, 1230, 2349, 1654];
     return {
+      active: 1,
       options: {
-        backgroundColor: '#010d3a',
+        backgroundColor: '',
         title: {
           text: '',
           top: 32,
@@ -369,8 +387,37 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.bar-chart {
-  width: 545px;
-  height: 230px;
+.complate-situation {
+  &_title {
+    justify-content: space-between;
+    .custom-radio {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 120px;
+      height: 25px;
+      border-radius: 6px;
+      border: 1px solid rgba(51, 67, 113, 1);
+      & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 100%;
+      }
+      .active {
+        color: #5ac8fa;
+        border-radius: 2px;
+        background-color: rgba(0, 122, 255, 0.2);
+        border: 0.6px solid rgba(0, 122, 255, 1);
+      }
+    }
+  }
+  .bar-chart {
+    margin-top: 13px;
+    width: 545px;
+    height: 230px;
+  }
 }
 </style>

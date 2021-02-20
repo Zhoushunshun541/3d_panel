@@ -6,12 +6,34 @@
     <div class="header-tip flex">
       <span>营业本部 数据看板</span>
     </div>
-    <div class="header-info"></div>
+    <div class="header-info flex">
+      <svg class="icon weather-icon" aria-hidden="true">
+        <use xlink:href="#icontianqi-qing"></use>
+      </svg>
+    </div>
   </header>
 </template>
 
 <script>
-export default {};
+import { weatherInfo } from '@/api';
+
+export default {
+  data() {
+    return {
+      weatherInfo: {},
+    };
+  },
+  methods: {
+    getWeatherInfo() {
+      weatherInfo().then(res => {
+        console.log(res);
+      });
+    },
+  },
+  created() {
+    // this.getWeatherInfo();
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -40,6 +62,15 @@ export default {};
   }
   & > div {
     width: 33.33%;
+    height: 100%;
+  }
+  .header-info {
+    padding-right: 20px;
+    justify-content: flex-end;
+  }
+  .weather-icon {
+    width: 55px;
+    height: 35px;
   }
 }
 </style>

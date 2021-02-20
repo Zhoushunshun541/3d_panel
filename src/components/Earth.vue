@@ -35,7 +35,6 @@ export default {
       myChart: null,
       // 立体球形纹路
       option: {
-        backgroundColor: '#000',
         globe: {
           displacementScale: 0.01,
           globeRadius: 60,
