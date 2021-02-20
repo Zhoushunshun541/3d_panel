@@ -30,7 +30,7 @@ export default {
         series: [
           {
             type: 'liquidFill',
-            radius: '90%',
+            radius: '80%',
             center: ['50%', '50%'],
             data: [0.5, 0.5, 0.5], // data个数代表波浪数
             backgroundStyle: {
@@ -52,7 +52,7 @@ export default {
           {
             type: 'pie',
             center: ['50%', '50%'],
-            radius: ['96%', '100%'],
+            radius: ['95%', '100%'],
             hoverAnimation: false,
             data: [
               {
@@ -153,7 +153,8 @@ export default {
 
 <style lang="less" scoped>
 .water-polo_page {
-  width: 115px;
-  height: 115px;
+  margin-top: 30px;
+  width: 100px;
+  height: 100px;
 }
 </style>

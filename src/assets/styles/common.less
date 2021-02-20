@@ -92,20 +92,32 @@ u {
 .mt10{
   margin-top: 10px;
 }
-.mb25{
-  margin-bottom: 25px;
+.mt15{
+  margin-top: 15px;
+}
+.mt25{
+  margin-top: 25px;
+}
+.mb10{
+  margin-bottom: 10px;
 }
 .mb20{
   margin-bottom: 20px;
+}
+.mr10{
+  margin-right: 10px;
 }
 .pr5{
   padding-right: 5px;
 }
 .title{
+  padding: 8px 23px 3px 20px;
   font-size: 20px;
   color: #5AC8FA;
-  display: flex;
-  align-items: center;
+  line-height: 30px;
+  background: url('../images/title_bg1.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 .title_1{
   font-size: 16px;
@@ -116,4 +128,27 @@ u {
 .border_warp{
   border-radius: 6px;
   border: 1px solid rgba(51, 67, 113, 1);
+}
+.custom-radio {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  height: 25px;
+  border-radius: 6px;
+  border: 1px solid rgba(51, 67, 113, 1);
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+  }
+  .active {
+    color: #5ac8fa;
+    border-radius: 2px;
+    background-color: rgba(0, 122, 255, 0.2);
+    border: 0.6px solid rgba(0, 122, 255, 1);
+  }
 }

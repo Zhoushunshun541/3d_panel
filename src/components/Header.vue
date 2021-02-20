@@ -36,7 +36,7 @@ export default {
     },
   },
   created() {
-    this.getWeatherInfo();
+    // this.getWeatherInfo();
   },
 };
 </script>

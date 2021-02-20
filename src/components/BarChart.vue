@@ -91,7 +91,7 @@ export default {
     this.$echart.graphic.registerShape('CubeLeft', CubeLeft);
     this.$echart.graphic.registerShape('CubeRight', CubeRight);
     this.$echart.graphic.registerShape('CubeTop', CubeTop);
-    const MAX = [3000, 3000, 1000, 1800, 1600, 2600, 3000];
+    const MAX = [3000, 3000, 3000, 3000, 3000, 3000, 3000];
     const VALUE = [2012, 1230, 2349, 1654, 1230, 2349, 1654];
     return {
       active: 1,
@@ -390,29 +390,6 @@ export default {
 .complate-situation {
   &_title {
     justify-content: space-between;
-    .custom-radio {
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 120px;
-      height: 25px;
-      border-radius: 6px;
-      border: 1px solid rgba(51, 67, 113, 1);
-      & > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50%;
-        height: 100%;
-      }
-      .active {
-        color: #5ac8fa;
-        border-radius: 2px;
-        background-color: rgba(0, 122, 255, 0.2);
-        border: 0.6px solid rgba(0, 122, 255, 1);
-      }
-    }
   }
   .bar-chart {
     margin-top: 13px;
