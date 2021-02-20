@@ -9,8 +9,6 @@
     >div{
       height: 915px;
       margin: 5px;
-      border-radius: 6px;
-      border: 1px solid rgba(51, 67, 113, 1);
     }
     .index-first{
       width: 585px;
@@ -71,9 +69,102 @@
       }
     }
     .index_sec{
+      border: none;
       width: calc(860px + 285px + 15px);
       .top_left{
-        
+        width: 860px;
+        height: 523px;
+        padding: 13px 25px;
+        .area-list{
+          align-self: flex-end;
+          width: 135px;
+          height: 247px;
+          background: #010F3E 100%;
+          border-radius: 6px;
+        }
+      }
+      .top-right{
+        width: 285px;
+        height: 523px;
+        margin-left: 15px;
+        &_top{
+          justify-content: center;
+          flex-direction: column;
+          height: 120px;
+          width: 100%;
+          border-bottom: 1px solid rgba(51, 67, 113, 1);
+          .tip{
+            color: #07C297;
+            font-size: 28px;
+          }
+          .tip1{
+            margin: 15px 0 5px;
+            color: #CFDCFF;
+          }
+          .tip2{
+            color: #4CD964;
+          }
+        }
+        &_mid{
+          padding: 10px 18px 15px;
+          color: #CFDCFF;
+          font-size: 14px;
+          height: 200px;
+          .mid-tip{
+            color: rgba(207,220,255,0.6);
+          }
+          border-bottom: 1px solid rgba(51, 67, 113, 1);
+          .rank-list{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            li{
+              width: 100%;
+              margin-bottom: 15px;
+              .fr{
+                text-align: right;
+              }
+              .all{
+                color: #0B6099;
+                font-size: 14px;
+              }
+            }
+          }
+          .rank::before{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 10px 10px;
+            color: #fff;
+            font-size: 14px;
+            margin-right: 25px;
+          }
+          .rank+div{
+            width: 130px;
+            height: 20px;
+          }
+          .no-one{
+            &::before{
+              content: "1";
+              background: #FFCC00;
+            }
+          }
+          .no-two{
+            &::before{
+              content: "2";
+              background: #07C297;
+            }
+          }
+          .no-three{
+            &::before{
+              content: "3";
+              background: #149EEB;
+            }
+          }
+        }
       }
     }
   }

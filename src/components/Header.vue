@@ -25,13 +25,18 @@ export default {
   },
   methods: {
     getWeatherInfo() {
-      weatherInfo().then(res => {
+      const p = {
+        location: '无锡',
+        output: 'json',
+        ak: 'VKVFOcI2Z7RHXMqdEcx4d9woOtG0zw3o',
+      };
+      weatherInfo(p).then(res => {
         console.log(res);
       });
     },
   },
   created() {
-    // this.getWeatherInfo();
+    this.getWeatherInfo();
   },
 };
 </script>

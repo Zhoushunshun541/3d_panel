@@ -2,7 +2,7 @@
   <div class="index_page">
     <Header></Header>
     <div class="index_content">
-      <div class="index-first">
+      <div class="index-first border_warp">
         <!-- 左侧的顶部 -->
         <div class="index-first__top flex">
           <div class="top-left">
@@ -44,18 +44,57 @@
               </div>
             </div>
           </div>
-          <water-polo></water-polo>
+          <WaterPolo></WaterPolo>
         </div>
-        <quarter-xrd></quarter-xrd>
+        <QuarterXrd></QuarterXrd>
         <BarChart class="mt55"></BarChart>
       </div>
       <div class="index_sec">
-        <div class="top_left">
-          <earth></earth>
+        <div class="flex top">
+          <div class="top_left flex border_warp">
+            <div class="area-list"></div>
+            <Earth></Earth>
+          </div>
+          <!-- 地图右侧 -->
+          <div class="top-right border_warp">
+            <!-- 本周接单总金额 -->
+            <div class="top-right_top flex">
+              <span class="tip">
+                {{ 5123.4 | toThousandFilter }}
+                <span class="fs14">万元</span>
+              </span>
+              <span class="tip1">本周接单总金额</span>
+              <span class="tip2">环比 - 2.30%</span>
+            </div>
+            <!-- 本周接单TOP 3 -->
+            <div class="top-right_mid">
+              <div class="mid-tip fs12">本周接单TOP 3</div>
+              <ul class="rank-list mt10">
+                <li>
+                  <div class="no-one rank fl">是一部</div>
+                  <div class="fr">352.10 万元</div>
+                </li>
+                <li>
+                  <div class="no-two rank fl">是一部</div>
+                  <div class="fr">352.10 万元</div>
+                </li>
+                <li>
+                  <div class="no-three rank fl">是一部</div>
+                  <div class="fr">352.10 万元</div>
+                </li>
+                <li style="margin-bottom:10px;">
+                  <div class="fl all">其余合计</div>
+                  <div class="fr">1230.20 万元</div>
+                </li>
+              </ul>
+              <Progress></Progress>
+            </div>
+            <div class="top-right_bottom"></div>
+          </div>
         </div>
       </div>
     </div>
-    <zss-footer :list="options"></zss-footer>
+    <ZssFooter :list="options"></ZssFooter>
   </div>
 </template>
 
@@ -67,6 +106,7 @@ import Earth from '../components/Earth.vue';
 import LineChart from '@/components/LineChart';
 import QuarterXrd from '@/components/QuarterXrd';
 import BarChart from '@/components/BarChart';
+import Progress from '@/components/Progress';
 
 export default {
   name: 'index',
@@ -78,6 +118,7 @@ export default {
     LineChart,
     QuarterXrd,
     BarChart,
+    Progress,
   },
   data() {
     return {

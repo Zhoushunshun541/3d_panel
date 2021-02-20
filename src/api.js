@@ -8,6 +8,14 @@ import axios from 'axios';
 // });
 
 // 获取天气信息
+// export const weatherInfo = params => {
+//   return axios.get('/api-weather/telematics/v3/weather', {
+//     params,
+//   });
+// };
+
 export const weatherInfo = params => {
-  return axios.get('http://api.favoritefilms.cn/app/weather/today', { params });
+  return axios.get('http://api.map.baidu.com/telematics/v3/weather', {
+    params,
+  });
 };
