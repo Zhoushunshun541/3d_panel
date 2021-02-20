@@ -47,6 +47,17 @@
           <water-polo></water-polo>
         </div>
         <quarter-xrd></quarter-xrd>
+        <div class="complate-situation">
+          <div class="flex complate-situation_title">
+            <span class="title_1">2020年四季度销售完成情况</span>
+            <div class="custom-radio">
+              <div>上个月</div>
+              <div>上季度</div>
+            </div>
+          </div>
+
+          <BarChart></BarChart>
+        </div>
       </div>
       <div class="index_sec">
         <div class="top_left">
@@ -65,6 +76,7 @@ import WaterPolo from '@/components/WaterPolo';
 import Earth from '../components/Earth.vue';
 import LineChart from '@/components/LineChart';
 import QuarterXrd from '@/components/QuarterXrd';
+import BarChart from '@/components/BarChart';
 
 export default {
   name: 'index',
@@ -75,6 +87,7 @@ export default {
     Earth,
     LineChart,
     QuarterXrd,
+    BarChart,
   },
   data() {
     return {
