@@ -1,6 +1,6 @@
 <template>
   <header class="header_component flex">
-    <div class="header-logo">
+    <div class="header-logo" @click="setFullScreen">
       <img src="../assets/images/logo.png" width="158" height="58" alt="" />
     </div>
     <div class="header-tip flex">
@@ -21,9 +21,22 @@ export default {
   data() {
     return {
       weatherInfo: {},
+      fullscreen: false,
     };
   },
   methods: {
+    // 全屏的函数
+    setFullScreen() {
+      this.$fullscreen.toggle(document.getElementById('app'), {
+        wrap: false,
+        callback: this.fullscreenChange,
+      });
+    },
+    // 全屏变化的函数
+    fullscreenChange(fullscreen) {
+      this.fullscreen = fullscreen;
+    },
+    // 获取天气的接口  暂时没找到
     getWeatherInfo() {
       const p = {
         location: '无锡',
