@@ -20,8 +20,8 @@
             <div class="dept-name">{{ item.name }}</div>
             <div class="check-num">{{ item.monthCount }}</div>
             <div class="bad-num">{{ item.lastMonth }}</div>
-            <div class="month-bad-num" :id="`mbn${item.id}`"></div>
-            <div class="all-bad-num" :id="`abn${item.id}`"></div>
+            <div class="month-bad-num" :class="`mbn-${item.id}`"></div>
+            <div class="all-bad-num" :class="`abn-${item.id}`"></div>
           </li>
         </ul>
       </VueSeamlessScroll>
@@ -95,40 +95,21 @@ export default {
           right: '15%',
           bottom: '3%',
         },
-        //   color: color,
-        yAxis: [
-          {
-            type: 'category',
-            inverse: true,
-            axisTick: {
-              show: false,
-            },
-            axisLine: {
-              show: false,
-            },
-            axisLabel: {
-              show: false,
-              inside: false,
-            },
-            data: [],
+        yAxis: {
+          type: 'category',
+          inverse: true,
+          axisTick: {
+            show: false,
           },
-          {
-            type: 'category',
-            axisLine: {
-              show: false,
-            },
-            axisTick: {
-              show: false,
-            },
-            splitArea: {
-              show: false,
-            },
-            splitLine: {
-              show: false,
-            },
-            data: [],
+          axisLine: {
+            show: false,
           },
-        ],
+          axisLabel: {
+            show: false,
+            inside: false,
+          },
+          data: [],
+        },
         xAxis: {
           type: 'value',
           axisTick: {
@@ -167,6 +148,11 @@ export default {
                 },
               },
             ],
+            label: {
+              normal: {
+                show: false,
+              },
+            },
             animationDuration: 1500,
           },
         ],
@@ -179,7 +165,7 @@ export default {
     dealWithEchart() {
       this.bistList.forEach(item => {
         const options = JSON.parse(JSON.stringify(this.options));
-        options.yAxis[1].data = [item.lastMonth];
+        options.yAxis.data = [item.lastMonth];
         options.series[0].data[0].value = item.lastMonth;
         options.series[0].data[0].color = 'rgba(20, 158, 235, 1)';
         options.series[0].data[0].itemStyle.normal.color = new this.$echart.graphic.LinearGradient(
@@ -199,15 +185,57 @@ export default {
           ],
           false
         );
-        const myChart = this.$echart.init(
-          document.getElementById(`mbn${item.id}`)
+        const dom = document.getElementsByClassName(`mbn-${item.id}`);
+        dom.forEach(d => {
+          const myChart = this.$echart.init(d);
+          myChart.setOption(options);
+        });
+
+        const options1 = JSON.parse(JSON.stringify(this.options));
+        options1.yAxis.data = [item.lastMonth];
+        options1.series[0].data[0].value = item.lastMonth;
+        options1.series[0].data[0].color = 'rgba(20, 158, 235, 1)';
+        options1.series[0].data[0].itemStyle.normal.color = new this.$echart.graphic.LinearGradient(
+          0,
+          0,
+          1,
+          0,
+          [
+            {
+              offset: 0,
+              color: `rgba(7, 194, 151, 0)`,
+            },
+            {
+              offset: 1,
+              color: `rgba(78, 187, 245, 1)`,
+            },
+          ],
+          false
         );
-        myChart.setOption(options);
+        const dom1 = document.getElementsByClassName(`abn-${item.id}`);
+        dom1.forEach(d => {
+          const myChart = this.$echart.init(d);
+          myChart.setOption(options1);
+        });
       });
     },
   },
   mounted() {
-    this.dealWithEchart();
+    /**
+     * 因为使用了滚动的插件  看其源码是将待滚动的ul部分直接复制一份拼接在下方滚动
+     * 但是这会导致一个问题  如果用id获取dom  来渲染echart会导致复制的那一份没有生成表格
+     * 所以定时查询dom的方式来实现
+     *
+     * ps   其实也可以自己写dom  设置圆角背景渐变色方式  但是还要考虑动画效果  都是可以实现的方式
+     * 等到接口以后实际根据需求来变更
+     */
+    const setInter = setInterval(() => {
+      const dom = document.getElementsByClassName('month-bad-num');
+      if (dom.length > 7) {
+        this.dealWithEchart();
+        clearInterval(setInter);
+      }
+    }, 300);
   },
 };
 </script>
