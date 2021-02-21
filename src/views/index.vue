@@ -139,7 +139,13 @@
           </div>
           <PlanTable></PlanTable>
         </div>
-        <div class="index_third-bottom border_warp mt15"></div>
+        <div class="index_third-bottom border_warp mt15">
+          <span class="title" style="line-height:40px;">
+            2020年10月自检不良率
+          </span>
+          <span>单位:万件</span>
+          <BistTable></BistTable>
+        </div>
       </div>
       <div class="index_four">
         <div class="index_four-top border_warp"></div>
@@ -165,6 +171,7 @@ import TitleTip from '@/components/TitleTip';
 import BarChart2d from '@/components/BarChart2d';
 import ScrollTable from '@/components/ScrollTable';
 import PlanTable from '@/components/PlanTable';
+import BistTable from '@/components/BistTable';
 import { ScrollList } from '@/utils/mixins';
 
 export default {
@@ -184,6 +191,7 @@ export default {
     BarChart2d,
     ScrollTable,
     PlanTable,
+    BistTable,
   },
   data() {
     return {
