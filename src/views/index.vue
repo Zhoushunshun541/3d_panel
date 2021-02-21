@@ -126,7 +126,19 @@
         </div>
       </div>
       <div class="index_third">
-        <div class="index_third-top border_warp"></div>
+        <div class="index_third-top border_warp">
+          <span class="title" style="line-height:40px;">
+            2020年11月～4月工厂排产计划
+          </span>
+          <TitleTip></TitleTip>
+          <div class="plan-content mt25">
+            <div class="plan-title flex">
+              <p>各工厂每月平均产能</p>
+              <p>计划排产</p>
+            </div>
+          </div>
+          <PlanTable></PlanTable>
+        </div>
         <div class="index_third-bottom border_warp mt15"></div>
       </div>
       <div class="index_four">
@@ -152,9 +164,12 @@ import VueSeamlessScroll from 'vue-seamless-scroll';
 import TitleTip from '@/components/TitleTip';
 import BarChart2d from '@/components/BarChart2d';
 import ScrollTable from '@/components/ScrollTable';
+import PlanTable from '@/components/PlanTable';
+import { ScrollList } from '@/utils/mixins';
 
 export default {
   name: 'index',
+  mixins: [ScrollList],
   components: {
     Header,
     ZssFooter,
@@ -168,9 +183,11 @@ export default {
     TitleTip,
     BarChart2d,
     ScrollTable,
+    PlanTable,
   },
   data() {
     return {
+      // 地区列表
       areaList: [
         {
           id: 1,
@@ -205,6 +222,7 @@ export default {
           name: '埃及工厂',
         },
       ],
+      // 新闻列表
       newList: [
         {
           date: '2020-11-18',
@@ -244,6 +262,7 @@ export default {
       ],
       area_id: 1,
       active: 1,
+      // 底部tabs选项
       options: [
         { id: 1, name: '营业部看板' },
         { id: 2, name: '管理部看板' },
@@ -253,7 +272,7 @@ export default {
         { id: 6, name: 'IE部看板' },
         { id: 7, name: '染色部看板' },
         { id: 8, name: '制造部看板' },
-      ], // 底部选项
+      ],
     };
   },
   filters: {
@@ -261,20 +280,6 @@ export default {
       return (+num || 0)
         .toFixed(0)
         .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
-    },
-  },
-  computed: {
-    classOption() {
-      return {
-        step: 0.2, // 数值越大速度滚动越快
-        limitMoveNum: 2, // 开始无缝滚动的数据量 this.dataList.length
-        hoverStop: true, // 是否开启鼠标悬停stop
-        direction: 1, // 0向下 1向上 2向左 3向右
-        openWatch: true, // 开启数据实时监控刷新dom
-        singleHeight: 0, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
-        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
-        waitTime: 1000, // 单步运动停止的时间(默认值1000ms)
-      };
     },
   },
 };

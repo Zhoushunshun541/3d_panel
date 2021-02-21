@@ -237,8 +237,8 @@ export default {
     padding: 0;
   }
   td {
-    border-left: 1px dotted;
-    border-right: 1px dotted;
+    border-left: 1px dashed;
+    border-right: 1px dashed;
     border-bottom: 1px solid;
     border-top: 1px solid;
     border-color: rgba(255, 255, 255, 0.1);

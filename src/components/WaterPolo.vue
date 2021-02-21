@@ -4,7 +4,7 @@
 
 <script>
 import 'echarts-liquidfill';
-import { Echart } from '../utils/echart';
+import { Echart } from '../utils/mixins';
 
 export default {
   name: 'WaterPolo',

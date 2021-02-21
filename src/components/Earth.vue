@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import { Echart } from '../utils/echart';
+// import { Echart } from '../utils/mixins';
 
 export default {
   name: 'WaterPolo',

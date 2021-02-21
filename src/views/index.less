@@ -215,8 +215,23 @@
     // 第三模块
     .index_third{
       width: 655px;
+      &>div{
+        padding: 15px 13px 15px 20px;
+      }
       &-top{
         height: 523px;
+        .plan-content{
+          width: 100%;
+          font-size: 16px;
+          color: #4EBBF5;
+          .plan-title{
+            padding-left: 17px;
+            p:first-child{
+              width: 230px;
+              flex-shrink: 0;
+            }
+          }
+        }
       }
       &-bottom{
         height: 378px;
@@ -233,6 +248,9 @@
       }
       &-bottom{
         height: 255px;
+      }
+      &>div{
+        padding: 15px 20px;
       }
     }
   }
