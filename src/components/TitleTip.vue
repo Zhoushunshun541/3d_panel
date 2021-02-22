@@ -1,6 +1,6 @@
 <template>
   <div class="target-info mt15 flex">
-    <div class="bg-color flex" v-show="+type === 1">
+    <div class="bg-color flex" v-if="+type === 1">
       <div>
         <span>2020目标</span>
         <span class="amount-num">
@@ -14,6 +14,36 @@
           {{ orderInfo.from_complete | toThousandFilter }}
           <span class="fs14">万元</span>
         </span>
+      </div>
+    </div>
+    <div class="bg-color flex" v-if="+type === 2">
+      <div>
+        <span>三季度总产值</span>
+        <span class="amount-num">
+          {{ $state.GDP.all_gdp | toThousandFilter }}
+          <span class="fs14">万元</span>
+        </span>
+      </div>
+      <div class="compare flex">
+        <div>
+          同比：<span
+            class="w50"
+            :class="
+              $state.GDP.gdp_percentage.indexOf('-') >= 0 ? 'green' : 'red'
+            "
+            >{{ $state.GDP.gdp_percentage }}</span
+          >
+        </div>
+        <div>
+          相比目标：<span
+            class="w50"
+            :class="
+              $state.GDP.target_percentage.indexOf('-') >= 0 ? 'green' : 'red'
+            "
+          >
+            {{ $state.GDP.target_percentage }}
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -87,7 +117,6 @@ export default {
 
 <style lang="less" scoped>
 .target-info {
-  color: #fff;
   font-size: 14px;
   background: url('../assets/images/title_bg.png');
   background-repeat: no-repeat;

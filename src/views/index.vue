@@ -75,11 +75,19 @@
             <!-- 本周接单总金额 -->
             <div class="top-right_top flex">
               <span class="tip">
-                {{ 5123.4 | toThousandFilter }}
+                {{ weekOrderInfo.all_num | toThousandFilter }}
                 <span class="fs14">万元</span>
               </span>
               <span class="tip1">本周接单总金额</span>
-              <span class="tip2">环比 - 2.30%</span>
+              <span
+                :class="
+                  weekOrderInfo.all_percentage.indexOf('-') > -1
+                    ? 'green'
+                    : 'red'
+                "
+              >
+                环比{{ weekOrderInfo.all_percentage }}
+              </span>
             </div>
             <!-- 本周接单TOP 3 -->
             <div class="top-right_mid">
@@ -125,17 +133,17 @@
             <div class="header flex">
               <span class="title">2020年三季度人均产值</span>
               <div class="custom-radio">
-                <div :class="{ active: active === 1 }" @click="active = 1">
+                <div :class="{ active: active === 0 }" @click="active = 0">
                   上个月
                 </div>
-                <div :class="{ active: active === 2 }" @click="active = 2">
+                <div :class="{ active: active === 1 }" @click="active = 1">
                   上季度
                 </div>
               </div>
             </div>
             <div class="content">
-              <TitleTip></TitleTip>
-              <BarChart2d></BarChart2d>
+              <TitleTip type="2"></TitleTip>
+              <BarChart2d :type="active"></BarChart2d>
             </div>
           </div>
           <div class="bottom-right border_warp">
@@ -173,10 +181,10 @@
           <div class="header mb15 flex" style="margin-top:-10px">
             <span class="title">最新动态</span>
             <div class="custom-radio">
-              <div :class="{ active: active === 1 }" @click="active = 1">
+              <div :class="{ active: active === 0 }" @click="active = 0">
                 公司
               </div>
-              <div :class="{ active: active === 2 }" @click="active = 2">
+              <div :class="{ active: active === 1 }" @click="active = 1">
                 行业
               </div>
             </div>
@@ -198,7 +206,7 @@
         <div class="index_four-bottom border_warp mt10"></div>
       </div>
     </div>
-    <ZssFooter :list="options"></ZssFooter>
+    <ZssFooter></ZssFooter>
   </div>
 </template>
 
@@ -276,27 +284,15 @@ export default {
           name: '埃及工厂',
         },
       ],
-      orderInfo: {
-        complete_num: '',
-        from_complete: '',
-        percentage: '',
+      // 周接单详情
+      weekOrderInfo: {
+        all_num: '',
+        all_percentage: '',
       }, // 接单详情数据
       // 新闻列表
       orderList: [],
       area_id: 1,
       active: 1,
-      scrollAnimate: false,
-      // 底部tabs选项
-      options: [
-        { id: 1, name: '营业部看板' },
-        { id: 2, name: '管理部看板' },
-        { id: 3, name: '生产工厂看板' },
-        { id: 4, name: '财务部看板' },
-        { id: 5, name: '供应链部看板' },
-        { id: 6, name: 'IE部看板' },
-        { id: 7, name: '染色部看板' },
-        { id: 8, name: '制造部看板' },
-      ],
     };
   },
   methods: {
@@ -305,6 +301,10 @@ export default {
       business_week_order().then(res => {
         if (res.status) {
           this.orderList = res.data.list;
+          this.weekOrderInfo = {
+            all_num: res.data.all_num,
+            all_percentage: res.data.all_percentage,
+          };
         }
         // setTimeout(() => {
         //   this.getWeekOrder();

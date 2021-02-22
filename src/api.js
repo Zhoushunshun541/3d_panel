@@ -78,3 +78,10 @@ export const business_sales_complete = params => {
     params,
   });
 };
+
+// 人均产值
+export const business_gdp = params => {
+  return http.get('/business/gdp', {
+    params,
+  });
+};

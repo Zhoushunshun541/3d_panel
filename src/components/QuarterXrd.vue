@@ -78,7 +78,6 @@ export default {
   margin-top: 10px;
   font-size: 14px;
   text-align: center;
-  color: #cfdcff;
   li {
     display: flex;
     align-items: center;

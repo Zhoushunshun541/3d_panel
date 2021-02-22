@@ -238,7 +238,6 @@ export default {
     color: #546781;
   }
   div {
-    color: #cfdcff;
     flex-shrink: 0;
   }
   .month {

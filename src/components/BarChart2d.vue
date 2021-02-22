@@ -4,6 +4,7 @@
 
 <script>
 import { Echart } from '../utils/mixins';
+import { business_gdp } from '@/api';
 
 export default {
   name: 'BarChart2d',
@@ -12,6 +13,10 @@ export default {
     id: {
       type: String,
       default: 'barCharts2d',
+    },
+    type: {
+      type: [String, Number],
+      default: '0',
     },
   },
   data() {
@@ -38,15 +43,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: [
-              '一本部',
-              '2本部',
-              '3本部',
-              '4本部',
-              '5本部',
-              '6本部',
-              '7本部',
-            ],
+            data: [],
             axisLine: {
               lineStyle: {
                 color: 'rgba(255,255,255,0.12)',
@@ -85,7 +82,7 @@ export default {
           {
             name: '2019',
             type: 'bar',
-            data: [30, 66, 29, 80, 54, 50, 20],
+            data: [],
             barWidth: '10px',
             itemStyle: {
               normal: {
@@ -98,7 +95,7 @@ export default {
           {
             name: '2020',
             type: 'bar',
-            data: [30, 66, 29, 80, 54, 50, 20],
+            data: [],
             barWidth: '10px',
             itemStyle: {
               normal: {
@@ -112,12 +109,48 @@ export default {
       },
     };
   },
+  methods: {
+    // 获取人均产值
+    getBusinessGDP() {
+      business_gdp({ type: this.type }).then(res => {
+        if (res.status) {
+          res.data.list.forEach(item => {
+            console.log(this.options.xAxis);
+            this.options.xAxis[0].data.push(item.name);
+            this.options.series[0].data.push(item.up_num);
+            this.options.series[1].data.push(item.local_num);
+          });
+          this.$store.dispatch('setState', [
+            {
+              key: 'GDP',
+              value: {
+                target_percentage: res.data.target_percentage,
+                gdp_percentage: res.data.gdp_percentage,
+                all_gdp: res.data.all_gdp,
+              },
+            },
+          ]);
+          this.$nextTick(() => {
+            this.initChart();
+          });
+        }
+      });
+    },
+  },
+  created() {
+    this.getBusinessGDP();
+  },
+  watch: {
+    type() {
+      this.getBusinessGDP();
+    },
+  },
 };
 </script>
 
 <style lang="less" scoped>
 .bar-chart-2d {
   width: 530px;
-  height: 215px;
+  height: 225px;
 }
 </style>

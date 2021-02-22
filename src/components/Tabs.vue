@@ -3,7 +3,7 @@
     <div
       class="footer_item"
       :class="active === item.id ? 'active' : ''"
-      v-for="(item, i) in list"
+      v-for="(item, i) in options"
       @click="selectItem(item)"
       :key="i"
     >
@@ -15,15 +15,19 @@
 <script>
 export default {
   name: 'Tabs',
-  props: {
-    list: {
-      type: Array,
-      default: () => [],
-    },
-  },
   data() {
     return {
       active: 1,
+      options: [
+        { id: 1, name: '营业部看板' },
+        { id: 2, name: '管理部看板' },
+        { id: 3, name: '生产工厂看板' },
+        { id: 4, name: '财务部看板' },
+        { id: 5, name: '供应链部看板' },
+        { id: 6, name: 'IE部看板' },
+        { id: 7, name: '染色部看板' },
+        { id: 8, name: '制造部看板' },
+      ],
     };
   },
   methods: {
@@ -44,7 +48,6 @@ export default {
   left: 0;
   .footer_item {
     border-radius: 15px 15px 0 0;
-    color: #cfdcff;
     font-size: 18px;
     padding: 10px 18px;
     border: 1px solid rgba(255, 255, 255, 0.2);

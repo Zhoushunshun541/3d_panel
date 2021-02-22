@@ -271,7 +271,6 @@ export default {
     justify-content: space-between;
   }
   div {
-    color: #cfdcff;
     flex-shrink: 0;
   }
 }

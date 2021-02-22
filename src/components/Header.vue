@@ -260,7 +260,6 @@ export default {
     height: 100%;
   }
   .header-info {
-    color: #cfdcff;
     font-size: 16px;
     padding-right: 20px;
     justify-content: flex-end;

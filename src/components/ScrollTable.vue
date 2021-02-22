@@ -200,7 +200,6 @@ export default {
     margin-top: -25px;
   }
   tbody {
-    color: #cfdcff;
     text-align: center;
     height: 181px;
     padding-bottom: 45px;

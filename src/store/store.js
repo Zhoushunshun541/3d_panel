@@ -10,6 +10,11 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     waterData: +sessionStorage.getItem('waterData') || 0,
     quarterData: +sessionStorage.getItem('quarterData') || [],
+    GDP: JSON.parse(sessionStorage.getItem('GDP')) || {
+      target_percentage: '',
+      gdp_percentage: '',
+      all_gdp: '',
+    },
     // 今年接单的数据
     thisYear: JSON.parse(sessionStorage.getItem('this_year')) || {
       num: 0,
