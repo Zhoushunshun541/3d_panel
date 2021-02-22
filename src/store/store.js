@@ -9,6 +9,14 @@ export default new Vuex.Store({
     // 登录相关信息  start
     token: localStorage.getItem('token') || '',
     waterData: +sessionStorage.getItem('waterData') || 0,
+    // 今年接单的数据
+    thisYear: JSON.parse(sessionStorage.getItem('this_year')) || {
+      num: 0,
+      percentage: '',
+      target_percentage: '',
+      this: [],
+      up: [],
+    },
   },
   mutations: {
     userLogin(state, params) {
@@ -21,8 +29,15 @@ export default new Vuex.Store({
       sessionStorage.clear();
     },
     setState(state, params) {
-      sessionStorage.setItem(params.key, JSON.stringify(params.value));
-      state[params.key] = params.value;
+      if (Array.isArray(params)) {
+        params.forEach(obj => {
+          sessionStorage.setItem(obj.key, JSON.stringify(obj.value));
+          state[obj.key] = obj.value;
+        });
+      } else {
+        sessionStorage.setItem(params.key, JSON.stringify(params.value));
+        state[params.key] = params.value;
+      }
     },
   },
   actions: {

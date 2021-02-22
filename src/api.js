@@ -71,3 +71,10 @@ export const business_order = params => {
     params,
   });
 };
+
+// 销售完成情况
+export const business_sales_complete = params => {
+  return http.get('/business/sales_complete', {
+    params,
+  });
+};

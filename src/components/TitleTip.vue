@@ -55,10 +55,16 @@ export default {
             complete_num: res.data.complete_num,
             from_complete: res.data.from_complete,
           };
-          this.$store.dispatch('setState', {
-            key: 'waterData',
-            value: +res.data.percentage,
-          });
+          this.$store.dispatch('setState', [
+            {
+              key: 'waterData',
+              value: +res.data.percentage,
+            },
+            {
+              key: 'thisYear',
+              value: res.data.this_year,
+            },
+          ]);
         }
       });
     },

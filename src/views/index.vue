@@ -10,12 +10,33 @@
             <div class="title_tip mt25">今年总接单</div>
             <div class="flex order-num">
               <div class="amount">
-                {{ 21065 | toThousandFilter }}
+                {{ $state.thisYear.num | toThousandFilter }}
                 <span class="fs24">万元</span>
               </div>
               <div class="compare flex">
-                <div>同比：<span class="red">+0.05%</span></div>
-                <div>相比目标：<span class="green">+0.05%</span></div>
+                <div>
+                  同比：<span
+                    class="w50"
+                    :class="
+                      this.$state.thisYear.percentage.indexOf('-') >= 0
+                        ? 'green'
+                        : 'red'
+                    "
+                    >{{ $state.thisYear.percentage }}</span
+                  >
+                </div>
+                <div>
+                  相比目标：<span
+                    class="w50"
+                    :class="
+                      this.$state.thisYear.target_percentage.indexOf('-') >= 0
+                        ? 'green'
+                        : 'red'
+                    "
+                  >
+                    {{ $state.thisYear.target_percentage }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

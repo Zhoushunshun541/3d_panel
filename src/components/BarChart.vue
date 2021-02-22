@@ -17,6 +17,7 @@
 
 <script>
 import { Echart } from '../utils/mixins';
+import { business_sales_complete } from '@/api';
 
 export default {
   name: 'BarChart',
@@ -25,6 +26,10 @@ export default {
     id: {
       type: String,
       default: 'barChart',
+    },
+    type: {
+      type: [String, Number],
+      default: '0',
     },
     title: {
       type: String,
@@ -88,11 +93,10 @@ export default {
           .closePath();
       },
     });
+    const echart = this.$echart;
     this.$echart.graphic.registerShape('CubeLeft', CubeLeft);
     this.$echart.graphic.registerShape('CubeRight', CubeRight);
     this.$echart.graphic.registerShape('CubeTop', CubeTop);
-    const MAX = [3000, 3000, 3000, 3000, 3000, 3000, 3000];
-    const VALUE = [2012, 1230, 2349, 1654, 1230, 2349, 1654];
     return {
       active: 1,
       options: {
@@ -109,28 +113,19 @@ export default {
         grid: {
           left: 0,
           right: 0,
-          bottom: '3%',
+          bottom: '18%',
           top: '3%',
           containLabel: true,
         },
         xAxis: {
           type: 'category',
-          data: [
-            '一本部',
-            '二本部',
-            '三本部',
-            '四本部',
-            '五本部',
-            '六本部',
-            '七本部',
-          ],
+          data: [],
           axisLine: {
             show: true,
             lineStyle: {
               color: 'white',
             },
           },
-          offset: 20,
           axisTick: {
             show: false,
             length: 9,
@@ -146,6 +141,7 @@ export default {
         yAxis: [
           {
             type: 'value',
+            name: '单位：万元',
             axisLine: {
               show: true,
               lineStyle: {
@@ -206,7 +202,16 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: 'rgba(28, 154, 151,.6)',
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                          offset: 0,
+                          color: '#07C297',
+                        },
+                        {
+                          offset: 1,
+                          color: '#07C297',
+                        },
+                      ]),
                     },
                   },
                   {
@@ -220,7 +225,16 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: 'rgba(28, 154, 151,.7)',
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                          offset: 0,
+                          color: '#07C297',
+                        },
+                        {
+                          offset: 1,
+                          color: '#07C297',
+                        },
+                      ]),
                     },
                   },
                   {
@@ -234,13 +248,22 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: 'rgba(28, 154, 151,.8)',
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                          offset: 0,
+                          color: '#07C297',
+                        },
+                        {
+                          offset: 1,
+                          color: '#07C297',
+                        },
+                      ]),
                     },
                   },
                 ],
               };
             },
-            data: MAX,
+            data: [],
           },
           {
             type: 'custom',
@@ -261,7 +284,7 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: this.$echart.graphic.LinearGradient(0, 0, 0, 1, [
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
                         {
                           offset: 0,
                           color: '#4AD5E7',
@@ -284,7 +307,7 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: this.$echart.graphic.LinearGradient(0, 0, 0, 1, [
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
                         {
                           offset: 0,
                           color: '#4AD5E7',
@@ -307,7 +330,7 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: this.$echart.graphic.LinearGradient(0, 0, 0, 1, [
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
                         {
                           offset: 0,
                           color: '#4AD5E7',
@@ -322,7 +345,7 @@ export default {
                 ],
               };
             },
-            data: VALUE,
+            data: [],
           },
           {
             type: 'custom',
@@ -343,7 +366,16 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: '#1080C4',
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                          offset: 0,
+                          color: 'rgba(16, 128, 196, .1)',
+                        },
+                        {
+                          offset: 1,
+                          color: 'rgba(16, 128, 196, 1)',
+                        },
+                      ]),
                     },
                   },
                   {
@@ -357,7 +389,16 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: '#1080C4',
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                          offset: 0,
+                          color: 'rgba(16, 128, 196, .1)',
+                        },
+                        {
+                          offset: 1,
+                          color: 'rgba(16, 128, 196, 1)',
+                        },
+                      ]),
                     },
                   },
                   {
@@ -371,17 +412,67 @@ export default {
                       xAxisPoint: api.coord([api.value(0), 0]),
                     },
                     style: {
-                      fill: '#1080C4',
+                      fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                          offset: 0,
+                          color: 'rgba(16, 128, 196, .1)',
+                        },
+                        {
+                          offset: 1,
+                          color: 'rgba(16, 128, 196, 1)',
+                        },
+                      ]),
                     },
                   },
                 ],
               };
             },
-            data: MAX,
+            data: [],
+          },
+          {
+            type: 'line',
+            name: '销售完成率',
+            yAxisIndex: 1,
+            itemStyle: {
+              color: '#FFCC00',
+              borderWidth: 4,
+            },
+            lineStyle: {
+              type: 'dashed',
+            },
+            data: [],
           },
         ],
       },
     };
+  },
+  methods: {
+    // 获取销售的完成情况
+    getSalesComplete() {
+      business_sales_complete({ type: this.type }).then(res => {
+        if (res.status) {
+          const MAX = [];
+          const VALUE = [];
+          const UPDATA = [];
+          const COMPLETE = [];
+          res.data.list.forEach(item => {
+            MAX.push(item.sales_num);
+            VALUE.push(item.complete_num);
+            UPDATA.push(item.up_num);
+            COMPLETE.push(item.percentage);
+            this.options.xAxis.data.push(item.name);
+            this.options.series[0].data = MAX;
+            this.options.series[1].data = VALUE;
+            this.options.series[2].data = UPDATA;
+            this.options.series[3].data = COMPLETE;
+          });
+          this.initChart();
+        }
+      });
+    },
+  },
+  created() {
+    this.getSalesComplete();
   },
 };
 </script>
