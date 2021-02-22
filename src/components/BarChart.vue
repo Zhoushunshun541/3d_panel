@@ -110,11 +110,21 @@ export default {
             fontSize: 24,
           },
         },
+        legend: {
+          right: 0,
+          top: '2%',
+          icon: 'roundRect',
+          itemWidth: 10,
+          itemHeight: 10,
+          textStyle: {
+            color: 'rgba(207, 220, 255, .6)',
+          },
+        },
         grid: {
           left: 0,
           right: 0,
-          bottom: '18%',
-          top: '3%',
+          bottom: '28%',
+          top: '18%',
           containLabel: true,
         },
         xAxis: {
@@ -157,7 +167,6 @@ export default {
             axisLabel: {
               fontSize: 14,
             },
-            boundaryGap: ['20%', '20%'],
           },
           {
             type: 'value',
@@ -185,6 +194,7 @@ export default {
         series: [
           {
             type: 'custom',
+            name: '目标',
             renderItem(params, api) {
               const location = api.coord([api.value(0), api.value(1)]);
               return {
@@ -267,6 +277,7 @@ export default {
           },
           {
             type: 'custom',
+            name: '完成',
             renderItem: (params, api) => {
               const location = api.coord([api.value(0), api.value(1)]);
               return {
@@ -349,6 +360,7 @@ export default {
           },
           {
             type: 'custom',
+            name: '同期',
             renderItem(params, api) {
               const location = api.coord([api.value(0), api.value(1)]);
               return {
