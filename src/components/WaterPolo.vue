@@ -15,9 +15,9 @@ export default {
       default: 'WaterPolo',
     },
   },
-  data() {
-    return {
-      options: {
+  computed: {
+    options() {
+      return {
         backgroundColor: '',
         title: {
           text: '',
@@ -32,14 +32,16 @@ export default {
             type: 'liquidFill',
             radius: '80%',
             center: ['50%', '50%'],
-            data: [0.5, 0.5, 0.5], // data个数代表波浪数
+            data: [this.$state.waterData, this.$state.waterData], // data个数代表波浪数
             backgroundStyle: {
               borderWidth: 1,
               color: 'rgb(255,0,255,0.1)',
             },
             label: {
               normal: {
-                formatter: `${(0.5 * 100).toFixed(2)}% \n完成与目标比`,
+                formatter: `${(this.$state.waterData * 100).toFixed(
+                  2
+                )}% \n完成与目标比`,
                 textStyle: {
                   fontSize: 12,
                 },
@@ -57,7 +59,7 @@ export default {
             data: [
               {
                 name: '',
-                value: 500,
+                value: 100 * this.$state.waterData,
                 labelLine: {
                   show: false,
                 },
@@ -76,7 +78,7 @@ export default {
               {
                 // 画中间的图标
                 name: '',
-                value: 1,
+                value: 0.01,
                 labelLine: {
                   show: false,
                 },
@@ -86,11 +88,11 @@ export default {
                     color: '#5886f0',
                     borderColor: '#5886f0',
                     borderWidth: 4,
-                    borderRadius: '100%',
+                    borderRadius: 2,
                   },
                 },
                 label: {
-                  borderRadius: '100%',
+                  borderRadius: 2,
                 },
                 emphasis: {
                   labelLine: {
@@ -104,7 +106,7 @@ export default {
               {
                 // 解决圆点过大后续部分显示明显的问题
                 name: '',
-                value: 4,
+                value: 0.8,
                 labelLine: {
                   show: false,
                 },
@@ -123,7 +125,7 @@ export default {
               {
                 // 画剩余的刻度圆环
                 name: '',
-                value: 88,
+                value: 100 * (1 - this.$state.waterData),
                 itemStyle: {
                   color: '#050038',
                 },
@@ -145,8 +147,8 @@ export default {
             ],
           },
         ],
-      },
-    };
+      };
+    },
   },
 };
 </script>

@@ -27,7 +27,7 @@
         <div class="meet-target flex">
           <div style="flex-grow: 1;">
             <span class="title_1">2020年完成与目标比</span>
-            <TitleTip></TitleTip>
+            <TitleTip type="1"></TitleTip>
           </div>
           <WaterPolo></WaterPolo>
         </div>
@@ -255,6 +255,11 @@ export default {
           name: '埃及工厂',
         },
       ],
+      orderInfo: {
+        complete_num: '',
+        from_complete: '',
+        percentage: '',
+      }, // 接单详情数据
       // 新闻列表
       orderList: [],
       area_id: 1,
@@ -280,9 +285,9 @@ export default {
         if (res.status) {
           this.orderList = res.data.list;
         }
-        setTimeout(() => {
-          this.getWeekOrder();
-        }, 1000);
+        // setTimeout(() => {
+        //   this.getWeekOrder();
+        // }, 1000);
       });
     },
   },

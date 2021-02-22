@@ -64,3 +64,10 @@ export const business_week_order = params => {
     params,
   });
 };
+
+// 接单详情
+export const business_order = params => {
+  return http.get('/business/order', {
+    params,
+  });
+};
