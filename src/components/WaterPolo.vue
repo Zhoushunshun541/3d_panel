@@ -32,14 +32,14 @@ export default {
             type: 'liquidFill',
             radius: '80%',
             center: ['50%', '50%'],
-            data: [this.$state.waterData, this.$state.waterData], // data个数代表波浪数
+            data: [this.$state.waterData / 100, this.$state.waterData / 100], // data个数代表波浪数
             backgroundStyle: {
               borderWidth: 1,
               color: 'rgb(255,0,255,0.1)',
             },
             label: {
               normal: {
-                formatter: `${(this.$state.waterData * 100).toFixed(
+                formatter: `${this.$state.waterData.toFixed(
                   2
                 )}% \n完成与目标比`,
                 textStyle: {
@@ -59,7 +59,7 @@ export default {
             data: [
               {
                 name: '',
-                value: 100 * this.$state.waterData,
+                value: this.$state.waterData,
                 labelLine: {
                   show: false,
                 },
@@ -125,7 +125,7 @@ export default {
               {
                 // 画剩余的刻度圆环
                 name: '',
-                value: 100 * (1 - this.$state.waterData),
+                value: 100 - this.$state.waterData,
                 itemStyle: {
                   color: '#050038',
                 },
