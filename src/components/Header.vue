@@ -7,21 +7,46 @@
       <span>营业本部 数据看板</span>
     </div>
     <div class="header-info flex">
+      <span class="pr35">
+        <p>{{ nowDate.day }}</p>
+        <p>{{ nowDate.week + ' ' + nowDate.time }}</p>
+      </span>
       <svg class="icon weather-icon" aria-hidden="true">
-        <use xlink:href="#icontianqi-qing"></use>
+        <use :xlink:href="`#${iconClass}`"></use>
       </svg>
+      <span class="flex pl15" style="align-items:flex-start;">
+        <span class="fs30"> {{ weatherInfo.temp }} </span>
+        ℃
+      </span>
+      <span class="pl15 fs14"> {{ weatherInfo.text }}</span>
     </div>
   </header>
 </template>
 
 <script>
 import { weatherInfo } from '@/api';
+import { dateFormat } from '../utils/dateFormat';
 
+const WEEK = [
+  '星期日',
+  '星期一',
+  '星期二',
+  '星期三',
+  '星期四',
+  '星期五',
+  '星期六',
+];
 export default {
   data() {
     return {
       weatherInfo: {},
       fullscreen: false,
+      nowDate: {
+        day: '',
+        week: '',
+        time: '',
+      },
+      iconClass: 'icontianqi-qing',
     };
   },
   methods: {
@@ -38,18 +63,170 @@ export default {
     },
     // 获取天气的接口  暂时没找到
     getWeatherInfo() {
-      const p = {
-        location: '无锡',
-        output: 'json',
-        ak: 'VKVFOcI2Z7RHXMqdEcx4d9woOtG0zw3o',
-      };
-      weatherInfo(p).then(res => {
-        console.log(res);
+      weatherInfo().then(res => {
+        if (res.status) {
+          this.weatherInfo = res.data;
+          this.setWeatherIcon(res.data);
+        }
       });
+    },
+    // 设置天气的图标
+    setWeatherIcon(data) {
+      switch (data.text) {
+        case '晴':
+          this.iconClass = 'icontianqi-qing';
+          break;
+        case '多云':
+          this.iconClass = 'icontianqi-duoyun';
+          break;
+        case '阴':
+          this.iconClass = 'icontianqi-yintian';
+          break;
+        case '阵雨':
+          this.iconClass = 'icontianqi-xiaoyu';
+          break;
+        case '雷阵雨':
+          this.iconClass = 'icontianqi-leiyu';
+          break;
+        case '雷阵雨伴有冰雹':
+          this.iconClass = 'icontianqi-bingbao';
+          break;
+        case '雨夹雪':
+          this.iconClass = 'icontianqi-yujiaxue';
+          break;
+        case '小雨':
+          this.iconClass = 'icontianqi-xiaoyu';
+          break;
+        case '中雨':
+          this.iconClass = 'icontianqi-zhongyu';
+          break;
+        case '大雨':
+          this.iconClass = 'icontianqi-dayu';
+          break;
+        case '暴雨':
+          this.iconClass = 'icontianqi-baoyu';
+          break;
+        case '大暴雨':
+          this.iconClass = 'icontianqi-baoyu';
+          break;
+        case '特大暴雨':
+          this.iconClass = 'icontianqi-baoyu';
+          break;
+        case '阵雪':
+          this.iconClass = 'contianqi';
+          break;
+        case '小雪':
+          this.iconClass = 'icontianqi-xiaoxue';
+          break;
+        case '中雪':
+          this.iconClass = 'icontianqi-zhongxue';
+          break;
+        case '大雪':
+          this.iconClass = 'contianqi';
+          break;
+        case '暴雪':
+          this.iconClass = 'contianqi';
+          break;
+        case '雾':
+          this.iconClass = 'icontianqi-wumai';
+          break;
+        case '冻雨':
+          this.iconClass = 'contianqi';
+          break;
+        case '沙尘暴':
+          this.iconClass = 'icontianqi-shachen';
+          break;
+        case '小到中雨':
+          this.iconClass = 'icontianqi-xiaoyu';
+          break;
+        case '中到大雨':
+          this.iconClass = 'icontianqi-zhongyu';
+          break;
+        case '大到暴雨':
+          this.iconClass = 'icontianqi-dayu';
+          break;
+        case '暴雨到大暴雨':
+          this.iconClass = 'icontianqi-baoyu';
+          break;
+        case '大暴雨到特大暴雨':
+          this.iconClass = 'icontianqi-baoyu';
+          break;
+        case '小到中雪':
+          this.iconClass = 'icontianqi-xiaoxue';
+          break;
+        case '中到大雪':
+          this.iconClass = 'icontianqi-zhongxue';
+          break;
+        case '大到暴雪':
+          this.iconClass = 'contianqi';
+          break;
+        case '浮尘':
+          this.iconClass = 'icontianqi-shachen';
+          break;
+        case '扬沙':
+          this.iconClass = 'contianqi';
+          break;
+        case '强沙尘暴':
+          this.iconClass = 'contianqi';
+          break;
+        case '浓雾':
+          this.iconClass = 'icontianqi-wumai';
+          break;
+        case '龙卷风':
+          this.iconClass = 'contianqi';
+          break;
+        case '弱高吹雪':
+          this.iconClass = 'contianqi';
+          break;
+        case '轻雾':
+          this.iconClass = 'contianqi';
+          break;
+        case '强浓雾':
+          this.iconClass = 'contianqi';
+          break;
+        case '霾':
+          this.iconClass = 'contianqi';
+          break;
+        case '中度霾':
+          this.iconClass = 'contianqi';
+          break;
+        case '重度霾':
+          this.iconClass = 'contianqi';
+          break;
+        case '严重霾':
+          this.iconClass = 'contianqi';
+          break;
+        case '大雾':
+          this.iconClass = 'contianqi';
+          break;
+        case '特强浓雾':
+          this.iconClass = 'contianqi';
+          break;
+        case '雨':
+          this.iconClass = 'icontianqi-zhongyu';
+          break;
+        case '雪':
+          this.iconClass = 'icontianqi-zhongxue';
+          break;
+        default:
+          this.iconClass = 'icontianqi-qing';
+          break;
+      }
+    },
+    // 获取实时时间
+    getNowTime() {
+      const nowDate = new Date();
+      const timeStamp = nowDate.getTime();
+      this.nowDate.week = WEEK[nowDate.getDay()];
+      this.nowDate.day = dateFormat(timeStamp, 'yyyy年MM月dd日');
+      this.nowDate.time = dateFormat(timeStamp, 'hh:mm:ss');
     },
   },
   created() {
-    // this.getWeatherInfo();
+    setInterval(() => {
+      this.getNowTime();
+    }, 500);
+    this.getWeatherInfo();
   },
 };
 </script>
@@ -83,6 +260,8 @@ export default {
     height: 100%;
   }
   .header-info {
+    color: #cfdcff;
+    font-size: 16px;
     padding-right: 20px;
     justify-content: flex-end;
   }

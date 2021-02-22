@@ -35,6 +35,9 @@ export default {
 .target-info {
   color: #fff;
   font-size: 14px;
+  background: url('../assets/images/title_bg.png');
+  background-repeat: no-repeat;
+  padding-left: 70px;
   .amount-num {
     font-size: 20px;
     color: #4ebbf5;
@@ -42,25 +45,11 @@ export default {
   .bg-color {
     width: 100%;
     height: 60px;
-    background: linear-gradient(
-      to right,
-      rgba(53, 49, 209, 1),
-      rgba(20, 134, 227, 0)
-    );
     & > div {
       display: flex;
       flex-direction: column;
       margin-left: 20px;
     }
-  }
-  &::before {
-    content: '';
-    background: url('../assets/images/title_bg.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
   }
 }
 </style>

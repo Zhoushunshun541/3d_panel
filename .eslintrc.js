@@ -49,7 +49,7 @@ module.exports = {
     'no-control-regex': 0, // 禁止在正则表达式中使用控制字符
     'no-continue': 0, // 禁用 continue 语句
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'no-param-reassign': 1, // 禁止对 function 的参数进行重新赋值
+    'no-param-reassign': 0, // 禁止对 function 的参数进行重新赋值
     'no-underscore-dangle': 1, // 禁止标识符中有悬空下划线"_"
     'global-require': 0, // 要求 require() 出现在顶层模块作用域中
     'no-var': 1, // 要求使用 let 或 const 而不是 var

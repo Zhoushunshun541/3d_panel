@@ -148,7 +148,31 @@
         </div>
       </div>
       <div class="index_four">
-        <div class="index_four-top border_warp"></div>
+        <div class="index_four-top border_warp">
+          <div class="header mb15 flex" style="margin-top:-10px">
+            <span class="title">最新动态</span>
+            <div class="custom-radio">
+              <div :class="{ active: active === 1 }" @click="active = 1">
+                公司
+              </div>
+              <div :class="{ active: active === 2 }" @click="active = 2">
+                行业
+              </div>
+            </div>
+          </div>
+          <VueSeamlessScroll
+            :data="newList"
+            class="max-height"
+            :class-option="classOption"
+          >
+            <ul class="news_warp">
+              <li class="mb10" v-for="(news, i) in newList" :key="i">
+                <div class="news-date">{{ news.date }}</div>
+                <div>{{ news.dept }} 接单 {{ news.amount }}万元</div>
+              </li>
+            </ul>
+          </VueSeamlessScroll>
+        </div>
         <div class="index_four-mid border_warp mt10"></div>
         <div class="index_four-bottom border_warp mt10"></div>
       </div>

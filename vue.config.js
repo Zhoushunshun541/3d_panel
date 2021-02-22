@@ -94,10 +94,13 @@ module.exports = {
     hotOnly: false,
     compress: true,
     proxy: {
-      // '/api': {
-      //   target: process.env.VUE_APP_API,
-      //   changeOrigin: true,
-      // },
+      '/api': {
+        target: process.env.VUE_APP_API,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '',
+        },
+      },
       '/api-weather': {
         target: 'http://api.map.baidu.com',
         changeOrigin: true,
