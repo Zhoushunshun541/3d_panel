@@ -17,7 +17,7 @@
 
 <script>
 import { Echart } from '../utils/mixins';
-import { business_sales_complete } from '@/api';
+import { business_sales_complete } from '@/api/api';
 
 export default {
   name: 'BarChart',

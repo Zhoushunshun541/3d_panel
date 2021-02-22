@@ -38,16 +38,26 @@
         <col name="w80" width="80" />
         <col name="w60" width="60" />
       </colgroup>
-      <tbody :class="{ anim: animate == true }">
+      <tbody :class="{ anim: animate }">
         <tr v-for="(item, i) in tableData" :key="i">
           <td class="dept">{{ item.name }}</td>
-          <td class="table-row-cell_1">{{ item.checkNum }}</td>
-          <td class="table-row-cell_2">{{ item.badNum }}</td>
-          <td class="table-row-cell_3">{{ item.monthBadPct }}</td>
-          <td class="table-row-cell_4">{{ item.yearBadPct }}</td>
-          <td class="table-row-cell_5">{{ item.yearBadPct }}</td>
-          <td class="pd0 w80">{{ item.yearBadPct }}</td>
-          <td class="pd0 w60">{{ item.yearBadPct }}</td>
+          <td class="table-row-cell_1">{{ item.garment_num }}</td>
+          <td class="table-row-cell_2">{{ item.fabric_num }}</td>
+          <td class="table-row-cell_3">{{ item.claims_num }}</td>
+          <td class="table-row-cell_4">{{ item.delay_num }}</td>
+          <td class="table-row-cell_5">{{ item.loss_num }}</td>
+          <td
+            class="pd0 w80"
+            :class="item.sales_percentage.indexOf('-') > -1 ? 'green' : 'red'"
+          >
+            {{ item.sales_percentage }}
+          </td>
+          <td
+            class="pd0 w60"
+            :class="item.loss_percentage.indexOf('-') > -1 ? 'green' : 'red'"
+          >
+            {{ item.loss_percentage }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -66,13 +76,27 @@
       <tfoot>
         <tr class="total">
           <td class="dept">合计</td>
-          <td class="table-row-cell_1">1</td>
-          <td class="table-row-cell_2">1</td>
-          <td class="table-row-cell_3">1</td>
-          <td class="table-row-cell_4">1</td>
-          <td class="table-row-cell_5">1</td>
-          <td class="pd0 w80">1</td>
-          <td class="pd0 w60">1</td>
+          <td class="table-row-cell_1">{{ totalData.garment_num }}</td>
+          <td class="table-row-cell_2">{{ totalData.fabric_num }}</td>
+          <td class="table-row-cell_3">{{ totalData.claims_num }}</td>
+          <td class="table-row-cell_4">{{ totalData.delay_num }}</td>
+          <td class="table-row-cell_5">{{ totalData.loss_num }}</td>
+          <td
+            class="pd0 w80"
+            :class="
+              totalData.sales_percentage.indexOf('-') > -1 ? 'green' : 'red'
+            "
+          >
+            {{ totalData.sales_percentage }}
+          </td>
+          <td
+            class="pd0 w60"
+            :class="
+              totalData.loss_percentage.indexOf('-') > -1 ? 'green' : 'red'
+            "
+          >
+            {{ totalData.loss_percentage }}
+          </td>
         </tr>
       </tfoot>
     </table>
@@ -80,98 +104,42 @@
 </template>
 
 <script>
+import { business_cost } from '@/api/api';
+
 export default {
   name: 'ScrollTable',
-  props: {
-    list: {
-      type: Array,
-      default: () => [
-        {
-          name: '无锡工厂1',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂2',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂3',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂4',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂5',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂6',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂7',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂8',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-        {
-          name: '无锡工厂9',
-          checkNum: 0,
-          badNum: 0,
-          monthBadPct: 20,
-          yearBadPct: 20,
-        },
-      ],
-    },
-  },
   data() {
     return {
       tableData: [],
+      totalData: {
+        sales_percentage: '',
+        loss_percentage: '',
+      },
       animate: false,
     };
   },
   methods: {
+    // 获取费用公示
+    getBusinessCost() {
+      business_cost().then(res => {
+        if (res.status) {
+          this.tableData = res.data.list;
+          this.totalData = this.tableData.pop();
+        }
+      });
+    },
     scrollTable() {
+      this.animate = true;
       setTimeout(() => {
-        this.animate = true;
         this.tableData.push(this.tableData[0]);
         this.tableData.shift();
-        // this.animate = false;
-        // this.scrollTable();
+        this.animate = false;
+        this.scrollTable();
       }, 2000);
     },
   },
-  mounted() {
-    this.tableData = JSON.parse(JSON.stringify(this.list));
-    this.scrollTable();
+  created() {
+    this.getBusinessCost();
   },
 };
 </script>
@@ -184,6 +152,8 @@ export default {
     display: block;
     height: 176px;
     overflow: scroll;
+    border-left: 1px dotted rgba(255, 255, 255, 0.1);
+    border-right: 1px dotted rgba(255, 255, 255, 0.1);
   }
   thead {
     text-align: center;

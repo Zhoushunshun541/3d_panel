@@ -85,3 +85,10 @@ export const business_gdp = params => {
     params,
   });
 };
+
+// 费用公示
+export const business_cost = params => {
+  return http.get('/business/cost', {
+    params,
+  });
+};

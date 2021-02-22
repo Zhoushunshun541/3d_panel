@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { business_order } from '@/api';
+import { business_order } from '@/api/api';
 
 export default {
   name: 'TitleTip',

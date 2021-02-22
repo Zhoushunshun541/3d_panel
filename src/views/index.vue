@@ -226,7 +226,7 @@ import ScrollTable from '@/components/ScrollTable';
 import PlanTable from '@/components/PlanTable';
 import BistTable from '@/components/BistTable';
 import { ScrollList } from '@/utils/mixins';
-import { business_week_order } from '@/api';
+import { business_week_order } from '@/api/api';
 
 export default {
   name: 'index',

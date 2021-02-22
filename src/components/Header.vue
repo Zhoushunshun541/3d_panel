@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { weatherInfo } from '@/api';
+import { weatherInfo } from '@/api/api';
 import { dateFormat } from '../utils/dateFormat';
 
 const WEEK = [
