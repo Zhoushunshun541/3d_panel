@@ -85,14 +85,14 @@
             </div>
             <div class="top-right_bottom">
               <VueSeamlessScroll
-                :data="newList"
+                :data="orderList"
                 class="max-height"
                 :class-option="classOption"
               >
-                <ul class="news_warp">
-                  <li class="mb10" v-for="(news, i) in newList" :key="i">
-                    <div class="news-date">{{ news.date }}</div>
-                    <div>{{ news.dept }} 接单 {{ news.amount }}万元</div>
+                <ul class="news_warp" style="height: 180px;">
+                  <li class="mb10" v-for="(item, i) in orderList" :key="i">
+                    <div class="news-date">{{ item.date }}</div>
+                    <div>{{ item.name }} 接单 {{ item.num }}万元</div>
                   </li>
                 </ul>
               </VueSeamlessScroll>
@@ -161,14 +161,14 @@
             </div>
           </div>
           <VueSeamlessScroll
-            :data="newList"
+            :data="orderList"
             class="max-height"
             :class-option="classOption"
           >
             <ul class="news_warp">
-              <li class="mb10" v-for="(news, i) in newList" :key="i">
-                <div class="news-date">{{ news.date }}</div>
-                <div>{{ news.dept }} 接单 {{ news.amount }}万元</div>
+              <li class="mb10" v-for="(item, i) in orderList" :key="i">
+                <div class="news-date">{{ item.date }}</div>
+                <div>{{ item.name }} 接单 {{ item.num }}万元</div>
               </li>
             </ul>
           </VueSeamlessScroll>
@@ -197,6 +197,7 @@ import ScrollTable from '@/components/ScrollTable';
 import PlanTable from '@/components/PlanTable';
 import BistTable from '@/components/BistTable';
 import { ScrollList } from '@/utils/mixins';
+import { business_week_order } from '@/api';
 
 export default {
   name: 'index',
@@ -255,45 +256,10 @@ export default {
         },
       ],
       // 新闻列表
-      newList: [
-        {
-          date: '2020-11-18',
-          dept: '营业六部',
-          amount: 2020,
-        },
-        {
-          date: '2020-11-18',
-          dept: '营业六部',
-          amount: 2020,
-        },
-        {
-          date: '2020-11-18',
-          dept: '营业六部',
-          amount: 2020,
-        },
-        {
-          date: '2020-11-18',
-          dept: '营业六部',
-          amount: 2020,
-        },
-        {
-          date: '2020-11-18',
-          dept: '营业六部',
-          amount: 2020,
-        },
-        {
-          date: '2020-11-18',
-          dept: '营业六部',
-          amount: 2020,
-        },
-        {
-          date: '2020-11-18',
-          dept: '营业六部',
-          amount: 2020,
-        },
-      ],
+      orderList: [],
       area_id: 1,
       active: 1,
+      scrollAnimate: false,
       // 底部tabs选项
       options: [
         { id: 1, name: '营业部看板' },
@@ -307,6 +273,19 @@ export default {
       ],
     };
   },
+  methods: {
+    // 获取接单情况
+    getWeekOrder() {
+      business_week_order().then(res => {
+        if (res.status) {
+          this.orderList = res.data.list;
+        }
+        setTimeout(() => {
+          this.getWeekOrder();
+        }, 1000);
+      });
+    },
+  },
   filters: {
     toThousandFilter(num) {
       return (+num || 0)
@@ -314,6 +293,10 @@ export default {
         .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     },
   },
+  created() {
+    this.getWeekOrder();
+  },
+  mounted() {},
 };
 </script>
 

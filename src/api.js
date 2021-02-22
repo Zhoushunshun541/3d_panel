@@ -57,3 +57,10 @@ export const weatherInfo = params => {
     params,
   });
 };
+
+// 周接单详情
+export const business_week_order = params => {
+  return http.get('/business/week_order', {
+    params,
+  });
+};

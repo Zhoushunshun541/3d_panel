@@ -101,10 +101,6 @@ module.exports = {
           '^/api': '',
         },
       },
-      '/api-weather': {
-        target: 'http://api.map.baidu.com',
-        changeOrigin: true,
-      },
     },
   },
 };
