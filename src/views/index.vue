@@ -53,7 +53,7 @@
           <WaterPolo></WaterPolo>
         </div>
         <QuarterXrd></QuarterXrd>
-        <BarChart class="mt55"></BarChart>
+        <BarChart class="mt55" :active="active"></BarChart>
       </div>
       <div class="index_sec">
         <div class="flex top">
@@ -292,7 +292,7 @@ export default {
       // 新闻列表
       orderList: [],
       area_id: 1,
-      active: 1,
+      active: 0,
     };
   },
   methods: {
@@ -311,6 +311,18 @@ export default {
         // }, 1000);
       });
     },
+    // 定时切换上个月上季度的数据
+    autoWebPageRefresh() {
+      setTimeout(() => {
+        if (this.active) {
+          this.active -= 1;
+        } else {
+          this.active += 1;
+        }
+
+        this.autoWebPageRefresh();
+      }, 60 * 1000);
+    },
   },
   filters: {
     toThousandFilter(num) {
@@ -321,6 +333,7 @@ export default {
   },
   created() {
     this.getWeekOrder();
+    this.autoWebPageRefresh();
   },
   mounted() {},
 };

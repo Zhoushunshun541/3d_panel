@@ -33,6 +33,9 @@ export default {
           itemWidth: 10,
           itemHeight: 10,
           right: 10,
+          textStyle: {
+            color: 'rgba(207, 220, 255, 0.6)',
+          },
         },
         grid: {
           top: '25%',
@@ -115,7 +118,9 @@ export default {
       business_gdp({ type: this.type }).then(res => {
         if (res.status) {
           res.data.list.forEach(item => {
-            console.log(this.options.xAxis);
+            this.options.xAxis[0].data = [];
+            this.options.series[0].data = [];
+            this.options.series[1].data = [];
             this.options.xAxis[0].data.push(item.name);
             this.options.series[0].data.push(item.up_num);
             this.options.series[1].data.push(item.local_num);

@@ -3,10 +3,10 @@
     <div class="flex complate-situation_title">
       <span class="title_1">{{ title }}</span>
       <div class="custom-radio">
-        <div :class="{ active: active === 1 }" @click="active = 1">
+        <div :class="{ active: active === 0 }">
           上个月
         </div>
-        <div :class="{ active: active === 2 }" @click="active = 2">
+        <div :class="{ active: active === 1 }">
           上季度
         </div>
       </div>
@@ -30,6 +30,10 @@ export default {
     type: {
       type: [String, Number],
       default: '0',
+    },
+    active: {
+      type: Number,
+      default: 0,
     },
     title: {
       type: String,
@@ -98,7 +102,6 @@ export default {
     this.$echart.graphic.registerShape('CubeRight', CubeRight);
     this.$echart.graphic.registerShape('CubeTop', CubeTop);
     return {
-      active: 1,
       options: {
         backgroundColor: '',
         title: {
