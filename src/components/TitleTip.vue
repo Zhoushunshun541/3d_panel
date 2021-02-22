@@ -64,6 +64,10 @@ export default {
               key: 'thisYear',
               value: res.data.this_year,
             },
+            {
+              key: 'quarterData',
+              value: res.data.list,
+            },
           ]);
         }
       });

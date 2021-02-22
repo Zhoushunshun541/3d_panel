@@ -9,6 +9,7 @@ export default new Vuex.Store({
     // 登录相关信息  start
     token: localStorage.getItem('token') || '',
     waterData: +sessionStorage.getItem('waterData') || 0,
+    quarterData: +sessionStorage.getItem('quarterData') || [],
     // 今年接单的数据
     thisYear: JSON.parse(sessionStorage.getItem('this_year')) || {
       num: 0,

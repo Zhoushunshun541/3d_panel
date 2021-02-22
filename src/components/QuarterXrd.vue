@@ -17,64 +17,34 @@
         <li v-for="(item, i) in list" :key="i" class="progress">
           <div class="dept-name">{{ item.name }}</div>
           <div class="flex quarter-progress">
-            <div class="quarter">
+            <div class="quarter" v-for="(r, index) in item.season" :key="index">
               <div
                 :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
+                  background: r.percentage > 100 ? '#07C297' : '#1999D6',
+                  color: r.percentage > 100 ? '#01144E' : '#fff',
+                  width: r.percentage <= 100 ? r.percentage + '%' : '100%',
                 }"
               >
-                {{ item.one * 100 }}%
-              </div>
-            </div>
-            <div class="quarter">
-              <div
-                :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
-                }"
-              >
-                {{ item.one * 100 }}%
-              </div>
-            </div>
-            <div class="quarter">
-              <div
-                :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
-                }"
-              >
-                {{ item.one * 100 }}%
-              </div>
-            </div>
-            <div class="quarter">
-              <div
-                :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
-                }"
-              >
-                {{ item.one * 100 }}%
+                {{ r.percentage }}%
               </div>
             </div>
             <div class="all-year-progress">
               <div
                 :style="{
                   height: '100%',
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
+                  background: item.all_percentage > 100 ? '#07C297' : '#1999D6',
+                  color: item.all_percentage > 100 ? '#01144E' : '#fff',
+                  width:
+                    item.all_percentage <= 100
+                      ? item.all_percentage + '%'
+                      : '100%',
                 }"
               ></div>
             </div>
           </div>
           <div class="all-year">
             <span class="pr5">全年</span>
-            {{ item.one }}
+            {{ item.all_percentage }}%
           </div>
         </li>
       </ul>
@@ -93,91 +63,10 @@ export default {
   components: {
     VueSeamlessScroll,
   },
-  data() {
-    return {
-      list: [
-        {
-          name: '无锡总部111',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-      ],
-    };
+  computed: {
+    list() {
+      return this.$state.quarterData;
+    },
   },
 };
 </script>
