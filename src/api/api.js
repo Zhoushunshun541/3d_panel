@@ -106,3 +106,10 @@ export const business_qc_bad = params => {
     params,
   });
 };
+
+// 最新动态
+export const business_dynamic = params => {
+  return http.get('/business/dynamic', {
+    params,
+  });
+};

@@ -190,14 +190,14 @@
             </div>
           </div>
           <VueSeamlessScroll
-            :data="orderList"
+            :data="dynamic"
             class="max-height"
             :class-option="classOption"
           >
             <ul class="news_warp">
-              <li class="mb10" v-for="(item, i) in orderList" :key="i">
+              <li class="mb10" v-for="(item, i) in dynamic" :key="i">
                 <div class="news-date">{{ item.date }}</div>
-                <div>{{ item.name }} 接单 {{ item.num }}万元</div>
+                <div>{{ item.title }}</div>
               </li>
             </ul>
           </VueSeamlessScroll>
@@ -231,7 +231,7 @@ import PlanTable from '@/components/PlanTable';
 import BistTable from '@/components/BistTable';
 import Dialog from '@/components/Dialog';
 import { ScrollList } from '@/utils/mixins';
-import { business_week_order } from '@/api/api';
+import { business_week_order, business_dynamic } from '@/api/api';
 
 export default {
   name: 'index',
@@ -298,6 +298,8 @@ export default {
       }, // 接单详情数据
       // 新闻列表
       orderList: [],
+      // 最新动态的列表
+      dynamic: [],
       area_id: 1,
       active: 0,
     };
@@ -330,6 +332,14 @@ export default {
         this.autoWebPageRefresh();
       }, 60 * 1000);
     },
+    // 获取最新动态
+    getBusinessDynamic() {
+      business_dynamic({ type: this.active }).then(res => {
+        if (res.status) {
+          this.dynamic = res.data.list;
+        }
+      });
+    },
   },
   filters: {
     toThousandFilter(num) {
@@ -344,6 +354,7 @@ export default {
     }, 3000);
     this.getWeekOrder();
     this.autoWebPageRefresh();
+    this.getBusinessDynamic();
   },
   mounted() {},
 };

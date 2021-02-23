@@ -2,7 +2,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 const productionGzipExtensions = ['js', 'css', 'svg', 'eot', 'ttf'];
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
   indexPath: 'index.html',
@@ -18,14 +18,11 @@ module.exports = {
       file:
         process.env.NODE_ENV === 'production'
           ? {
-              css: [
-                'https://cdn.jsdelivr.net/npm/element-ui@2.14.1/lib/theme-chalk/index.css',
-              ],
+              css: [],
               js: [
                 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
                 'https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.min.js',
                 'https://cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.min.js',
-                'https://cdn.jsdelivr.net/npm/element-ui@2.14.1/lib/index.js',
                 'https://cdn.jsdelivr.net/npm/axios@0.21.0/dist/axios.min.js',
               ],
             }
@@ -41,7 +38,6 @@ module.exports = {
             vuex: 'Vuex',
             axios: 'axios',
             'vue-router': 'VueRouter',
-            'element-ui': 'ELEMENT',
           }
         : {},
     devtool:

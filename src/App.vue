@@ -8,7 +8,7 @@
 @import './assets/styles/common.less';
 #app {
   width: 3070px;
-  height: 1390px;
+  height: 1088px;
   background: url('./assets/images/bg.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
