@@ -25,7 +25,7 @@ http.interceptors.request.use(
 // 返回的时候拦截一下
 http.interceptors.response.use(
   res => {
-    if (res.status === 200) {
+    if (+res.status === 200) {
       res.data.status = 1;
     } else {
       res.data.status = 0;
