@@ -1,12 +1,12 @@
 <template>
   <div ref="dialog" v-show="show" class="order_dialog flex">
-    <div>
+    <div class="flex show-info">
       <p>
-        恭喜<span class="fs50">{{ orderInfo.name }}</span>
+        恭喜<span class="fs60">{{ orderInfo.name }}</span>
       </p>
       <p>
         接单
-        <span class="yellow">{{ orderInfo.num | toThousandFilter }}</span>
+        <span class="yellow fs60">{{ orderInfo.num | toThousandFilter }}</span>
         万元
       </p>
       <img class="animation-gif" src="../assets/images/prosperity.gif" alt="" />
@@ -80,7 +80,7 @@ export default {
   height: 100%;
   z-index: 1000;
   position: absolute;
-  font-size: 36px;
+  font-size: 50px;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -91,6 +91,10 @@ export default {
   }
   .yellow {
     color: #ffcc00;
+  }
+  .show-info {
+    flex-direction: column;
+    justify-content: center;
   }
 }
 </style>
