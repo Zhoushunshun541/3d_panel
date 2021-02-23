@@ -99,3 +99,10 @@ export const business_plan = params => {
     params,
   });
 };
+
+// 自检不良率
+export const business_qc_bad = params => {
+  return http.get('/business/qc_bad', {
+    params,
+  });
+};

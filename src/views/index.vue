@@ -207,6 +207,10 @@
       </div>
     </div>
     <ZssFooter></ZssFooter>
+    <Dialog
+      :show.sync="showDialog"
+      :order-info="{ name: '无锡异步', num: 123123 }"
+    ></Dialog>
   </div>
 </template>
 
@@ -225,6 +229,7 @@ import BarChart2d from '@/components/BarChart2d';
 import ScrollTable from '@/components/ScrollTable';
 import PlanTable from '@/components/PlanTable';
 import BistTable from '@/components/BistTable';
+import Dialog from '@/components/Dialog';
 import { ScrollList } from '@/utils/mixins';
 import { business_week_order } from '@/api/api';
 
@@ -246,9 +251,11 @@ export default {
     ScrollTable,
     PlanTable,
     BistTable,
+    Dialog,
   },
   data() {
     return {
+      showDialog: false,
       // 地区列表
       areaList: [
         {
@@ -332,6 +339,9 @@ export default {
     },
   },
   created() {
+    setTimeout(() => {
+      this.showDialog = true;
+    }, 3000);
     this.getWeekOrder();
     this.autoWebPageRefresh();
   },
