@@ -46,6 +46,31 @@
         </div>
       </div>
     </div>
+    <div class="bg-color flex" v-if="+type === 3">
+      <div>
+        <span>工厂数量</span>
+        <span class="amount-num">
+          {{ $state.planInfo.factory_num || 0 }}
+          <span class="fs14 amount-num">个</span>
+        </span>
+      </div>
+      <div>
+        <span>平均每月产能</span>
+        <span class="amount-num">
+          {{ $state.planInfo.avg_month_num || 0 | toThousandFilter }}
+          <span class="fs14 amount-num">万件</span>
+        </span>
+      </div>
+      <div>
+        <span>上月总产出<span class="fs12">/排产产能</span></span>
+        <span class="amount-num">
+          {{ $state.planInfo.up_month_num || 0 | toThousandFilter }}
+          <span class="fs12 amount-num">
+            /{{ $state.planInfo.plan_num || 0 | toThousandFilter }}万件
+          </span>
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 

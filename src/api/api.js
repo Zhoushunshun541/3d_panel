@@ -92,3 +92,10 @@ export const business_cost = params => {
     params,
   });
 };
+
+// 排产计划
+export const business_plan = params => {
+  return http.get('/business/plan', {
+    params,
+  });
+};

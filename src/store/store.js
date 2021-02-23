@@ -15,6 +15,12 @@ export default new Vuex.Store({
       gdp_percentage: '',
       all_gdp: '',
     },
+    planInfo: JSON.parse(sessionStorage.getItem('planInfo')) || {
+      factory_num: '',
+      avg_month_num: '',
+      up_month_num: '',
+      plan_num: '',
+    },
     // 今年接单的数据
     thisYear: JSON.parse(sessionStorage.getItem('this_year')) || {
       num: 0,

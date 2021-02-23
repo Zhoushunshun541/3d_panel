@@ -159,7 +159,7 @@
           <span class="title" style="line-height:40px;">
             2020年11月～4月工厂排产计划
           </span>
-          <TitleTip></TitleTip>
+          <TitleTip :type="3"></TitleTip>
           <div class="plan-content mt25">
             <div class="plan-title flex">
               <p>各工厂每月平均产能</p>

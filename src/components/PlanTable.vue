@@ -28,90 +28,25 @@
           <li class="flex" v-for="(item, i) in planList" :key="i">
             <div class="table-index">{{ item.id }}</div>
             <div class="dept-name">{{ item.name }}</div>
-            <div class="month-capacity">{{ item.monthCount }}</div>
-            <div class="last-month">{{ item.lastMonth }}</div>
-            <div class="month ml15">
+            <div class="month-capacity">{{ item.avg_month }}</div>
+            <div class="last-month">{{ item.up_month }}</div>
+            <div
+              class="month"
+              v-for="(month, index) in item.month_list"
+              :class="{ ml15: index === 0 }"
+              :key="index"
+            >
               <div
                 :class="
-                  item.month1 >= 1
+                  month.month_percentage >= 100
                     ? 'complete'
-                    : item.month1 === 0
+                    : month.month_percentage === 0
                     ? ''
                     : 'unfinished'
                 "
-                :style="{ width: item.month1 * 100 + '%' }"
+                :style="{ width: month.month_percentage + '%' }"
               >
-                {{ item.month1 }}
-              </div>
-            </div>
-            <div class="month">
-              <div
-                :class="
-                  item.month2 >= 1
-                    ? 'complete'
-                    : item.month2 === 0
-                    ? ''
-                    : 'unfinished'
-                "
-                :style="{ width: item.month2 * 100 + '%' }"
-              >
-                {{ item.month2 }}
-              </div>
-            </div>
-            <div class="month">
-              <div
-                :class="
-                  item.month3 >= 1
-                    ? 'complete'
-                    : item.month3 === 0
-                    ? ''
-                    : 'unfinished'
-                "
-                :style="{ width: item.month3 * 100 + '%' }"
-              >
-                {{ item.month3 }}
-              </div>
-            </div>
-            <div class="month">
-              <div
-                :class="
-                  item.month4 >= 1
-                    ? 'complete'
-                    : item.month4 === 0
-                    ? ''
-                    : 'unfinished'
-                "
-                :style="{ width: item.month4 * 100 + '%' }"
-              >
-                {{ item.month4 }}
-              </div>
-            </div>
-            <div class="month">
-              <div
-                :class="
-                  item.month5 >= 1
-                    ? 'complete'
-                    : item.month5 === 0
-                    ? ''
-                    : 'unfinished'
-                "
-                :style="{ width: item.month5 * 100 + '%' }"
-              >
-                {{ item.month5 }}
-              </div>
-            </div>
-            <div class="month">
-              <div
-                :class="
-                  item.month6 >= 1
-                    ? 'complete'
-                    : item.month6 === 0
-                    ? ''
-                    : 'unfinished'
-                "
-                :style="{ width: item.month6 * 100 + '%' }"
-              >
-                {{ item.month6 }}
+                {{ month.month_percentage }}
               </div>
             </div>
           </li>
@@ -124,6 +59,7 @@
 <script>
 import VueSeamlessScroll from 'vue-seamless-scroll';
 import { ScrollList } from '@/utils/mixins';
+import { business_plan } from '@/api/api';
 
 export default {
   name: 'PlanTable',
@@ -134,81 +70,30 @@ export default {
   data() {
     return {
       // 排产计划列表
-      planList: [
-        {
-          id: 1,
-          name: '无锡一部',
-          monthCount: 10,
-          lastMonth: 212,
-          month1: 0.97,
-          month2: 1.02,
-          month3: 0,
-          month4: 0.23,
-          month5: 0,
-          month6: 0,
-        },
-        {
-          id: 1,
-          name: '无锡一部',
-          monthCount: 10,
-          lastMonth: 212,
-          month1: 0.97,
-          month2: 1.02,
-          month3: 0,
-          month4: 0.23,
-          month5: 0,
-          month6: 0,
-        },
-        {
-          id: 1,
-          name: '无锡一部',
-          monthCount: 10,
-          lastMonth: 212,
-          month1: 0.97,
-          month2: 1.02,
-          month3: 0,
-          month4: 0.23,
-          month5: 0,
-          month6: 0,
-        },
-        {
-          id: 1,
-          name: '无锡一部',
-          monthCount: 10,
-          lastMonth: 212,
-          month1: 0.97,
-          month2: 1.02,
-          month3: 0,
-          month4: 0.23,
-          month5: 0,
-          month6: 0,
-        },
-        {
-          id: 1,
-          name: '无锡一部',
-          monthCount: 10,
-          lastMonth: 212,
-          month1: 0.97,
-          month2: 1.02,
-          month3: 0,
-          month4: 0.23,
-          month5: 0,
-          month6: 0,
-        },
-        {
-          id: 1,
-          name: '无锡一部',
-          monthCount: 10,
-          lastMonth: 212,
-          month1: 0.97,
-          month2: 1.02,
-          month3: 0,
-          month4: 0.23,
-          month5: 0,
-          month6: 0,
-        },
-      ],
+      planList: [],
     };
+  },
+  methods: {
+    // 获取排产计划的信息
+    getBusinessPlan() {
+      business_plan().then(res => {
+        if (res.status) {
+          this.planList = res.data.factory_list;
+          this.$store.dispatch('setState', {
+            key: 'planInfo',
+            value: {
+              factory_num: '',
+              avg_month_num: '',
+              up_month_num: '',
+              plan_num: '',
+            },
+          });
+        }
+      });
+    },
+  },
+  created() {
+    this.getBusinessPlan();
   },
 };
 </script>
