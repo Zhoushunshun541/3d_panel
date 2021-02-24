@@ -7,13 +7,12 @@ const routes = [
   {
     path: '/',
     name: '首页',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/index.vue'),
+    component: () => import('../views/index.vue'),
   },
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes,
 });

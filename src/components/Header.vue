@@ -1,7 +1,7 @@
 <template>
   <header class="header_component flex">
-    <div class="header-logo" @click="setFullScreen">
-      <img src="../assets/images/logo.png" width="158" height="58" alt="" />
+    <div class="header-logo flex" @click="setFullScreen">
+      <img src="../assets/images/logo.png" width="148" height="54" alt="" />
     </div>
     <div class="header-tip flex">
       <span>营业本部 数据看板</span>
@@ -242,8 +242,9 @@ export default {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   .header-logo img {
-    width: 150px;
-    height: 60px;
+    width: 148px;
+    height: 54px;
+    margin-top: -10px;
   }
   .header-tip {
     height: 100%;

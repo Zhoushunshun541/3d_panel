@@ -19,31 +19,30 @@ export default {
     options() {
       return {
         backgroundColor: '',
-        title: {
-          text: '',
-          textStyle: {
-            fontWeight: 'normal',
-            fontSize: 25,
-            color: 'rgb(97, 142, 205)',
-          },
-        },
         series: [
           {
             type: 'liquidFill',
             radius: '80%',
             center: ['50%', '50%'],
             data: [this.$state.waterData / 100, this.$state.waterData / 100], // data个数代表波浪数
+            color: ['#139EEB', '#139EEB'],
             backgroundStyle: {
               borderWidth: 1,
-              color: 'rgb(255,0,255,0.1)',
+              color: '#00224A',
             },
             label: {
               normal: {
-                formatter: `${this.$state.waterData.toFixed(
-                  2
-                )}% \n完成与目标比`,
-                textStyle: {
-                  fontSize: 12,
+                formatter: [
+                  `{a|${this.$state.waterData.toFixed(2)}%}`,
+                  `{b|完成与目标比}`,
+                ].join('\n'),
+                rich: {
+                  a: {
+                    fontSize: 16,
+                  },
+                  b: {
+                    fontSize: 10,
+                  },
                 },
               },
             },
@@ -64,14 +63,14 @@ export default {
                   show: false,
                 },
                 itemStyle: {
-                  color: '#5886f0',
+                  color: '#139EEB',
                 },
                 emphasis: {
                   labelLine: {
                     show: false,
                   },
                   itemStyle: {
-                    color: '#5886f0',
+                    color: '#139EEB',
                   },
                 },
               },
@@ -85,8 +84,8 @@ export default {
                 itemStyle: {
                   color: '#ffffff',
                   normal: {
-                    color: '#5886f0',
-                    borderColor: '#5886f0',
+                    color: '#139EEB',
+                    borderColor: '#139EEB',
                     borderWidth: 4,
                     borderRadius: 2,
                   },
@@ -99,7 +98,7 @@ export default {
                     show: false,
                   },
                   itemStyle: {
-                    color: '#5886f0',
+                    color: '#139EEB',
                   },
                 },
               },
@@ -111,14 +110,14 @@ export default {
                   show: false,
                 },
                 itemStyle: {
-                  color: '#5886f0',
+                  color: '#139EEB',
                 },
                 emphasis: {
                   labelLine: {
                     show: false,
                   },
                   itemStyle: {
-                    color: '#5886f0',
+                    color: '#139EEB',
                   },
                 },
               },

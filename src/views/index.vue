@@ -344,7 +344,7 @@ export default {
   filters: {
     toThousandFilter(num) {
       return (+num || 0)
-        .toFixed(0)
+        .toFixed(1)
         .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     },
   },

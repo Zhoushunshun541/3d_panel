@@ -104,15 +104,6 @@ export default {
     return {
       options: {
         backgroundColor: '',
-        title: {
-          text: '',
-          top: 32,
-          left: 18,
-          textStyle: {
-            color: '#00F6FF',
-            fontSize: 24,
-          },
-        },
         legend: {
           right: 0,
           top: '2%',
@@ -136,7 +127,7 @@ export default {
           axisLine: {
             show: true,
             lineStyle: {
-              color: 'white',
+              color: 'rgba(207, 220, 255, 0.6)',
             },
           },
           axisTick: {
@@ -198,6 +189,18 @@ export default {
           {
             type: 'custom',
             name: '目标',
+            itemStyle: {
+              color: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: 'rgba(7, 194, 151, 0)',
+                },
+                {
+                  offset: 1,
+                  color: 'rgba(7, 194, 151, 1)',
+                },
+              ]),
+            },
             renderItem(params, api) {
               const location = api.coord([api.value(0), api.value(1)]);
               return {
@@ -281,6 +284,18 @@ export default {
           {
             type: 'custom',
             name: '完成',
+            itemStyle: {
+              color: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: 'rgba(57, 201, 200, 1)',
+                },
+                {
+                  offset: 1,
+                  color: 'rgba(74, 213, 231, 1)',
+                },
+              ]),
+            },
             renderItem: (params, api) => {
               const location = api.coord([api.value(0), api.value(1)]);
               return {
@@ -364,6 +379,18 @@ export default {
           {
             type: 'custom',
             name: '同期',
+            itemStyle: {
+              color: new echart.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: 'rgba(0, 122, 255, .1)',
+                },
+                {
+                  offset: 1,
+                  color: 'rgba(0, 122, 255, 1)',
+                },
+              ]),
+            },
             renderItem(params, api) {
               const location = api.coord([api.value(0), api.value(1)]);
               return {

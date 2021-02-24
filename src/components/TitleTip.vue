@@ -97,7 +97,7 @@ export default {
   filters: {
     toThousandFilter(num) {
       return (+num || 0)
-        .toFixed(0)
+        .toFixed(1)
         .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     },
   },
@@ -148,7 +148,7 @@ export default {
   padding-left: 70px;
   .amount-num {
     font-size: 20px;
-    color: #4ebbf5;
+    color: #4ebbf5 !important;
   }
   .bg-color {
     width: 100%;

@@ -49,12 +49,21 @@ export default {
             data: [],
             axisLine: {
               lineStyle: {
-                color: 'rgba(255,255,255,0.12)',
+                color: '#29A4FF',
+              },
+            },
+            axisTick: {
+              show: false,
+            },
+            splitLine: {
+              show: true,
+              lineStyle: {
+                type: 'dashed',
               },
             },
             axisLabel: {
               margin: 10,
-              color: '#e2e9ff',
+              color: 'rgba(207, 220, 255, 0.6)',
               textStyle: {
                 fontSize: 14,
               },
@@ -63,20 +72,25 @@ export default {
         ],
         yAxis: [
           {
-            name: '单位：万元',
+            name: '单位：万美元',
             axisLabel: {
               formatter: '{value}',
-              color: '#e2e9ff',
+              color: 'rgba(207, 220, 255, 0.6)',
+            },
+            nameTextStyle: {
+              color: 'rgba(207, 220, 255, 0.6)',
             },
             axisLine: {
-              show: false,
               lineStyle: {
-                color: 'rgba(255,255,255,1)',
+                color: '#29A4FF',
               },
+            },
+            axisTick: {
+              show: false,
             },
             splitLine: {
               lineStyle: {
-                color: 'rgba(255,255,255,0.12)',
+                color: 'rgba(207, 220, 255, 0.6)',
               },
             },
           },

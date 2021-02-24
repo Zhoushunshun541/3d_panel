@@ -46,7 +46,7 @@
                 "
                 :style="{ width: month.month_percentage + '%' }"
               >
-                {{ month.month_percentage }}
+                {{ month.month_percentage + '%' }}
               </div>
             </div>
           </li>
