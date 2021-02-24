@@ -113,3 +113,10 @@ export const business_dynamic = params => {
     params,
   });
 };
+
+// 回款超期
+export const business_back_paragraph = params => {
+  return http.get('/business/back_paragraph', {
+    params,
+  });
+};

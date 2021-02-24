@@ -5,9 +5,6 @@ export const Echart = {
       this.myChart.setOption(this.options);
     },
   },
-  mounted() {
-    this.initChart();
-  },
 };
 
 export const ScrollList = {

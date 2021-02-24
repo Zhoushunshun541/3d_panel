@@ -203,7 +203,13 @@
           </VueSeamlessScroll>
         </div>
         <div class="index_four-mid border_warp mt10"></div>
-        <div class="index_four-bottom border_warp mt10"></div>
+        <div class="index_four-bottom border_warp flex mt10">
+          <div>
+            <span class="title">2020年回款超期情况</span>
+            <PieEchart></PieEchart>
+          </div>
+          <div></div>
+        </div>
       </div>
     </div>
     <ZssFooter></ZssFooter>
@@ -230,6 +236,7 @@ import ScrollTable from '@/components/ScrollTable';
 import PlanTable from '@/components/PlanTable';
 import BistTable from '@/components/BistTable';
 import Dialog from '@/components/Dialog';
+import PieEchart from '@/components/PieEchart';
 import { ScrollList } from '@/utils/mixins';
 import { business_week_order, business_dynamic } from '@/api/api';
 
@@ -251,6 +258,7 @@ export default {
     ScrollTable,
     PlanTable,
     BistTable,
+    PieEchart,
     Dialog,
   },
   data() {
@@ -349,9 +357,9 @@ export default {
     },
   },
   created() {
-    setTimeout(() => {
-      this.showDialog = true;
-    }, 3000);
+    // setTimeout(() => {
+    //   this.showDialog = true;
+    // }, 3000);
     this.getWeekOrder();
     this.autoWebPageRefresh();
     this.getBusinessDynamic();
