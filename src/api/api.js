@@ -58,6 +58,13 @@ export const weatherInfo = params => {
   });
 };
 
+// 汇率
+export const exchangeRate = params => {
+  return http.get('/public/exchange', {
+    params,
+  });
+};
+
 // 周接单详情
 export const business_week_order = params => {
   return http.get('/business/week_order', {

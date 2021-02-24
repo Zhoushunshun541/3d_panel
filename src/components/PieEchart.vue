@@ -32,17 +32,40 @@ export default {
       options: {
         backgroundColor: '',
         color,
+        title: {
+          text: '',
+          x: 'center',
+          y: 'center',
+          textStyle: {
+            rich: {
+              a: {
+                fontSize: 18,
+                color: '#fff',
+              },
+              b: {
+                fontSize: 12,
+                color: '#fff',
+              },
+              c: {
+                fontSize: 12,
+                color: '#CFDCFF',
+                // padding: [5,0]
+              },
+            },
+          },
+        },
+        grid: {
+          left: 0,
+        },
         series: [
           {
             type: 'pie',
-            radius: ['40%', '60%'],
+            radius: ['55%', '70%'],
             center: ['50%', '50%'],
             data: [],
             hoverAnimation: false,
             labelLine: {
               normal: {
-                length: 20,
-                length2: 120,
                 lineStyle: {
                   color: '#007AFF',
                 },
@@ -50,10 +73,11 @@ export default {
             },
             label: {
               formatter: '{name|{b}}',
+              padding: [-15, -30, 0, 0],
               rich: {
                 name: {
                   fontSize: 12,
-                  color: '#fff',
+                  color: '#CFDCFF',
                 },
               },
             },
@@ -64,10 +88,24 @@ export default {
   },
   methods: {
     getBusinessBackParagraph() {
+      // 千分分隔符
+      function toThousandFilter(num) {
+        return (+num || 0)
+          .toFixed(1)
+          .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+      }
       business_back_paragraph().then(res => {
         if (res.status) {
           this.options.series[0].data = res.data.list.map(arr => {
             return { name: arr.name, value: arr.num };
+          });
+          this.options.title.text = [
+            `{a|${toThousandFilter(res.data.all_num) || 0}}{b|万元}`,
+            `{b|${res.data.all_percentage || 0}%}`,
+          ].join('\n');
+          this.$store.dispatch('setState', {
+            key: 'backList',
+            value: res.data.list,
           });
           this.$nextTick(() => {
             this.initChart();
@@ -84,7 +122,7 @@ export default {
 
 <style lang="less" scoped>
 .pie-echart {
-  height: 215px;
-  width: 215px;
+  height: 190px;
+  width: 260px;
 }
 </style>
