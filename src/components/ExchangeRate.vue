@@ -22,7 +22,6 @@ export default {
     getExchangeRate() {
       exchangeRate().then(res => {
         if (res.status) {
-          console.log(res);
           this.$store.dispatch('setState', {
             key: 'exchange',
             value: res.data.frate,

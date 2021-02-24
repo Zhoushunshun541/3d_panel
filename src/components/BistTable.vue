@@ -9,6 +9,14 @@
       <div class="all-bad-num">2020年累计不良率</div>
     </div>
     <div class="bist-table-list mt10">
+      <div class="assist-line left">
+        <div class="line"></div>
+        <div>3%</div>
+      </div>
+      <div class="assist-line right">
+        <div class="line"></div>
+        <div>3%</div>
+      </div>
       <ul>
         <li class="flex" v-for="(item, i) in bistList" :key="i">
           <div class="table-index">{{ item.id }}</div>
@@ -152,6 +160,14 @@ export default {
             };
             return obj;
           });
+          this.bistList.push({
+            id: 4,
+            name: '缅甸一厂',
+            qc_num: 47.23,
+            bad_num: 47.23,
+            month_bad_percentage: 3,
+            year_bad_percentage: 3,
+          });
           this.$nextTick(() => {
             this.dealWithEchart();
           });
@@ -246,6 +262,25 @@ export default {
 }
 .bist-table-list {
   font-size: 14px;
+  position: relative;
+  .assist-line {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    color: #ff6c66;
+    align-items: center;
+    .line {
+      width: 1px;
+      height: 270px;
+      border-left: 2px dashed #ff6c66;
+    }
+  }
+  .left {
+    right: 296px;
+  }
+  .right {
+    right: 132px;
+  }
   .max-height {
     height: 240px;
     overflow: scroll;
