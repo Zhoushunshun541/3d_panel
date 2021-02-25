@@ -13,7 +13,7 @@ module.exports = {
       entry: 'src/main.js',
       template: 'index.html',
       filename: 'index.html',
-      title: '营业部面板',
+      title: '数字看板',
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
       file:
         process.env.NODE_ENV === 'production'
