@@ -180,7 +180,7 @@ export default {
     };
   },
   mounted() {
-    this.initMap();
+    // this.initMap();
   },
   methods: {
     initMap() {

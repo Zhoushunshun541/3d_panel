@@ -7,7 +7,10 @@ const routes = [
   {
     path: '/',
     name: '首页',
-    component: () => import('../views/index.vue'),
+    meta: {
+      title: '营业部面板',
+    },
+    component: () => import(/* webpackChunkName: "one" */ '../views/index.vue'),
   },
 ];
 
@@ -16,5 +19,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || '营业部面板';
+  next();
+  // ...
+});
 export default router;
