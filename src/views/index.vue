@@ -204,22 +204,7 @@
         </div>
         <div class="index_four-mid border_warp mt10">
           <span class="title">近半年美元兑人民币汇率走势</span>
-          <div class="mid_content mt15">
-            <div class="frate-info">
-              <div class="fs24 frate-info-close-pri">
-                {{ $state.exchange.closePri }}
-              </div>
-              <div>
-                <p></p>
-                <p></p>
-              </div>
-              <div>
-                <p></p>
-                <p></p>
-              </div>
-            </div>
-            <ExchangeRate></ExchangeRate>
-          </div>
+          <ExchangeRate class="mt15"></ExchangeRate>
         </div>
         <div class="index_four-bottom border_warp flex mt10">
           <div>

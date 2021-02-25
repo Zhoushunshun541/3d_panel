@@ -11,16 +11,6 @@ export default new Vuex.Store({
     waterData: +sessionStorage.getItem('waterData') || 0,
     quarterData: +sessionStorage.getItem('quarterData') || [],
     backList: +sessionStorage.getItem('backList') || [],
-    exchange: JSON.parse(sessionStorage.getItem('exchange')) || {
-      closePri: '', // 最新价
-      diffPer: '', // 涨跌
-      diffAmo: '', // 涨跌金额
-      openPri: '', // 开盘价
-      date: '', // 时间
-      datatime: '', // 时间
-      yesPic: '', // 昨收
-      range: '', // 振幅
-    },
     GDP: JSON.parse(sessionStorage.getItem('GDP')) || {
       target_percentage: '',
       gdp_percentage: '',
