@@ -4,14 +4,14 @@
       <div>
         <span>2020目标</span>
         <span class="amount-num">
-          {{ orderInfo.complete_num | toThousandFilter }}
+          <CountTo :endVal="orderInfo.complete_num" :duration="1500"></CountTo>
           <span class="fs14">万元</span>
         </span>
       </div>
       <div>
         <span>距目标</span>
         <span class="amount-num">
-          {{ orderInfo.from_complete | toThousandFilter }}
+          <CountTo :endVal="orderInfo.from_complete" :duration="1500"></CountTo>
           <span class="fs14">万元</span>
         </span>
       </div>
@@ -20,7 +20,7 @@
       <div>
         <span>三季度总产值</span>
         <span class="amount-num">
-          {{ $state.GDP.all_gdp | toThousandFilter }}
+          <CountTo :endVal="$state.GDP.all_gdp" :duration="1500"></CountTo>
           <span class="fs14">万元</span>
         </span>
       </div>
@@ -28,20 +28,25 @@
         <div>
           同比：<span
             class="w50"
-            :class="
-              $state.GDP.gdp_percentage.indexOf('-') >= 0 ? 'green' : 'red'
-            "
-            >{{ $state.GDP.gdp_percentage }}</span
+            :class="$state.GDP.gdp_percentage < 0 ? 'green' : 'red'"
           >
+            <CountTo
+              :endVal="$state.GDP.gdp_percentage"
+              :duration="1500"
+            ></CountTo>
+            %
+          </span>
         </div>
         <div>
           相比目标：<span
             class="w50"
-            :class="
-              $state.GDP.target_percentage.indexOf('-') >= 0 ? 'green' : 'red'
-            "
+            :class="$state.GDP.target_percentage < 0 ? 'green' : 'red'"
           >
-            {{ $state.GDP.target_percentage }}
+            <CountTo
+              :endVal="$state.GDP.target_percentage"
+              :duration="1500"
+            ></CountTo>
+            %
           </span>
         </div>
       </div>
@@ -50,23 +55,37 @@
       <div>
         <span>工厂数量</span>
         <span class="amount-num">
-          {{ $state.planInfo.factory_num || 0 }}
+          <CountTo
+            :endVal="$state.planInfo.factory_num"
+            :duration="1500"
+          ></CountTo>
           <span class="fs14 amount-num">个</span>
         </span>
       </div>
       <div>
         <span>平均每月产能</span>
         <span class="amount-num">
-          {{ $state.planInfo.avg_month_num || 0 | toThousandFilter }}
+          <CountTo
+            :endVal="$state.planInfo.avg_month_num"
+            :duration="1500"
+          ></CountTo>
           <span class="fs14 amount-num">万件</span>
         </span>
       </div>
       <div>
         <span>上月总产出<span class="fs12">/排产产能</span></span>
         <span class="amount-num">
-          {{ $state.planInfo.up_month_num || 0 | toThousandFilter }}
+          <CountTo
+            :endVal="$state.planInfo.up_month_num"
+            :duration="1500"
+          ></CountTo>
           <span class="fs12 amount-num">
-            /{{ $state.planInfo.plan_num || 0 | toThousandFilter }}万件
+            /
+            <CountTo
+              :endVal="$state.planInfo.plan_num"
+              :duration="1500"
+            ></CountTo>
+            万件
           </span>
         </span>
       </div>
@@ -76,21 +95,27 @@
 
 <script>
 import { business_order } from '@/api/api';
+import { DealPercent } from '@/utils/mixins';
+import CountTo from 'vue-count-to';
 
 export default {
   name: 'TitleTip',
+  mixins: [DealPercent],
   props: {
     type: {
       type: [Number, String],
       default: 0,
     },
   },
+  components: {
+    CountTo,
+  },
   data() {
     return {
       orderInfo: {
-        complete_num: '',
-        from_complete: '',
-        percentage: '',
+        complete_num: 0,
+        from_complete: 0,
+        percentage: 0,
       },
     };
   },
@@ -107,9 +132,15 @@ export default {
       business_order().then(res => {
         if (res.status) {
           this.orderInfo = {
-            complete_num: res.data.complete_num,
-            from_complete: res.data.from_complete,
+            complete_num: parseFloat(res.data.complete_num),
+            from_complete: parseFloat(res.data.from_complete),
           };
+          // 将百分比转number
+          const temp = JSON.parse(JSON.stringify(res.data.this_year));
+          temp.percentage = this.DealPercent(res.data.this_year.percentage);
+          temp.target_percentage = this.DealPercent(
+            res.data.this_year.target_percentage
+          );
           this.$store.dispatch('setState', [
             {
               key: 'waterData',
@@ -117,7 +148,7 @@ export default {
             },
             {
               key: 'thisYear',
-              value: res.data.this_year,
+              value: temp,
             },
             {
               key: 'quarterData',

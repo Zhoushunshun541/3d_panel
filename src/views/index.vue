@@ -10,7 +10,10 @@
             <div class="title_tip mt25">今年总接单</div>
             <div class="flex order-num">
               <div class="amount">
-                {{ $state.thisYear.num | toThousandFilter }}
+                <CountTo
+                  :endVal="$state.thisYear.num"
+                  :duration="1500"
+                ></CountTo>
                 <span class="fs24">万元</span>
               </div>
               <div class="compare flex">
@@ -18,23 +21,30 @@
                   同比：<span
                     class="w50"
                     :class="
-                      this.$state.thisYear.percentage.indexOf('-') >= 0
-                        ? 'green'
-                        : 'red'
+                      this.$state.thisYear.percentage < 0 ? 'green' : 'red'
                     "
-                    >{{ $state.thisYear.percentage }}</span
                   >
+                    <CountTo
+                      :endVal="$state.thisYear.percentage"
+                      :duration="1500"
+                    ></CountTo>
+                    %
+                  </span>
                 </div>
                 <div>
                   相比目标：<span
                     class="w50"
                     :class="
-                      this.$state.thisYear.target_percentage.indexOf('-') >= 0
+                      this.$state.thisYear.target_percentage < 0
                         ? 'green'
                         : 'red'
                     "
                   >
-                    {{ $state.thisYear.target_percentage }}
+                    <CountTo
+                      :endVal="$state.thisYear.target_percentage"
+                      :duration="1500"
+                    ></CountTo>
+                    %
                   </span>
                 </div>
               </div>
@@ -256,6 +266,7 @@ import PieEchart from '@/components/PieEchart';
 import ExchangeRate from '@/components/ExchangeRate';
 import { ScrollList } from '@/utils/mixins';
 import { business_week_order, business_dynamic } from '@/api/api';
+import CountTo from 'vue-count-to';
 
 export default {
   name: 'index',
@@ -278,6 +289,7 @@ export default {
     PieEchart,
     ExchangeRate,
     Dialog,
+    CountTo,
   },
   data() {
     return {

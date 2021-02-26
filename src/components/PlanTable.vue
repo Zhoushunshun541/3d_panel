@@ -19,54 +19,42 @@
       <div class="month">4月</div>
     </div>
     <div class="plan-table-list">
-      <VueSeamlessScroll
-        :data="planList"
-        class="max-height"
-        :class-option="classOption"
-      >
-        <ul>
-          <li class="flex" v-for="(item, i) in planList" :key="i">
-            <div class="table-index">{{ item.id }}</div>
-            <div class="dept-name">{{ item.name }}</div>
-            <div class="month-capacity">{{ item.avg_month }}</div>
-            <div class="last-month">{{ item.up_month }}</div>
+      <ul>
+        <li class="flex" v-for="(item, i) in planList" :key="i">
+          <div class="table-index">{{ item.id }}</div>
+          <div class="dept-name">{{ item.name }}</div>
+          <div class="month-capacity">{{ item.avg_month }}</div>
+          <div class="last-month">{{ item.up_month }}</div>
+          <div
+            class="month"
+            v-for="(month, index) in item.month_list"
+            :class="{ ml15: index === 0 }"
+            :key="index"
+          >
             <div
-              class="month"
-              v-for="(month, index) in item.month_list"
-              :class="{ ml15: index === 0 }"
-              :key="index"
+              :class="
+                month.month_percentage >= 100
+                  ? 'complete'
+                  : month.month_percentage === 0
+                  ? ''
+                  : 'unfinished'
+              "
+              :style="{ width: month.month_percentage + '%' }"
             >
-              <div
-                :class="
-                  month.month_percentage >= 100
-                    ? 'complete'
-                    : month.month_percentage === 0
-                    ? ''
-                    : 'unfinished'
-                "
-                :style="{ width: month.month_percentage + '%' }"
-              >
-                {{ month.month_percentage + '%' }}
-              </div>
+              {{ month.month_percentage + '%' }}
             </div>
-          </li>
-        </ul>
-      </VueSeamlessScroll>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import VueSeamlessScroll from 'vue-seamless-scroll';
-import { ScrollList } from '@/utils/mixins';
 import { business_plan } from '@/api/api';
 
 export default {
   name: 'PlanTable',
-  components: {
-    VueSeamlessScroll,
-  },
-  mixins: [ScrollList],
   data() {
     return {
       // 排产计划列表
@@ -82,10 +70,10 @@ export default {
           this.$store.dispatch('setState', {
             key: 'planInfo',
             value: {
-              factory_num: '',
-              avg_month_num: '',
-              up_month_num: '',
-              plan_num: '',
+              factory_num: res.data.factory_num,
+              avg_month_num: res.data.avg_month_num,
+              up_month_num: res.data.up_month_num,
+              plan_num: res.data.plan_num,
             },
           });
         }

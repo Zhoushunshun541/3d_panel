@@ -149,6 +149,9 @@ export default {
       };
     },
   },
+  mounted() {
+    this.initChart();
+  },
 };
 </script>
 

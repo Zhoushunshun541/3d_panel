@@ -3,12 +3,12 @@
 </template>
 
 <script>
-import { Echart } from '../utils/mixins';
+import { Echart, DealPercent } from '../utils/mixins';
 import { business_gdp } from '@/api/api';
 
 export default {
   name: 'BarChart2d',
-  mixins: [Echart],
+  mixins: [Echart, DealPercent],
   props: {
     id: {
       type: String,
@@ -143,8 +143,8 @@ export default {
             {
               key: 'GDP',
               value: {
-                target_percentage: res.data.target_percentage,
-                gdp_percentage: res.data.gdp_percentage,
+                target_percentage: this.DealPercent(res.data.target_percentage),
+                gdp_percentage: this.DealPercent(res.data.gdp_percentage),
                 all_gdp: res.data.all_gdp,
               },
             },
