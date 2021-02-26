@@ -73,38 +73,24 @@ export default {
           },
         },
         series: [
-          // {
-          //   type: 'scatter3D',
-          //   coordinateSystem: 'globe',
-          //   blendMode: 'lighter',
-          //   symbolSize: 20,
-          //   symbol: 'pin',
-          //   silent: false,
-          //   itemStyle: {
-          //     color(params) {
-          //       const colorList = ['rgb(246, 153, 180)', 'rgb(118,77,209)'];
-          //       if (params.dataIndex % 2 !== 0) {
-          //         return colorList[0];
-          //       }
-          //       return colorList[1];
-          //     },
-          //     opacity: 1,
-          //   },
-          //   label: {
-          //     show: false,
-          //     textStyle: {
-          //       fontSize: 20,
-          //     },
-          //     formatter(params) {
-          //       if (params.dataIndex % 2 !== 0) {
-          //         return `Destination:\n${params.name}`;
-          //       }
-          //       return `Departure:\n${params.name}`;
-          //     },
-          //     position: 'top',
-          //   },
-          //   data: [],
-          // },
+          {
+            type: 'scatter3D',
+            coordinateSystem: 'globe',
+            blendMode: 'lighter',
+            symbolSize: 10,
+            symbol: 'circle',
+            silent: false,
+            itemStyle: {
+              color: 'red',
+            },
+            data: [
+              [120.26, 32.54],
+              [138.252924, 36.204824],
+              [121.480237, 31.236305],
+              [30.802498, 26.820553],
+              [95.956223, 21.913965],
+            ],
+          },
           {
             name: 'lines3D',
             type: 'lines3D',
@@ -221,7 +207,7 @@ export default {
     };
   },
   mounted() {
-    // this.initMap();
+    this.initMap();
   },
   methods: {
     initMap() {
