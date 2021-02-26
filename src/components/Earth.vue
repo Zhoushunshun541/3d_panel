@@ -76,12 +76,14 @@ export default {
           {
             type: 'scatter3D',
             coordinateSystem: 'globe',
-            blendMode: 'lighter',
+            blendMode: 'source-over',
             symbolSize: 10,
             symbol: 'circle',
             silent: false,
             itemStyle: {
               color: 'red',
+              borderWidth: 2,
+              borderColor: 'red',
             },
             data: [
               [120.26, 32.54],
