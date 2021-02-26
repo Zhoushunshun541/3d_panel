@@ -85,18 +85,20 @@
             <!-- 本周接单总金额 -->
             <div class="top-right_top flex">
               <span class="tip">
-                {{ weekOrderInfo.all_num | toThousandFilter }}
+                <CountTo
+                  :endVal="weekOrderInfo.all_num"
+                  :duration="1500"
+                ></CountTo>
                 <span class="fs14">万元</span>
               </span>
               <span class="tip1">本周接单总金额</span>
-              <span
-                :class="
-                  weekOrderInfo.all_percentage.indexOf('-') > -1
-                    ? 'green'
-                    : 'red'
-                "
-              >
-                环比{{ weekOrderInfo.all_percentage }}
+              <span :class="weekOrderInfo.all_percentage < 0 ? 'green' : 'red'">
+                环比
+                <CountTo
+                  :endVal="weekOrderInfo.all_percentage"
+                  :duration="1500"
+                ></CountTo>
+                %
               </span>
             </div>
             <!-- 本周接单TOP 3 -->
@@ -264,13 +266,13 @@ import BistTable from '@/components/BistTable';
 import Dialog from '@/components/Dialog';
 import PieEchart from '@/components/PieEchart';
 import ExchangeRate from '@/components/ExchangeRate';
-import { ScrollList } from '@/utils/mixins';
+import { ScrollList, DealPercent } from '@/utils/mixins';
 import { business_week_order, business_dynamic } from '@/api/api';
 import CountTo from 'vue-count-to';
 
 export default {
   name: 'index',
-  mixins: [ScrollList],
+  mixins: [ScrollList, DealPercent],
   components: {
     Header,
     ZssFooter,
@@ -331,8 +333,8 @@ export default {
       ],
       // 周接单详情
       weekOrderInfo: {
-        all_num: '',
-        all_percentage: '',
+        all_num: 0,
+        all_percentage: 0,
       }, // 接单详情数据
       // 新闻列表
       orderList: [],
@@ -350,7 +352,7 @@ export default {
           this.orderList = res.data.list;
           this.weekOrderInfo = {
             all_num: res.data.all_num,
-            all_percentage: res.data.all_percentage,
+            all_percentage: this.DealPercent(res.data.all_percentage),
           };
         }
         // setTimeout(() => {

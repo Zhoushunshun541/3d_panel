@@ -119,7 +119,7 @@ export default {
             },
             blendMode: 'lighter',
             lineStyle: {
-              width: 10,
+              width: 3,
               color: '#007b98',
               opacity: 1,
             },
@@ -221,7 +221,7 @@ export default {
     };
   },
   mounted() {
-    // this.initMap();
+    this.initMap();
   },
   methods: {
     initMap() {
