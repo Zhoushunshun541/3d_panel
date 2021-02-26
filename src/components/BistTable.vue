@@ -5,17 +5,27 @@
       <div class="dept-name">工厂名称</div>
       <div class="check-num">检验数</div>
       <div class="bad-num">不良数</div>
-      <div class="month-bad-num">10月不良率</div>
-      <div class="all-bad-num">2020年累计不良率</div>
+      <div class="bad-num-chart">10月不良率</div>
+      <div class="bad-num-chart">2020年累计不良率</div>
     </div>
     <div class="bist-table-list mt10">
-      <div class="assist-line left">
-        <div class="line"></div>
-        <div>3%</div>
+      <div class="w100 left">
+        <div
+          class="assist-line"
+          :style="{ marginLeft: `calc(${(month_bad / m_max) * 100}% - 15px)` }"
+        >
+          <div class="line"></div>
+          <div>{{ month_bad }}%</div>
+        </div>
       </div>
-      <div class="assist-line right">
-        <div class="line"></div>
-        <div>3%</div>
+      <div class="w100 right">
+        <div
+          class="assist-line"
+          :style="{ marginLeft: `calc(${(year_bad / y_max) * 100}% - 15px)` }"
+        >
+          <div class="line"></div>
+          <div>{{ year_bad }}%</div>
+        </div>
       </div>
       <ul>
         <li class="flex" v-for="(item, i) in bistList" :key="i">
@@ -23,8 +33,18 @@
           <div class="dept-name">{{ item.name }}</div>
           <div class="check-num">{{ item.qc_num }}</div>
           <div class="bad-num">{{ item.bad_num }}</div>
-          <div class="month-bad-num" :id="`mbn-${item.id}`"></div>
-          <div class="all-bad-num" :id="`abn-${item.id}`"></div>
+          <div class="flex bad-num-chart">
+            <div :id="`mbn-${item.id}`"></div>
+            <span :class="item.month_bad_percentage > month_bad ? 'red' : ''">
+              {{ item.month_bad_percentage }}%
+            </span>
+          </div>
+          <div class="flex bad-num-chart">
+            <div :id="`abn-${item.id}`"></div>
+            <span :class="item.year_bad_percentage > year_bad ? 'red' : ''">
+              {{ item.year_bad_percentage }}%
+            </span>
+          </div>
         </li>
       </ul>
     </div>
@@ -40,6 +60,10 @@ export default {
     return {
       // 不良率列表
       bistList: [],
+      month_bad: 0, // 月不良率标准
+      year_bad: 0, // 年不良率标准
+      m_max: 0, // 设置echart最大值   月
+      y_max: 0, // 设置echart最大值   年
       options: {
         backgroundColor: '',
         title: {
@@ -48,13 +72,15 @@ export default {
         tooltip: {
           trigger: 'item',
         },
-        grid: {
-          borderWidth: 0,
-          top: '10%',
-          left: '0',
-          right: '50',
-          bottom: '3%',
-        },
+        grid: [
+          {
+            borderWidth: 0,
+            top: '0px',
+            left: '0px',
+            right: '0px',
+            bottom: '0px',
+          },
+        ],
         yAxis: {
           type: 'category',
           inverse: true,
@@ -84,6 +110,7 @@ export default {
           axisLabel: {
             show: false,
           },
+          max: 0,
         },
         series: [
           {
@@ -124,24 +151,9 @@ export default {
             data: [
               {
                 name: '',
-                value: 100,
-                label: {
-                  show: true,
-                  position: 'right',
-                  formatter: '',
-                  fontSize: 14,
-                  rich: {
-                    red: {
-                      color: '#FF6C66',
-                    },
-                    white: {
-                      color: '#fff',
-                    },
-                  },
-                },
+                value: 0,
               },
             ],
-            animationDuration: 0,
           },
         ],
         animationEasing: 'cubicOut',
@@ -153,20 +165,25 @@ export default {
     getBusinessQcBad() {
       business_qc_bad().then(res => {
         if (res.status) {
-          this.bistList = res.data.list.map((item, index) => {
+          const d = res.data;
+          this.month_bad = parseFloat(d.month_bad);
+          this.year_bad = parseFloat(d.year_bad);
+          // 取数据里百分比最大的那个
+          const m_max = Math.max(
+            ...d.list.map(item => item.month_bad_percentage)
+          );
+          const y_max = Math.max(
+            ...d.list.map(item => item.year_bad_percentage)
+          );
+          // 比较不良率标准大还是数组里大  取最大值
+          this.m_max = m_max >= d.month_bad ? m_max : d.month_bad;
+          this.y_max = y_max >= d.year_bad ? y_max : d.year_bad;
+          this.bistList = d.list.map((item, index) => {
             const obj = {
               id: index + 1,
               ...item,
             };
             return obj;
-          });
-          this.bistList.push({
-            id: 4,
-            name: '缅甸一厂',
-            qc_num: 47.23,
-            bad_num: 47.23,
-            month_bad_percentage: 3,
-            year_bad_percentage: 3,
           });
           this.$nextTick(() => {
             this.dealWithEchart();
@@ -174,17 +191,19 @@ export default {
         }
       });
     },
-    // 处理图标数据
+    // 处理图表数据
     dealWithEchart() {
       this.bistList.forEach(item => {
         const options = JSON.parse(JSON.stringify(this.options));
+        const options1 = JSON.parse(JSON.stringify(this.options));
+        // 月不良率
         options.yAxis.data = [item.month_bad_percentage];
+        // 保证柱状图长度和dom一致
+        options.xAxis.max = this.m_max;
         options.series[0].data[0].value = item.month_bad_percentage;
+        options.series[1].data[0].value = this.m_max;
         options.series[0].data[0].name = '10月不良数';
         options.series[0].data[0].color = 'rgba(20, 158, 235, 1)';
-        options.series[1].data[0].label.formatter = `{${
-          item.month_bad_percentage >= 3 ? 'red' : 'white'
-        }|${item.month_bad_percentage}%}`;
         options.series[0].data[0].itemStyle.normal.color = new this.$echart.graphic.LinearGradient(
           0,
           0,
@@ -207,14 +226,13 @@ export default {
         );
         myChart.setOption(options);
 
-        const options1 = JSON.parse(JSON.stringify(this.options));
+        // 年不良率
         options1.yAxis.data = [item.year_bad_percentage];
+        options1.xAxis.max = this.y_max;
         options1.series[0].data[0].value = item.year_bad_percentage;
-        options.series[0].data[0].name = '年累计不良数';
+        options1.series[1].data[0].value = this.y_max;
+        options1.series[0].data[0].name = '年累计不良数';
         options1.series[0].data[0].color = 'rgba(20, 158, 235, 1)';
-        options1.series[1].data[0].label.formatter = `{${
-          item.year_bad_percentage >= 3 ? 'red' : 'white'
-        }|${item.year_bad_percentage}%}`;
         options1.series[0].data[0].itemStyle.normal.color = new this.$echart.graphic.LinearGradient(
           0,
           0,
@@ -263,12 +281,19 @@ export default {
 .bist-table-list {
   font-size: 14px;
   position: relative;
-  .assist-line {
+  .w100 {
+    width: 100px;
     position: absolute;
+  }
+  .assist-line {
     display: flex;
     flex-direction: column;
     color: #ff6c66;
     align-items: center;
+    width: 30px;
+    float: left;
+    margin-left: -15px;
+    transition: all 1s;
     .line {
       width: 1px;
       height: 270px;
@@ -276,10 +301,10 @@ export default {
     }
   }
   .left {
-    right: 296px;
+    right: 209px;
   }
   .right {
-    right: 132px;
+    right: 45px;
   }
   .max-height {
     height: 240px;
@@ -314,10 +339,17 @@ export default {
   text-align: right;
   width: 60px;
 }
-.month-bad-num,
-.all-bad-num {
+.bad-num-chart {
   width: 145px;
   height: 20px;
   flex-shrink: 0;
+  justify-content: space-between;
+  div:first-child {
+    width: 100px;
+    height: 20px;
+  }
+  span {
+    padding-left: 5px;
+  }
 }
 </style>
