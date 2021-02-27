@@ -7,7 +7,7 @@
 <style lang="less">
 @import './assets/styles/common.less';
 #app {
-  width: 3070px;
+  width: 3072px;
   height: 1088px;
   background: url('./assets/images/bg.png');
   background-repeat: no-repeat;

@@ -147,7 +147,6 @@ export default {
 <style lang="less" scoped>
 .scroll-table {
   font-size: 14px;
-  color: rgba(207, 220, 255, 0.6);
   .table-content {
     display: block;
     height: 176px;

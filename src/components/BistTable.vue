@@ -296,7 +296,7 @@ export default {
     transition: all 1s;
     .line {
       width: 0.5px;
-      height: 270px;
+      height: 255px;
       border-left: 0.5px dashed #ff6c66;
     }
   }

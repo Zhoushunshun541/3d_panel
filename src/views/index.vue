@@ -69,7 +69,7 @@
           <WaterPolo></WaterPolo>
         </div>
         <QuarterXrd></QuarterXrd>
-        <BarChart class="mt55" :active="active"></BarChart>
+        <BarChart class="mt20" :active="active"></BarChart>
       </div>
       <div class="index_sec">
         <div class="flex top">

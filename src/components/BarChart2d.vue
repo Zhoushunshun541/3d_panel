@@ -42,7 +42,7 @@ export default {
           top: '25%',
           right: '3%',
           left: '10%',
-          bottom: '10%',
+          bottom: 25,
         },
         xAxis: [
           {
@@ -63,7 +63,6 @@ export default {
               },
             },
             axisLabel: {
-              margin: 10,
               color: '#5D6B95',
               textStyle: {
                 fontSize: 14,
@@ -173,6 +172,6 @@ export default {
 <style lang="less" scoped>
 .bar-chart-2d {
   width: 530px;
-  height: 225px;
+  height: 240px;
 }
 </style>
