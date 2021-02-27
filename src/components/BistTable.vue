@@ -271,7 +271,7 @@ export default {
     flex-shrink: 0;
     padding: 0;
     font-size: 14px;
-    color: rgba(207, 220, 255, 0.6);
+    color: #5d6b95;
   }
   .check-num,
   .bad-num {
@@ -295,9 +295,9 @@ export default {
     margin-left: -15px;
     transition: all 1s;
     .line {
-      width: 1px;
+      width: 0.5px;
       height: 270px;
-      border-left: 2px dashed #ff6c66;
+      border-left: 0.5px dashed #ff6c66;
     }
   }
   .left {

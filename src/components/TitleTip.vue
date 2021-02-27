@@ -9,7 +9,7 @@
             :endVal="orderInfo.complete_num"
             :duration="1500"
           ></CountTo>
-          <span class="fs14">万元</span>
+          <span class="fs14nc">万元</span>
         </span>
       </div>
       <div>
@@ -20,7 +20,7 @@
             :endVal="orderInfo.from_complete"
             :duration="1500"
           ></CountTo>
-          <span class="fs14">万元</span>
+          <span class="fs14nc">万元</span>
         </span>
       </div>
     </div>
@@ -33,7 +33,7 @@
             :endVal="$state.GDP.all_gdp"
             :duration="1500"
           ></CountTo>
-          <span class="fs14">万元</span>
+          <span class="fs14nc">万美元</span>
         </span>
       </div>
       <div class="compare flex">
@@ -74,7 +74,7 @@
             :endVal="$state.planInfo.factory_num"
             :duration="1500"
           ></CountTo>
-          <span class="fs14 amount-num">个</span>
+          <span class="fs14nc amount-num">个</span>
         </span>
       </div>
       <div class="mr70">
@@ -85,7 +85,7 @@
             :endVal="$state.planInfo.avg_month_num"
             :duration="1500"
           ></CountTo>
-          <span class="fs14 amount-num">万件</span>
+          <span class="fs14nc amount-num">万件</span>
         </span>
       </div>
       <div>

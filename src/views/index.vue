@@ -141,7 +141,9 @@
                 <ul class="news_warp" style="height: 180px;">
                   <li class="mb10" v-for="(item, i) in orderList" :key="i">
                     <div class="news-date">{{ item.date }}</div>
-                    <div>{{ item.name }} 接单 {{ item.num }}万元</div>
+                    <div style="color:rgba(207, 220, 255, 0.75);">
+                      {{ item.name }} 接单 {{ item.num }}万元
+                    </div>
                   </li>
                 </ul>
               </VueSeamlessScroll>

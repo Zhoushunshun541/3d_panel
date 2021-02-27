@@ -1,6 +1,6 @@
 <template>
   <div class="scroll-table">
-    <span>单位:万元</span>
+    <span class="fs14">单位:万元</span>
     <!-- 表头 -->
     <table class="mt5">
       <colgroup>
@@ -157,7 +157,7 @@ export default {
   }
   thead {
     text-align: center;
-    color: rgba(207, 220, 255, 0.6);
+    color: #5d6b95;
     tr {
       height: 50px;
     }

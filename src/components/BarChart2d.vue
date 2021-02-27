@@ -35,7 +35,7 @@ export default {
           right: 10,
           top: 25,
           textStyle: {
-            color: 'rgba(207, 220, 255, 0.6)',
+            color: '#5D6B95',
           },
         },
         grid: {
@@ -64,7 +64,7 @@ export default {
             },
             axisLabel: {
               margin: 10,
-              color: 'rgba(207, 220, 255, 0.6)',
+              color: '#5D6B95',
               textStyle: {
                 fontSize: 14,
               },
@@ -77,11 +77,11 @@ export default {
             axisLabel: {
               fontSize: 14,
               formatter: '{value}',
-              color: 'rgba(207, 220, 255, 0.6)',
+              color: '#5D6B95',
             },
             nameTextStyle: {
               fontSize: 14,
-              color: 'rgba(207, 220, 255, 0.6)',
+              color: '#5D6B95',
             },
             axisLine: {
               lineStyle: {

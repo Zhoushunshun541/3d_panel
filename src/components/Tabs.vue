@@ -44,9 +44,12 @@ export default {
   width: 100%;
   justify-content: center;
   position: absolute;
+  align-items: flex-end;
   bottom: 0;
   left: 0;
   .footer_item {
+    cursor: pointer;
+    color: #5d6b95;
     border-radius: 15px 15px 0 0;
     font-size: 18px;
     padding: 10px 18px;

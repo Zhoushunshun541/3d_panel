@@ -97,7 +97,7 @@ export default {
     flex-shrink: 0;
     padding: 0;
     font-size: 14px;
-    color: rgba(207, 220, 255, 0.6);
+    color: #5d6b95;
   }
   .month-capacity,
   .last-month {

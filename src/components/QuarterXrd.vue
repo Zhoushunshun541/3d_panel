@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="all-year" style="color:#CFDCFF;">
-            <span class="pr5" style="color: rgba(207, 220, 255, 0.6);">
+            <span class="pr5" style="color: #5D6B95;">
               全年
             </span>
             {{ item.all_percentage }}%
@@ -96,19 +96,19 @@ export default {
   .fix-title {
     display: flex;
     align-items: center;
+    color: #5d6b95;
   }
   .quarter {
     width: 102px;
-    color: rgba(207, 220, 255, 0.6);
   }
   .dept-name {
     width: 50px;
     flex-shrink: 0;
+    color: #5d6b95;
   }
   .all-year {
     width: 90px;
     flex-shrink: 0;
-    color: rgba(207, 220, 255, 0.6);
   }
   .progress {
     height: 28px;

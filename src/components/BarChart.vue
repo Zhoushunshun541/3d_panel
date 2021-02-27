@@ -111,7 +111,7 @@ export default {
           itemWidth: 10,
           itemHeight: 10,
           textStyle: {
-            color: 'rgba(207, 220, 255, .6)',
+            color: '#5D6B95',
           },
         },
         grid: {
@@ -140,7 +140,7 @@ export default {
           },
           axisLabel: {
             fontSize: 14,
-            color: 'rgba(207, 220, 255, 0.6)',
+            color: '#5D6B95',
           },
         },
         yAxis: [
@@ -155,7 +155,7 @@ export default {
             },
             nameTextStyle: {
               fontSize: 14,
-              color: 'rgba(207, 220, 255, 0.6)',
+              color: '#5D6B95',
             },
             splitLine: {
               show: true,
@@ -168,7 +168,7 @@ export default {
             },
             axisLabel: {
               fontSize: 14,
-              color: 'rgba(207, 220, 255, 0.6)',
+              color: '#5D6B95',
             },
           },
           {
@@ -188,7 +188,7 @@ export default {
             axisLabel: {
               fontSize: 14,
               formatter: '{value} %',
-              color: 'rgba(207, 220, 255, 0.6)',
+              color: '#5D6B95',
             },
           },
         ],

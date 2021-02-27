@@ -79,7 +79,7 @@ export default {
             show: false,
           },
           axisLabel: {
-            color: 'rgba(207, 220, 255, 0.6)',
+            color: '#5D6B95',
           },
           splitLine: {
             lineStyle: {
@@ -94,7 +94,7 @@ export default {
             show: false,
           },
           axisLabel: {
-            color: 'rgba(207, 220, 255, 0.6)',
+            color: '#5D6B95',
           },
           axisTick: {
             show: false,
@@ -188,7 +188,7 @@ export default {
       align-items: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       & > span:first-child {
-        color: rgba(207, 220, 255, 0.6);
+        color: #5d6b95;
       }
     }
   }
