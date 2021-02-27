@@ -96,7 +96,7 @@
                   :endVal="weekOrderInfo.all_num"
                   :duration="1500"
                 ></CountTo>
-                <span class="fs14">万元</span>
+                <span class="fs14nc">万元</span>
               </span>
               <span class="tip1">本周接单总金额</span>
               <span :class="weekOrderInfo.all_percentage < 0 ? 'green' : 'red'">
@@ -111,7 +111,7 @@
             </div>
             <!-- 本周接单TOP 3 -->
             <div class="top-right_mid">
-              <div class="mid-tip fs12">本周接单TOP 3</div>
+              <div class="mid-tip">本周接单TOP 3</div>
               <ul class="rank-list mt10">
                 <li>
                   <div class="no-one rank fl">是一部</div>

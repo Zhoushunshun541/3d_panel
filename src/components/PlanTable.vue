@@ -21,7 +21,8 @@
     <div class="plan-table-list">
       <ul>
         <li class="flex" v-for="(item, i) in planList" :key="i">
-          <div class="table-index">{{ item.id }}</div>
+          <!-- <div class="table-index">{{ item.id }}</div> -->
+          <div class="table-index">{{ i + 1 }}</div>
           <div class="dept-name">{{ item.name }}</div>
           <div class="month-capacity">{{ item.avg_month }}</div>
           <div class="last-month">{{ item.up_month }}</div>

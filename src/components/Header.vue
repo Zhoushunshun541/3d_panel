@@ -18,7 +18,7 @@
         <span class="fs30"> {{ weatherInfo.temp }} </span>
         ℃
       </span>
-      <span class="pl15 fs14"> {{ weatherInfo.text }}</span>
+      <span class="pl10 fs14nc"> {{ weatherInfo.text }}</span>
     </div>
   </header>
 </template>
@@ -262,6 +262,7 @@ export default {
     height: 100%;
   }
   .header-info {
+    margin-top: -10px;
     font-size: 16px;
     padding-right: 20px;
     justify-content: flex-end;

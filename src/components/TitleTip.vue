@@ -1,7 +1,7 @@
 <template>
   <div class="target-info mt15 flex">
     <div class="bg-color flex" v-if="+type === 1">
-      <div>
+      <div class="w120">
         <span>2020目标</span>
         <span class="amount-num">
           <CountTo
@@ -12,7 +12,7 @@
           <span class="fs14nc">万元</span>
         </span>
       </div>
-      <div>
+      <div class="w120">
         <span>距目标</span>
         <span class="amount-num">
           <CountTo
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="bg-color flex" v-if="+type === 2">
-      <div>
+      <div class="w120">
         <span>三季度总产值</span>
         <span class="amount-num">
           <CountTo
@@ -38,10 +38,7 @@
       </div>
       <div class="compare flex">
         <div>
-          同比：<span
-            class="w50"
-            :class="$state.GDP.gdp_percentage < 0 ? 'green' : 'red'"
-          >
+          同比：<span :class="$state.GDP.gdp_percentage < 0 ? 'green' : 'red'">
             <CountTo
               separator=","
               :endVal="$state.GDP.gdp_percentage"
@@ -52,7 +49,6 @@
         </div>
         <div>
           相比目标：<span
-            class="w50"
             :class="$state.GDP.target_percentage < 0 ? 'green' : 'red'"
           >
             <CountTo
@@ -96,15 +92,15 @@
             :endVal="$state.planInfo.up_month_num"
             :duration="1500"
           ></CountTo>
-          <span class="fs12 amount-num">
+          <span class="fs14nc amount-num">
             /
             <CountTo
               separator=","
               :endVal="$state.planInfo.plan_num"
               :duration="1500"
             ></CountTo>
-            万件
           </span>
+          <span class="fs14nc">万件</span>
         </span>
       </div>
     </div>
