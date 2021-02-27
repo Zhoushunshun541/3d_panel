@@ -19,6 +19,7 @@
           <div class="flex quarter-progress">
             <div class="quarter" v-for="(r, index) in item.season" :key="index">
               <div
+                class="anima w0"
                 :style="{
                   background: r.percentage > 100 ? '#07C297' : '#1999D6',
                   color: r.percentage > 100 ? '#01144E' : '#fff',
@@ -30,6 +31,7 @@
             </div>
             <div class="all-year-progress">
               <div
+                class="anima w0"
                 :style="{
                   height: '100%',
                   background: item.all_percentage > 100 ? '#07C297' : '#1999D6',
@@ -116,7 +118,11 @@ export default {
     .quarter-progress {
       flex-wrap: wrap;
     }
+    .anima {
+      transition: all 0.5s;
+    }
     .all-year-progress {
+      transition: all 0.5s;
       margin-top: 2px;
       width: 408px;
       height: 5px;

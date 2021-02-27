@@ -6,11 +6,17 @@
         <!-- 左侧的顶部 -->
         <div class="index-first__top flex">
           <div class="top-left">
-            <span class="title">2020年接单情况</span>
+            <span class="title">
+              <svg class="icon icon-title" aria-hidden="true">
+                <use xlink:href="#iconai-module"></use>
+              </svg>
+              2020年接单情况
+            </span>
             <div class="title_tip mt25">今年总接单</div>
             <div class="flex order-num">
               <div class="amount">
                 <CountTo
+                  separator=","
                   :endVal="$state.thisYear.num"
                   :duration="1500"
                 ></CountTo>
@@ -19,12 +25,12 @@
               <div class="compare flex">
                 <div>
                   同比：<span
-                    class="w50"
                     :class="
                       this.$state.thisYear.percentage < 0 ? 'green' : 'red'
                     "
                   >
                     <CountTo
+                      separator=","
                       :endVal="$state.thisYear.percentage"
                       :duration="1500"
                     ></CountTo>
@@ -33,7 +39,6 @@
                 </div>
                 <div>
                   相比目标：<span
-                    class="w50"
                     :class="
                       this.$state.thisYear.target_percentage < 0
                         ? 'green'
@@ -41,6 +46,7 @@
                     "
                   >
                     <CountTo
+                      separator=","
                       :endVal="$state.thisYear.target_percentage"
                       :duration="1500"
                     ></CountTo>
@@ -86,6 +92,7 @@
             <div class="top-right_top flex">
               <span class="tip">
                 <CountTo
+                  separator=","
                   :endVal="weekOrderInfo.all_num"
                   :duration="1500"
                 ></CountTo>
@@ -95,6 +102,7 @@
               <span :class="weekOrderInfo.all_percentage < 0 ? 'green' : 'red'">
                 环比
                 <CountTo
+                  separator=","
                   :endVal="weekOrderInfo.all_percentage"
                   :duration="1500"
                 ></CountTo>
@@ -143,7 +151,12 @@
         <div class="flex bottom mt15">
           <div class="bottom-left border_warp mr10">
             <div class="header flex">
-              <span class="title">2020年三季度人均产值</span>
+              <span class="title">
+                <svg class="icon icon-title" aria-hidden="true">
+                  <use xlink:href="#iconai-module"></use>
+                </svg>
+                2020年三季度人均产值
+              </span>
               <div class="custom-radio">
                 <div :class="{ active: active === 0 }" @click="active = 0">
                   上个月
@@ -159,7 +172,10 @@
             </div>
           </div>
           <div class="bottom-right border_warp">
-            <span class="title" style="line-height:40px;">
+            <span class="title">
+              <svg class="icon icon-title" aria-hidden="true">
+                <use xlink:href="#iconai-module"></use>
+              </svg>
               2020年10月费用公示
             </span>
             <ScrollTable></ScrollTable>
@@ -168,7 +184,10 @@
       </div>
       <div class="index_third">
         <div class="index_third-top border_warp">
-          <span class="title" style="line-height:40px;">
+          <span class="title">
+            <svg class="icon icon-title" aria-hidden="true">
+              <use xlink:href="#iconai-module"></use>
+            </svg>
             2020年11月～4月工厂排产计划
           </span>
           <TitleTip :type="3"></TitleTip>
@@ -181,17 +200,25 @@
           <PlanTable></PlanTable>
         </div>
         <div class="index_third-bottom border_warp mt15">
-          <span class="title" style="line-height:40px;">
+          <p class="title">
+            <svg class="icon icon-title" aria-hidden="true">
+              <use xlink:href="#iconai-module"></use>
+            </svg>
             2020年10月自检不良率
-          </span>
-          <span>单位:万件</span>
+          </p>
+          <p class="fs14">单位:万件</p>
           <BistTable></BistTable>
         </div>
       </div>
       <div class="index_four">
         <div class="index_four-top border_warp">
-          <div class="header mb15 flex" style="margin-top:-10px">
-            <span class="title">最新动态</span>
+          <div class="header mb15 flex">
+            <span class="title">
+              <svg class="icon icon-title" aria-hidden="true">
+                <use xlink:href="#iconai-module"></use>
+              </svg>
+              最新动态
+            </span>
             <div class="custom-radio">
               <div :class="{ active: active === 0 }" @click="active = 0">
                 公司
@@ -215,12 +242,22 @@
           </VueSeamlessScroll>
         </div>
         <div class="index_four-mid border_warp mt10">
-          <span class="title">近半年美元兑人民币汇率走势</span>
+          <span class="title">
+            <svg class="icon icon-title" aria-hidden="true">
+              <use xlink:href="#iconai-module"></use>
+            </svg>
+            近半年美元兑人民币汇率走势
+          </span>
           <ExchangeRate class="mt15"></ExchangeRate>
         </div>
         <div class="index_four-bottom border_warp flex mt10">
           <div>
-            <span class="title">2020年回款超期情况</span>
+            <span class="title">
+              <svg class="icon icon-title" aria-hidden="true">
+                <use xlink:href="#iconai-module"></use>
+              </svg>
+              2020年回款超期情况
+            </span>
             <PieEchart></PieEchart>
           </div>
           <div>

@@ -1,6 +1,6 @@
 <template>
   <div class="mid_content">
-    <div class="frate-info flex" style="padding:7px">
+    <div class="frate-info flex" style="padding:7px 0;">
       <div class="fs24 frate-info-close-pri">
         <span :class="exchange.closePri > exchange.yesPic ? 'red' : 'green'">
           {{ exchange.closePri }}
@@ -13,11 +13,11 @@
           </svg>
         </span>
       </div>
-      <div style="font-weight:400;" class="ml20">
+      <div style="font-weight:400;" class="ml10">
         <p>{{ exchange.diffPer + ' ' + exchange.diffAmo }}</p>
         <p>{{ exchange.date + '  ' + exchange.datatime }}</p>
       </div>
-      <div class="ml30">
+      <div class="ml20">
         <template v-for="(item, i) in cash">
           <p :key="i" v-if="i < 2">
             {{
@@ -66,10 +66,10 @@ export default {
     return {
       options: {
         grid: {
-          left: '3%',
+          left: '5%',
           right: '3%',
           top: '10%',
-          bottom: '15%',
+          bottom: '18%',
         },
         xAxis: {
           axisLine: {
@@ -167,12 +167,15 @@ export default {
 
 <style lang="less" scoped>
 .mid_content {
+  .icon {
+    margin-left: -12px;
+  }
   .frate-info {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     &-close-pri {
       color: #ff6c66;
       font-weight: bold;
-      padding-left: 20px;
+      padding-left: 10px;
     }
   }
   .visual-pa {

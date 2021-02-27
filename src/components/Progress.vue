@@ -103,6 +103,9 @@ export default {
         ];
       }
     });
+    this.$nextTick(() => {
+      this.initChart();
+    });
   },
 };
 </script>

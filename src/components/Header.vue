@@ -242,14 +242,15 @@ export default {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   .header-logo img {
-    width: 180px;
-    height: 58px;
     margin-top: -10px;
+    width: 145px;
+    height: 46px;
   }
   .header-tip {
     height: 100%;
     justify-content: center;
     span {
+      margin-top: -10px;
       -webkit-text-fill-color: transparent;
       -webkit-background-clip: text;
       background-image: linear-gradient(#fff, #149eeb);

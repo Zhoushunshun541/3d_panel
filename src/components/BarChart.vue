@@ -115,7 +115,7 @@ export default {
           },
         },
         grid: {
-          left: 0,
+          left: '3%',
           right: 0,
           bottom: '28%',
           top: '18%',
@@ -127,7 +127,7 @@ export default {
           axisLine: {
             show: true,
             lineStyle: {
-              color: 'rgba(207, 220, 255, 0.6)',
+              color: '#29A4FF',
             },
           },
           axisTick: {
@@ -139,7 +139,8 @@ export default {
             },
           },
           axisLabel: {
-            fontSize: 10,
+            fontSize: 14,
+            color: 'rgba(207, 220, 255, 0.6)',
           },
         },
         yAxis: [
@@ -149,26 +150,31 @@ export default {
             axisLine: {
               show: true,
               lineStyle: {
-                color: 'rgba(207, 220, 255, 0.6)',
+                color: '#29A4FF',
               },
             },
+            nameTextStyle: {
+              fontSize: 14,
+              color: 'rgba(207, 220, 255, 0.6)',
+            },
             splitLine: {
-              show: false,
+              show: true,
+              lineStyle: {
+                color: 'rgba(255, 255, 255, .1)',
+              },
             },
             axisTick: {
               show: false,
             },
             axisLabel: {
               fontSize: 14,
+              color: 'rgba(207, 220, 255, 0.6)',
             },
           },
           {
             type: 'value',
             axisLine: {
-              show: true,
-              lineStyle: {
-                color: 'rgba(207, 220, 255, 0.6)',
-              },
+              show: false,
             },
             min: 0,
             max: 125,
@@ -182,6 +188,7 @@ export default {
             axisLabel: {
               fontSize: 14,
               formatter: '{value} %',
+              color: 'rgba(207, 220, 255, 0.6)',
             },
           },
         ],
@@ -221,11 +228,11 @@ export default {
                       fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
                         {
                           offset: 0,
-                          color: '#07C297',
+                          color: '#1C9A97',
                         },
                         {
                           offset: 1,
-                          color: '#07C297',
+                          color: '#1C9A97',
                         },
                       ]),
                     },
@@ -244,11 +251,11 @@ export default {
                       fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
                         {
                           offset: 0,
-                          color: '#07C297',
+                          color: '#1C9A97',
                         },
                         {
                           offset: 1,
-                          color: '#07C297',
+                          color: '#1C9A97',
                         },
                       ]),
                     },
@@ -267,11 +274,11 @@ export default {
                       fill: new echart.graphic.LinearGradient(0, 0, 0, 1, [
                         {
                           offset: 0,
-                          color: '#07C297',
+                          color: '#1C9A97',
                         },
                         {
                           offset: 1,
-                          color: '#07C297',
+                          color: '#1C9A97',
                         },
                       ]),
                     },

@@ -112,6 +112,7 @@ export default {
         upData.push(item.num);
       });
       return {
+        color: ['#07C297', '#FFCC00'],
         tooltip: {
           trigger: 'axis',
         },
@@ -123,11 +124,6 @@ export default {
           right: '4%',
           bottom: '3%',
           containLabel: true,
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {},
-          },
         },
         xAxis: {
           type: 'category',
@@ -171,6 +167,7 @@ export default {
             symbol: 'none',
             lineStyle: {
               color: '#07C297',
+              width: 1,
             },
             stack: '总量',
             data: [200, 150, 100, 150, 200, 230],
@@ -182,6 +179,7 @@ export default {
             symbol: 'none',
             lineStyle: {
               color: '#FFCC00',
+              width: 1,
             },
             stack: '总量',
             data: [100, 150, 130, 150, 180, 210],
@@ -189,6 +187,9 @@ export default {
         ],
       };
     },
+  },
+  mounted() {
+    this.initChart();
   },
 };
 </script>

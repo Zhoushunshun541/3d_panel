@@ -33,6 +33,7 @@ export default {
           itemWidth: 10,
           itemHeight: 10,
           right: 10,
+          top: 25,
           textStyle: {
             color: 'rgba(207, 220, 255, 0.6)',
           },
@@ -74,10 +75,12 @@ export default {
           {
             name: '单位：万美元',
             axisLabel: {
+              fontSize: 14,
               formatter: '{value}',
               color: 'rgba(207, 220, 255, 0.6)',
             },
             nameTextStyle: {
+              fontSize: 14,
               color: 'rgba(207, 220, 255, 0.6)',
             },
             axisLine: {
@@ -90,7 +93,7 @@ export default {
             },
             splitLine: {
               lineStyle: {
-                color: 'rgba(207, 220, 255, 0.6)',
+                color: 'rgba(255, 255, 255, .1)',
               },
             },
           },

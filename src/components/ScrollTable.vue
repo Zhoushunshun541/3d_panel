@@ -1,6 +1,6 @@
 <template>
   <div class="scroll-table">
-    <span>单位:万件</span>
+    <span>单位:万元</span>
     <!-- 表头 -->
     <table class="mt5">
       <colgroup>

@@ -4,14 +4,22 @@
       <div>
         <span>2020目标</span>
         <span class="amount-num">
-          <CountTo :endVal="orderInfo.complete_num" :duration="1500"></CountTo>
+          <CountTo
+            separator=","
+            :endVal="orderInfo.complete_num"
+            :duration="1500"
+          ></CountTo>
           <span class="fs14">万元</span>
         </span>
       </div>
       <div>
         <span>距目标</span>
         <span class="amount-num">
-          <CountTo :endVal="orderInfo.from_complete" :duration="1500"></CountTo>
+          <CountTo
+            separator=","
+            :endVal="orderInfo.from_complete"
+            :duration="1500"
+          ></CountTo>
           <span class="fs14">万元</span>
         </span>
       </div>
@@ -20,7 +28,11 @@
       <div>
         <span>三季度总产值</span>
         <span class="amount-num">
-          <CountTo :endVal="$state.GDP.all_gdp" :duration="1500"></CountTo>
+          <CountTo
+            separator=","
+            :endVal="$state.GDP.all_gdp"
+            :duration="1500"
+          ></CountTo>
           <span class="fs14">万元</span>
         </span>
       </div>
@@ -31,6 +43,7 @@
             :class="$state.GDP.gdp_percentage < 0 ? 'green' : 'red'"
           >
             <CountTo
+              separator=","
               :endVal="$state.GDP.gdp_percentage"
               :duration="1500"
             ></CountTo>
@@ -43,6 +56,7 @@
             :class="$state.GDP.target_percentage < 0 ? 'green' : 'red'"
           >
             <CountTo
+              separator=","
               :endVal="$state.GDP.target_percentage"
               :duration="1500"
             ></CountTo>
@@ -52,20 +66,22 @@
       </div>
     </div>
     <div class="bg-color flex" v-if="+type === 3">
-      <div>
+      <div class="mr70">
         <span>工厂数量</span>
         <span class="amount-num">
           <CountTo
+            separator=","
             :endVal="$state.planInfo.factory_num"
             :duration="1500"
           ></CountTo>
           <span class="fs14 amount-num">个</span>
         </span>
       </div>
-      <div>
+      <div class="mr70">
         <span>平均每月产能</span>
         <span class="amount-num">
           <CountTo
+            separator=","
             :endVal="$state.planInfo.avg_month_num"
             :duration="1500"
           ></CountTo>
@@ -76,12 +92,14 @@
         <span>上月总产出<span class="fs12">/排产产能</span></span>
         <span class="amount-num">
           <CountTo
+            separator=","
             :endVal="$state.planInfo.up_month_num"
             :duration="1500"
           ></CountTo>
           <span class="fs12 amount-num">
             /
             <CountTo
+              separator=","
               :endVal="$state.planInfo.plan_num"
               :duration="1500"
             ></CountTo>

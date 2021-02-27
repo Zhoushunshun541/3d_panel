@@ -39,7 +39,12 @@
                   ? ''
                   : 'unfinished'
               "
-              :style="{ width: month.month_percentage + '%' }"
+              :style="{
+                width:
+                  month.month_percentage > 100
+                    ? '100%'
+                    : month.month_percentage + '%',
+              }"
             >
               {{ month.month_percentage + '%' }}
             </div>
