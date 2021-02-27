@@ -271,7 +271,7 @@
                   <span class="ml15 ta-r">
                     {{ item.num | toThousandFilter }}万元
                   </span>
-                  <span class="ml10 w70 ta-r">占比{{ item.percentage }}%</span>
+                  <span class="ml10 w70 ta-r">{{ item.percentage }}%</span>
                 </div>
               </li>
             </ul>
