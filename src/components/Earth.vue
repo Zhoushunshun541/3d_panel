@@ -22,11 +22,11 @@ export default {
     },
     height: {
       type: [String, Number],
-      default: '523',
+      default: '100%',
     },
     width: {
       type: [String, Number],
-      default: '860',
+      default: '100%',
     },
   },
   data() {

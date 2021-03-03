@@ -22,7 +22,7 @@
                 ></CountTo>
                 <span class="fs24">万元</span>
               </div>
-              <div class="compare flex">
+              <!-- <div class="compare flex">
                 <div>
                   同比：<span
                     :class="
@@ -53,7 +53,7 @@
                     %
                   </span>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="top-right">
@@ -85,6 +85,13 @@
               </div>
             </div>
             <Earth></Earth>
+            <video
+              class="factory-live"
+              src="http://61.160.83.154:10000/test"
+              autoplay="autoplay"
+            >
+              your browser does not support the video tag
+            </video>
           </div>
           <!-- 地图右侧 -->
           <div class="top-right border_warp">
