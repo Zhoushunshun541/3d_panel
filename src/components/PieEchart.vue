@@ -29,7 +29,7 @@ export default {
       'rgba(126, 5, 92, 1)',
     ];
     return {
-      active: 0, // 当前高亮的下标
+      active: 0,
       options: {
         backgroundColor: '',
         color,
@@ -64,7 +64,7 @@ export default {
             radius: ['55%', '70%'],
             center: ['50%', '50%'],
             data: [],
-            hoverAnimation: false,
+            hoverOffset: 3,
             labelLine: {
               normal: {
                 lineStyle: {
@@ -118,27 +118,30 @@ export default {
     },
     // 动态更改选中样式的 方法
     changePieSelect(list, s = 4000) {
-      setTimeout(() => {
+      // 设置当前选择状态
+      this.myChart.dispatchAction({
+        type: 'highlight',
+        dataIndex: this.active,
+      });
+      // 取消上个选择状态
+      if (this.active > 0) {
         this.myChart.dispatchAction({
-          type: 'pieSelect',
-          dataIndex: this.active,
+          type: 'downplay',
+          dataIndex: this.active - 1,
         });
-        if (this.active > 0) {
-          this.myChart.dispatchAction({
-            type: 'pieUnSelect',
-            dataIndex: this.active - 1,
-          });
-        } else {
-          this.myChart.dispatchAction({
-            type: 'pieUnSelect',
-            dataIndex: list.length - 1,
-          });
-        }
-
+      } else if (this.active === 0) {
+        this.myChart.dispatchAction({
+          type: 'downplay',
+          dataIndex: list.length - 1,
+        });
+      }
+      setTimeout(() => {
         if (this.active < list.length - 1) {
-          this.active++;
+          ++this.active;
+          this.$emit('getActive', this.active);
         } else {
           this.active = 0;
+          this.$emit('getActive', 0);
         }
         this.changePieSelect(list);
       }, s);

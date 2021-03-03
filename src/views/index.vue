@@ -267,11 +267,22 @@
               </svg>
               2020年回款超期情况
             </span>
-            <PieEchart></PieEchart>
+            <PieEchart
+              @getActive="
+                data => {
+                  backAct = data;
+                }
+              "
+            ></PieEchart>
           </div>
           <div>
             <ul style="height:220px">
-              <li v-for="(item, i) in backList" class="flex" :key="i">
+              <li
+                v-for="(item, i) in backList"
+                class="flex"
+                :class="{ active: i === backAct }"
+                :key="i"
+              >
                 <span class="type_index">{{ i + 1 }}</span>
                 <div class="flex content ml15">
                   <span class="w55">{{ item.name }}</span>
@@ -341,6 +352,7 @@ export default {
   },
   data() {
     return {
+      backAct: 0, // 回款超期饼图的当前选中的下标
       showDialog: false,
       // 地区列表
       areaList: [
