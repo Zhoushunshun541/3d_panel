@@ -117,22 +117,33 @@ export default {
           trigger: 'axis',
         },
         legend: {
-          data: [year - 1, year],
+          show: true,
+          icon: 'rect',
+          itemHeight: 2,
+          itemWidth: 10,
+          right: 5,
+          textStyle: {
+            color: '#5D6B95',
+          },
+          data: [(year - 1).toString(), year.toString()],
         },
         grid: {
           left: '3%',
           right: '4%',
-          bottom: '3%',
-          containLabel: true,
+          bottom: '18%',
+          top: '18%',
         },
         xAxis: {
           type: 'category',
-          boundaryGap: false,
           axisLine: {
             show: false,
           },
           axisTick: {
             show: false,
+          },
+          axisLabel: {
+            show: true,
+            color: '#5D6B95',
           },
           splitLine: {
             lineStyle: {
@@ -141,7 +152,8 @@ export default {
               type: 'dotted',
             },
           },
-          data,
+          data: ['1月', '3月', '5月', '7月', '9月', '11月'],
+          // data,
         },
         yAxis: {
           type: 'value',

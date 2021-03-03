@@ -29,6 +29,7 @@ export default {
       'rgba(126, 5, 92, 1)',
     ];
     return {
+      active: 0, // 当前高亮的下标
       options: {
         backgroundColor: '',
         color,
@@ -87,6 +88,7 @@ export default {
     };
   },
   methods: {
+    // 处理数据 渲染echart的方法
     getBusinessBackParagraph() {
       // 千分分隔符
       function toThousandFilter(num) {
@@ -97,7 +99,7 @@ export default {
       business_back_paragraph().then(res => {
         if (res.status) {
           this.options.series[0].data = res.data.list.map(arr => {
-            return { name: arr.name, value: arr.num };
+            return { name: arr.name, value: arr.num, selected: false };
           });
           this.options.title.text = [
             `{a|${toThousandFilter(res.data.all_num) || 0}}{b|万元}`,
@@ -109,9 +111,37 @@ export default {
           });
           this.$nextTick(() => {
             this.initChart();
+            this.changePieSelect(res.data.list);
           });
         }
       });
+    },
+    // 动态更改选中样式的 方法
+    changePieSelect(list, s = 4000) {
+      setTimeout(() => {
+        this.myChart.dispatchAction({
+          type: 'pieSelect',
+          dataIndex: this.active,
+        });
+        if (this.active > 0) {
+          this.myChart.dispatchAction({
+            type: 'pieUnSelect',
+            dataIndex: this.active - 1,
+          });
+        } else {
+          this.myChart.dispatchAction({
+            type: 'pieUnSelect',
+            dataIndex: list.length - 1,
+          });
+        }
+
+        if (this.active < list.length - 1) {
+          this.active++;
+        } else {
+          this.active = 0;
+        }
+        this.changePieSelect(list);
+      }, s);
     },
   },
   mounted() {

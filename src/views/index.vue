@@ -57,7 +57,7 @@
             </div>
           </div>
           <div class="top-right">
-            <line-chart></line-chart>
+            <LineChart></LineChart>
           </div>
         </div>
         <!-- 2020年完成与目标比 -->
