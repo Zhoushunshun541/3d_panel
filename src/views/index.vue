@@ -288,7 +288,7 @@
                 <span class="type_index">{{ i + 1 }}</span>
                 <div class="flex content ml15">
                   <span class="w55">{{ item.name }}</span>
-                  <span class="ml15 ta-r">
+                  <span class="ml5 ta-r">
                     {{ item.num | toThousandFilter }}万元
                   </span>
                   <span class="ml10 w70 ta-r">{{ item.percentage }}%</span>
@@ -409,11 +409,11 @@ export default {
     getWeekOrder() {
       business_week_order().then(res => {
         if (res.status) {
-          this.orderList = res.data.list;
-          this.weekOrderInfo = {
-            all_num: res.data.all_num,
-            all_percentage: this.DealPercent(res.data.all_percentage),
-          };
+          // this.orderList = res.data.list ? res.data.list : [];
+          // this.weekOrderInfo = {
+          //   all_num: res.data.all_num,
+          //   all_percentage: this.DealPercent(res.data.all_percentage),
+          // };
         }
         // setTimeout(() => {
         //   this.getWeekOrder();

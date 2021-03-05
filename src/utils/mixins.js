@@ -10,7 +10,9 @@ export const DealPercent = {
   methods: {
     // 处理百分号
     DealPercent(str) {
-      return parseFloat(str.split('%')[0]);
+      if (str) {
+        return parseFloat(str.toString().split('%')[0]);
+      }
     },
   },
 };

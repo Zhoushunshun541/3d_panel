@@ -21,11 +21,11 @@
         <template v-for="(item, i) in cash">
           <p :key="i" v-if="i < 2">
             {{
-              cash[0].currencyFD +
-                cash[0].currencyF_Name +
+              item.currencyFD +
+                item.currencyF_Name +
                 (i === 0 ? ' = ' : ' ≈ ') +
-                parseFloat(cash[0].exchange).toFixed(4) +
-                cash[0].currencyT_Name
+                parseFloat(item.exchange).toFixed(4) +
+                item.currencyT_Name
             }}
           </p>
         </template>
@@ -66,7 +66,7 @@ export default {
     return {
       options: {
         grid: {
-          left: '5%',
+          left: '10%',
           right: '3%',
           top: '10%',
           bottom: '18%',
@@ -90,6 +90,8 @@ export default {
           data: [],
         },
         yAxis: {
+          min: 6,
+          max: 7,
           axisLine: {
             show: false,
           },

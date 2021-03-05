@@ -155,6 +155,7 @@ export default {
           temp.target_percentage = this.DealPercent(
             res.data.this_year.target_percentage
           );
+          console.log(res);
           this.$store.dispatch('setState', [
             {
               key: 'waterData',

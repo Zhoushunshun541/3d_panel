@@ -133,10 +133,10 @@ export default {
     getBusinessGDP() {
       business_gdp({ type: this.type }).then(res => {
         if (res.status) {
+          this.options.xAxis[0].data = [];
+          this.options.series[0].data = [];
+          this.options.series[1].data = [];
           res.data.list.forEach(item => {
-            this.options.xAxis[0].data = [];
-            this.options.series[0].data = [];
-            this.options.series[1].data = [];
             this.options.xAxis[0].data.push(item.name);
             this.options.series[0].data.push(item.up_num);
             this.options.series[1].data.push(item.local_num);
