@@ -151,8 +151,6 @@ export default {
     display: block;
     height: 176px;
     overflow: scroll;
-    border-left: 1px dotted rgba(255, 255, 255, 0.1);
-    border-right: 1px dotted rgba(255, 255, 255, 0.1);
   }
   thead {
     text-align: center;
@@ -210,6 +208,16 @@ export default {
     border-bottom: 1px solid;
     border-top: 1px solid;
     border-color: rgba(255, 255, 255, 0.1);
+  }
+  td:first-child {
+    border-left: none;
+  }
+  td:last-child {
+    border-right: none;
+  }
+  table {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 </style>
