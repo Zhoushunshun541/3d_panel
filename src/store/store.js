@@ -3,11 +3,31 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-
+// 季度
+const QUARTER = ['四季度', '一季度', '二季度', '三季度'];
+// 月份
+const MONTH = [
+  '十二月',
+  '一月',
+  '二月',
+  '三月',
+  '四月',
+  '五月',
+  '六月',
+  '七月',
+  '八月',
+  '九月',
+  '十月',
+  '十一月',
+];
+const nowDate = new Date();
 export default new Vuex.Store({
   state: {
     // 登录相关信息  start
     token: localStorage.getItem('token') || '',
+    year: '',
+    month: MONTH[nowDate.getMonth()],
+    quarter: QUARTER[Math.floor(nowDate.getMonth() / 3)],
     waterData: +sessionStorage.getItem('waterData') || 0,
     quarterData: +sessionStorage.getItem('quarterData') || [],
     backList: +sessionStorage.getItem('backList') || [],

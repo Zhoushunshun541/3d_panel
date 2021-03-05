@@ -10,7 +10,7 @@
               <svg class="icon icon-title" aria-hidden="true">
                 <use xlink:href="#iconai-module"></use>
               </svg>
-              2020年接单情况
+              {{ $state.year }}年接单情况
             </span>
             <div class="title_tip mt25">今年总接单</div>
             <div class="flex order-num">
@@ -164,7 +164,9 @@
                 <svg class="icon icon-title" aria-hidden="true">
                   <use xlink:href="#iconai-module"></use>
                 </svg>
-                2020年三季度人均产值
+                {{ $state.year }}年{{
+                  $state[active === 0 ? 'month' : 'quarter']
+                }}人均产值
               </span>
               <div class="custom-radio">
                 <div :class="{ active: active === 0 }" @click="active = 0">
@@ -197,7 +199,7 @@
             <svg class="icon icon-title" aria-hidden="true">
               <use xlink:href="#iconai-module"></use>
             </svg>
-            2020年11月～4月工厂排产计划
+            {{ $state.year }}年11月～4月工厂排产计划
           </span>
           <TitleTip :type="3"></TitleTip>
           <div class="plan-content mt25">
@@ -213,7 +215,7 @@
             <svg class="icon icon-title" aria-hidden="true">
               <use xlink:href="#iconai-module"></use>
             </svg>
-            2020年10月自检不良率
+            {{ $state.year + $state.month }}自检不良率
           </p>
           <p class="fs14">单位:万件</p>
           <BistTable></BistTable>
@@ -265,7 +267,7 @@
               <svg class="icon icon-title" aria-hidden="true">
                 <use xlink:href="#iconai-module"></use>
               </svg>
-              2020年回款超期情况
+              {{ $state.year }}年回款超期情况
             </span>
             <PieEchart
               @getActive="
@@ -399,7 +401,7 @@ export default {
       // 最新动态的列表
       dynamic: [],
       area_id: 1,
-      active: 0,
+      active: 0, // 0 上个月   1  上季度
     };
   },
   methods: {
@@ -420,6 +422,22 @@ export default {
     },
     // 定时切换上个月上季度的数据
     autoWebPageRefresh() {
+      const nowDate = new Date();
+      const year = nowDate.getFullYear();
+      if (
+        (this.active === 1 && Math.floor(nowDate.getMonth() / 3) === 0) ||
+        (this.active === 0 && nowDate.getMonth() === 0)
+      ) {
+        this.$store.dispatch('setState', {
+          key: 'year',
+          value: `${year - 1}年`,
+        });
+      } else {
+        this.$store.dispatch('setState', {
+          key: 'year',
+          value: `${year}年`,
+        });
+      }
       setTimeout(() => {
         if (this.active) {
           this.active -= 1;

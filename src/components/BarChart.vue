@@ -1,7 +1,7 @@
 <template>
   <div class="complate-situation">
     <div class="flex complate-situation_title">
-      <span class="title_1">{{ title }}</span>
+      <span class="title_1">{{ showTitle }}</span>
       <div class="custom-radio">
         <div :class="{ active: active === 0 }">
           上个月
@@ -37,7 +37,7 @@ export default {
     },
     title: {
       type: String,
-      default: '2020年四季度销售完成情况',
+      default: ``,
     },
   },
   data() {
@@ -522,6 +522,16 @@ export default {
   },
   created() {
     this.getSalesComplete();
+  },
+  computed: {
+    showTitle() {
+      return (
+        this.title ||
+        `${this.$state.year}年${
+          this.$state[this.active === 0 ? 'month' : 'quarter']
+        }销售完成情况`
+      );
+    },
   },
 };
 </script>

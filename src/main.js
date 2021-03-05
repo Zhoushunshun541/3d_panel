@@ -10,6 +10,12 @@ import fullscreen from 'vue-fullscreen';
 Vue.use(fullscreen);
 Vue.prototype.$echart = echarts;
 Vue.config.productionTip = false;
+Vue.config.errorHandler = (err, vm, info) => {
+  // 处理错误
+  // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
+  console.log(err, vm, info);
+};
+
 Vue.prototype.$state = store.state;
 new Vue({
   router,

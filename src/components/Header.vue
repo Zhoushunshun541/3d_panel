@@ -36,6 +36,7 @@ const WEEK = [
   '星期五',
   '星期六',
 ];
+
 export default {
   data() {
     return {
