@@ -115,7 +115,7 @@
             <!-- 本周接单TOP 3 -->
             <div class="top-right_mid">
               <div class="mid-tip">本周接单TOP 3</div>
-              <ul class="rank-list mt10">
+              <ul class="rank-list mt10" v-if="topList.length > 0">
                 <li>
                   <div class="no-one rank fl">{{ topList[0].name }}</div>
                   <div class="fr">{{ topList[0].num }} 万元</div>
@@ -190,7 +190,7 @@
             <svg class="icon icon-title" aria-hidden="true">
               <use xlink:href="#iconai-module"></use>
             </svg>
-            {{ $state.now_year }}11月～4月工厂排产计划
+            {{ $state.now_year }}年11月～4月工厂排产计划
           </span>
           <TitleTip :type="3"></TitleTip>
           <div class="plan-content mt25">

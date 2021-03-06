@@ -106,6 +106,9 @@ export default {
   }
 }
 .plan-table-list {
+  margin-top: 10px;
+  height: 280px;
+  overflow: hidden;
   font-size: 14px;
   .max-height {
     height: 285px;

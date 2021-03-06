@@ -33,8 +33,10 @@ export default {
             label: {
               normal: {
                 formatter: [
-                  `{a|${this.$state.waterData.toFixed(2)}%}`,
-                  `{b|完成与目标比}`,
+                  `{${
+                    this.$state.waterData < 60 ? 'wa' : 'a'
+                  }|${this.$state.waterData.toFixed(2)}%}`,
+                  `{${this.$state.waterData < 60 ? 'wb' : 'b'}|完成与目标比}`,
                 ].join('\n'),
                 rich: {
                   a: {
@@ -42,6 +44,14 @@ export default {
                   },
                   b: {
                     fontSize: 10,
+                  },
+                  wa: {
+                    fontSize: 16,
+                    color: 'rgba(207, 220, 255, 0.85)',
+                  },
+                  wb: {
+                    fontSize: 10,
+                    color: 'rgba(207, 220, 255, 0.85)',
                   },
                 },
               },

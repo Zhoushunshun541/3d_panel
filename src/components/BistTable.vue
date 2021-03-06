@@ -164,8 +164,12 @@ export default {
   },
   methods: {
     // 获取相关数据
-    getBusinessQcBad() {
-      business_qc_bad().then(res => {
+    getBusinessQcBad(page = 1) {
+      const p = {
+        page,
+        per_page: 6,
+      };
+      business_qc_bad(p).then(res => {
         if (res.status) {
           const d = res.data;
           this.month_bad = parseFloat(d.month_bad);

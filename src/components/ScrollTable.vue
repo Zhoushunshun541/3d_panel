@@ -27,7 +27,10 @@
       </thead>
     </table>
     <!-- 表内容 -->
-    <table class="table-content">
+    <table
+      class="table-content animate__animated"
+      :class="{ animate__fadeInRight: showAnimate }"
+    >
       <colgroup>
         <col name="dept" width="80" />
         <col name="table-row-cell_1" width="65" />
@@ -110,6 +113,7 @@ export default {
   name: 'ScrollTable',
   data() {
     return {
+      showAnimate: false, // 动画效果
       tableData: [],
       totalData: {
         sales_percentage: '',
@@ -120,11 +124,24 @@ export default {
   },
   methods: {
     // 获取费用公示
-    getBusinessCost() {
-      business_cost().then(res => {
+    getBusinessCost(page = 1) {
+      this.showAnimate = false;
+      const p = {
+        page,
+        per_page: 7,
+      };
+      business_cost(p).then(res => {
         if (res.status) {
           this.tableData = res.data.list;
-          this.totalData = this.tableData.pop();
+          this.totalData = res.data.all_cost;
+          const totalPage = Math.ceil(res.data.pagenation.total / 7);
+          this.showAnimate = true;
+          setTimeout(() => {
+            if (totalPage <= page) {
+              page = 0;
+            }
+            this.getBusinessCost(page + 1);
+          }, 10 * 1000);
         }
       });
     },

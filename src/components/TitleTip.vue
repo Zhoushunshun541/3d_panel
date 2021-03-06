@@ -1,7 +1,7 @@
 <template>
   <div class="target-info mt15 flex">
     <div class="bg-color flex" v-if="+type === 1">
-      <div class="w120">
+      <div class="w160">
         <span>{{ $state.now_year }}目标</span>
         <span class="amount-num">
           <CountTo
@@ -12,7 +12,7 @@
           <span class="fs14nc">万元</span>
         </span>
       </div>
-      <div class="w120">
+      <div class="w160">
         <span>距目标</span>
         <span class="amount-num">
           <CountTo
