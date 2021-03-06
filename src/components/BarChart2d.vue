@@ -60,6 +60,7 @@ export default {
               show: true,
               lineStyle: {
                 type: 'dashed',
+                color: 'rgba(255, 255, 255, .1)',
               },
             },
             axisLabel: {

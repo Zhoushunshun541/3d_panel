@@ -117,26 +117,26 @@
               <div class="mid-tip">本周接单TOP 3</div>
               <ul class="rank-list mt10">
                 <li>
-                  <div class="no-one rank fl">是一部</div>
-                  <div class="fr">352.10 万元</div>
+                  <div class="no-one rank fl">{{ topList[0].name }}</div>
+                  <div class="fr">{{ topList[0].num }} 万元</div>
                 </li>
                 <li>
-                  <div class="no-two rank fl">是一部</div>
-                  <div class="fr">352.10 万元</div>
+                  <div class="no-two rank fl">{{ topList[1].name }}</div>
+                  <div class="fr">{{ topList[1].num }} 万元</div>
                 </li>
                 <li>
-                  <div class="no-three rank fl">是一部</div>
-                  <div class="fr">352.10 万元</div>
+                  <div class="no-three rank fl">{{ topList[2].name }}</div>
+                  <div class="fr">{{ topList[2].num }} 万元</div>
                 </li>
                 <li style="margin-bottom:10px;">
                   <div class="fl all">其余合计</div>
-                  <div class="fr">1230.20 万元</div>
+                  <div class="fr">{{ topList[3].num }} 万元</div>
                 </li>
               </ul>
               <Progress></Progress>
             </div>
             <div class="top-right_bottom">
-              <ul class="news_warp" style="height: 180px;">
+              <ul class="news_warp" style="height: 180px;overflow:hidden">
                 <li class="mb10" v-for="(item, i) in orderList" :key="i">
                   <div class="news-date">{{ item.date }}</div>
                   <div style="color:rgba(207, 220, 255, 0.75);">
@@ -390,6 +390,7 @@ export default {
       }, // 接单详情数据
       // 新闻列表
       orderList: [],
+      topList: [], // 接单top3
       // 最新动态的列表
       dynamic: [],
       area_id: 1,
@@ -401,15 +402,13 @@ export default {
     getWeekOrder() {
       business_week_order().then(res => {
         if (res.status) {
-          // this.orderList = res.data.list ? res.data.list : [];
-          // this.weekOrderInfo = {
-          //   all_num: res.data.all_num,
-          //   all_percentage: this.DealPercent(res.data.all_percentage),
-          // };
+          this.orderList = res.data.list ? res.data.list : [];
+          this.topList = res.data.week_list ? res.data.week_list : [];
+          this.weekOrderInfo = {
+            all_num: res.data.all_num,
+            all_percentage: this.DealPercent(res.data.all_percentage),
+          };
         }
-        // setTimeout(() => {
-        //   this.getWeekOrder();
-        // }, 1000);
       });
     },
     // 定时切换上个月上季度的数据
@@ -438,7 +437,7 @@ export default {
         }
 
         this.autoWebPageRefresh();
-      }, 60 * 1000);
+      }, 10 * 1000);
     },
     // 获取最新动态
     getBusinessDynamic() {

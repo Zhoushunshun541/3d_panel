@@ -6,7 +6,9 @@ import echarts from 'echarts';
 import 'echarts-gl';
 import '../node_modules/echarts/map/js/world.js';
 import fullscreen from 'vue-fullscreen';
+import animated from 'animate.css';
 
+Vue.use(animated);
 Vue.use(fullscreen);
 Vue.prototype.$echart = echarts;
 Vue.config.productionTip = false;

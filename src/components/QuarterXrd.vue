@@ -8,7 +8,10 @@
       <div class="quarter">四季度</div>
       <div class="all-year">完成全年目标</div>
     </div>
-    <ul>
+    <ul
+      class="animate__animated mt5"
+      :class="{ animate__fadeInRight: showAnimate }"
+    >
       <li v-for="(item, i) in list" :key="i" class="progress">
         <div class="dept-name">{{ item.name }}</div>
         <div class="flex quarter-progress">
@@ -51,15 +54,25 @@
 </template>
 
 <script>
-import { ScrollList } from '@/utils/mixins';
-
 // 季度分析的组件
 export default {
   name: 'QuarterXrd',
-  mixins: [ScrollList],
+  data() {
+    return {
+      showAnimate: false,
+    };
+  },
   computed: {
     list() {
       return this.$state.quarterData;
+    },
+  },
+  watch: {
+    list() {
+      this.showAnimate = false;
+      this.$nextTick(() => {
+        this.showAnimate = true;
+      });
     },
   },
 };
