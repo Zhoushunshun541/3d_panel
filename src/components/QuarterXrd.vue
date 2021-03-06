@@ -25,7 +25,7 @@
                   width: r.percentage <= 100 ? r.percentage + '%' : '100%',
                 }"
               >
-                {{ r.percentage }}%
+                <span style="padding-left:5px">{{ r.percentage }}%</span>
               </div>
             </div>
             <div class="all-year-progress">
@@ -156,10 +156,10 @@ export default {
     color: #5d6b95;
   }
   .quarter {
-    width: 102px;
+    width: 92px;
   }
   .dept-name {
-    width: 50px;
+    width: 90px;
     flex-shrink: 0;
     color: #5d6b95;
   }
@@ -181,7 +181,7 @@ export default {
     .all-year-progress {
       transition: all 0.5s;
       margin-top: 2px;
-      width: 408px;
+      width: 368px;
       height: 5px;
       border: 1px dashed rgba(255, 255, 255, 0.1);
     }

@@ -24,7 +24,7 @@ export const ScrollList = {
   data() {
     return {
       classOption: {
-        step: 0.2, // 数值越大速度滚动越快
+        step: 0.1, // 数值越大速度滚动越快
         limitMoveNum: 5, // 开始无缝滚动的数据量 this.dataList.length
         hoverStop: true, // 是否开启鼠标悬停stop
         direction: 1, // 0向下 1向上 2向左 3向右

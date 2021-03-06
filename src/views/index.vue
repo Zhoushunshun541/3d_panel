@@ -280,10 +280,10 @@
                 <span class="type_index">{{ i + 1 }}</span>
                 <div class="flex content ml15">
                   <span class="w55">{{ item.name }}</span>
-                  <span class="ml5 ta-r">
+                  <span class="ml5 w90 ta-r">
                     {{ item.num | toThousandFilter }}万元
                   </span>
-                  <span class="ml10 w70 ta-r">{{ item.percentage }}%</span>
+                  <span class="ml10 w30 ta-r as-r">{{ item.percentage }}%</span>
                 </div>
               </li>
             </ul>

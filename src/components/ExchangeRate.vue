@@ -139,17 +139,14 @@ export default {
   methods: {
     // 处理K线图数据
     dealKLineEchart(arr) {
-      const num = arr.length;
-      arr.forEach((item, i) => {
-        if (i > num - 30) {
-          this.options.series[0].data.push([
-            item.start,
-            item.end,
-            item.min,
-            item.max,
-          ]);
-          this.options.xAxis.data.push(item.data_time);
-        }
+      arr.forEach(item => {
+        this.options.series[0].data.push([
+          item.start,
+          item.end,
+          item.min,
+          item.max,
+        ]);
+        this.options.xAxis.data.push(item.data_time);
       });
       this.$nextTick(() => {
         this.initChart();
@@ -161,6 +158,8 @@ export default {
         if (res.status) {
           this.exchange = res.data.frate;
           this.cash = res.data.currency;
+          this.options.yAxis.min = res.data.all_min;
+          this.options.yAxis.max = res.data.all_max;
           this.dealKLineEchart(res.data.movements);
         }
       });
