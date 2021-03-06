@@ -30,7 +30,10 @@ export default new Vuex.Store({
     month: MONTH[nowDate.getMonth()],
     quarter: QUARTER[Math.floor(nowDate.getMonth() / 3)],
     waterData: +sessionStorage.getItem('waterData') || 0,
-    quarterData: +sessionStorage.getItem('quarterData') || [],
+    orderInfo: +sessionStorage.getItem('orderInfo') || {
+      complete_num: 0,
+      from_complete: 0,
+    },
     backList: +sessionStorage.getItem('backList') || [],
     GDP: JSON.parse(sessionStorage.getItem('GDP')) || {
       target_percentage: 0,

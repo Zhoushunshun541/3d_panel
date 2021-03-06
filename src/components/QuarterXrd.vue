@@ -8,72 +8,126 @@
       <div class="quarter">四季度</div>
       <div class="all-year">完成全年目标</div>
     </div>
-    <ul
-      class="animate__animated mt5"
-      :class="{ animate__fadeInRight: showAnimate }"
-    >
-      <li v-for="(item, i) in list" :key="i" class="progress">
-        <div class="dept-name">{{ item.name }}</div>
-        <div class="flex quarter-progress">
-          <div class="quarter" v-for="(r, index) in item.season" :key="index">
-            <div
-              class="anima w0"
-              :style="{
-                background: r.percentage > 100 ? '#07C297' : '#1999D6',
-                color: r.percentage > 100 ? '#01144E' : '#fff',
-                width: r.percentage <= 100 ? r.percentage + '%' : '100%',
-              }"
-            >
-              {{ r.percentage }}%
+    <template v-if="showList.length > 0">
+      <ul
+        class="animate__animated mt5"
+        :class="{ animate__fadeInRight: showAnimate }"
+      >
+        <li v-for="(item, i) in showList" :key="i" class="progress">
+          <div class="dept-name">{{ item.name }}</div>
+          <div class="flex quarter-progress">
+            <div class="quarter" v-for="(r, index) in item.season" :key="index">
+              <div
+                class="anima w0"
+                :style="{
+                  background: r.percentage > 100 ? '#07C297' : '#1999D6',
+                  color: r.percentage > 100 ? '#01144E' : '#fff',
+                  width: r.percentage <= 100 ? r.percentage + '%' : '100%',
+                }"
+              >
+                {{ r.percentage }}%
+              </div>
+            </div>
+            <div class="all-year-progress">
+              <div
+                class="anima w0"
+                :style="{
+                  height: '100%',
+                  background: item.all_percentage > 100 ? '#07C297' : '#1999D6',
+                  color: item.all_percentage > 100 ? '#01144E' : '#fff',
+                  width:
+                    item.all_percentage <= 100
+                      ? item.all_percentage + '%'
+                      : '100%',
+                }"
+              ></div>
             </div>
           </div>
-          <div class="all-year-progress">
-            <div
-              class="anima w0"
-              :style="{
-                height: '100%',
-                background: item.all_percentage > 100 ? '#07C297' : '#1999D6',
-                color: item.all_percentage > 100 ? '#01144E' : '#fff',
-                width:
-                  item.all_percentage <= 100
-                    ? item.all_percentage + '%'
-                    : '100%',
-              }"
-            ></div>
+          <div class="all-year" style="color:#CFDCFF;">
+            <span class="pr5" style="color: #5D6B95;">
+              全年
+            </span>
+            {{ item.all_percentage }}%
           </div>
-        </div>
-        <div class="all-year" style="color:#CFDCFF;">
-          <span class="pr5" style="color: #5D6B95;">
-            全年
-          </span>
-          {{ item.all_percentage }}%
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
 <script>
+import { business_order } from '@/api/api';
+import { DealPercent } from '@/utils/mixins';
 // 季度分析的组件
 export default {
   name: 'QuarterXrd',
+  mixins: [DealPercent],
   data() {
     return {
       showAnimate: false,
+      list: [],
+      showList: [], // 分页数据
     };
   },
-  computed: {
-    list() {
-      return this.$state.quarterData;
+  methods: {
+    // 获取接单详情 水球图那里
+    getAllYearOrder() {
+      business_order().then(res => {
+        if (res.status) {
+          // 将百分比转number
+          const temp = JSON.parse(JSON.stringify(res.data.this_year));
+          temp.percentage = this.DealPercent(res.data.this_year.percentage);
+          temp.target_percentage = this.DealPercent(
+            res.data.this_year.target_percentage
+          );
+          this.list = res.data.list;
+          this.getPageList();
+          this.$store.dispatch('setState', [
+            {
+              key: 'waterData',
+              value: +res.data.percentage,
+            },
+            {
+              key: 'thisYear',
+              value: temp,
+            },
+            {
+              key: 'orderInfo',
+              value: {
+                complete_num: parseFloat(res.data.complete_num),
+                from_complete: parseFloat(res.data.from_complete),
+              },
+            },
+          ]);
+        }
+      });
     },
-  },
-  watch: {
-    list() {
-      this.showAnimate = false;
+    // 获取分页数据
+    getPageList(page = 0) {
+      // 获取全部数据
+      const list = JSON.parse(JSON.stringify(this.list));
+      // 获取总页数
+      const total = Math.ceil(this.list.length / 7);
+      // 获取相应页的数据  如果是不足一页 取值要注意
+      if (page * 7 < this.list.length) {
+        this.showList = list.splice(page * 7, 7);
+      } else {
+        this.showList = list.splice(page * 7, this.list.length);
+      }
+      if (page >= total - 1) {
+        page = -1;
+      }
       this.$nextTick(() => {
         this.showAnimate = true;
       });
+      setTimeout(() => {
+        this.showAnimate = false;
+        this.getPageList(page + 1);
+      }, 30 * 1000);
     },
+  },
+  created() {
+    this.getAllYearOrder();
   },
 };
 </script>

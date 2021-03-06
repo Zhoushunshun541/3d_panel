@@ -27,7 +27,10 @@
           <div>{{ year_bad }}%</div>
         </div>
       </div>
-      <ul>
+      <ul
+        class="animate__animated"
+        :class="{ animate__fadeInRight: showAnimate }"
+      >
         <li class="flex" v-for="(item, i) in bistList" :key="i">
           <div class="table-index">{{ item.id }}</div>
           <div class="dept-name">{{ item.name }}</div>
@@ -62,6 +65,7 @@ export default {
     return {
       // 不良率列表
       bistList: [],
+      showAnimate: false,
       month_bad: 0, // 月不良率标准
       year_bad: 0, // 年不良率标准
       m_max: 0, // 设置echart最大值   月
@@ -165,6 +169,7 @@ export default {
   methods: {
     // 获取相关数据
     getBusinessQcBad(page = 1) {
+      this.showAnimate = false;
       const p = {
         page,
         per_page: 6,
@@ -194,11 +199,24 @@ export default {
           this.$nextTick(() => {
             this.dealWithEchart();
           });
+          const totalPage = Math.ceil(res.data.pagenations.total / 6);
+          this.showAnimate = true;
+          setTimeout(() => {
+            if (totalPage <= page) {
+              page = 0;
+            }
+            this.getBusinessQcBad(page + 1);
+          }, 60 * 1000);
         }
       });
     },
     // 处理图表数据
     dealWithEchart() {
+      if (mychart || mychart1) {
+        mychart.dispose();
+        mychart1.dispose();
+      }
+
       this.bistList.forEach(item => {
         const options = JSON.parse(JSON.stringify(this.options));
         const options1 = JSON.parse(JSON.stringify(this.options));
@@ -335,11 +353,11 @@ export default {
 }
 .dept-name {
   text-align: right;
-  width: 60px;
+  width: 80px;
 }
 .check-num {
   text-align: right;
-  width: 80px;
+  width: 60px;
 }
 .bad-num {
   text-align: right;

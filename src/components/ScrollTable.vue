@@ -134,26 +134,26 @@ export default {
         if (res.status) {
           this.tableData = res.data.list;
           this.totalData = res.data.all_cost;
-          const totalPage = Math.ceil(res.data.pagenation.total / 7);
+          const totalPage = Math.ceil(res.data.pagenations.total / 7);
           this.showAnimate = true;
           setTimeout(() => {
             if (totalPage <= page) {
               page = 0;
             }
             this.getBusinessCost(page + 1);
-          }, 10 * 1000);
+          }, 60 * 1000);
         }
       });
     },
-    scrollTable() {
-      this.animate = true;
-      setTimeout(() => {
-        this.tableData.push(this.tableData[0]);
-        this.tableData.shift();
-        this.animate = false;
-        this.scrollTable();
-      }, 2000);
-    },
+    // scrollTable() {
+    //   this.animate = true;
+    //   setTimeout(() => {
+    //     this.tableData.push(this.tableData[0]);
+    //     this.tableData.shift();
+    //     this.animate = false;
+    //     this.scrollTable();
+    //   }, 2000);
+    // },
   },
   created() {
     this.getBusinessCost();

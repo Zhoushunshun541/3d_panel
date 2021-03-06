@@ -108,13 +108,10 @@
 </template>
 
 <script>
-import { business_order } from '@/api/api';
-import { DealPercent } from '@/utils/mixins';
 import CountTo from 'vue-count-to';
 
 export default {
   name: 'TitleTip',
-  mixins: [DealPercent],
   props: {
     type: {
       type: [Number, String],
@@ -124,15 +121,6 @@ export default {
   components: {
     CountTo,
   },
-  data() {
-    return {
-      orderInfo: {
-        complete_num: 0,
-        from_complete: 0,
-        percentage: 0,
-      },
-    };
-  },
   filters: {
     toThousandFilter(num) {
       return (+num || 0)
@@ -140,47 +128,10 @@ export default {
         .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     },
   },
-  methods: {
-    // 获取接单详情 水球图那里
-    getAllYearOrder() {
-      business_order().then(res => {
-        if (res.status) {
-          this.orderInfo = {
-            complete_num: parseFloat(res.data.complete_num),
-            from_complete: parseFloat(res.data.from_complete),
-          };
-          // 将百分比转number
-          const temp = JSON.parse(JSON.stringify(res.data.this_year));
-          temp.percentage = this.DealPercent(res.data.this_year.percentage);
-          temp.target_percentage = this.DealPercent(
-            res.data.this_year.target_percentage
-          );
-          this.$store.dispatch('setState', [
-            {
-              key: 'waterData',
-              value: +res.data.percentage,
-            },
-            {
-              key: 'thisYear',
-              value: temp,
-            },
-            {
-              key: 'quarterData',
-              value: res.data.list,
-            },
-          ]);
-        }
-      });
+  computed: {
+    orderInfo() {
+      return this.$state.orderInfo;
     },
-  },
-  created() {
-    switch (+this.type) {
-      case 1:
-        this.getAllYearOrder();
-        break;
-      default:
-        break;
-    }
   },
 };
 </script>

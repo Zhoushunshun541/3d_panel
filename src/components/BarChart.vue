@@ -498,12 +498,13 @@ export default {
   methods: {
     // 获取销售的完成情况
     getSalesComplete() {
-      business_sales_complete({ type: this.type }).then(res => {
+      business_sales_complete({ type: this.active }).then(res => {
         if (res.status) {
           const MAX = [];
           const VALUE = [];
           const UPDATA = [];
           const COMPLETE = [];
+          this.options.xAxis.data = [];
           res.data.list.forEach(item => {
             MAX.push(item.sales_num);
             VALUE.push(item.complete_num);
@@ -522,6 +523,11 @@ export default {
   },
   created() {
     this.getSalesComplete();
+  },
+  watch: {
+    active() {
+      this.getSalesComplete();
+    },
   },
   computed: {
     showTitle() {

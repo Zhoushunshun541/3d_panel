@@ -18,7 +18,10 @@
       <div class="month">3月</div>
       <div class="month">4月</div>
     </div>
-    <div class="plan-table-list">
+    <div
+      class="plan-table-list animate__animated"
+      :class="{ animate__fadeInRight: showAnimate }"
+    >
       <ul>
         <li class="flex" v-for="(item, i) in planList" :key="i">
           <!-- <div class="table-index">{{ item.id }}</div> -->
@@ -65,14 +68,21 @@ export default {
     return {
       // 排产计划列表
       planList: [],
+      showAnimate: false,
     };
   },
   methods: {
     // 获取排产计划的信息
-    getBusinessPlan() {
-      business_plan().then(res => {
+    getBusinessPlan(page = 1) {
+      this.showAnimate = false;
+      const p = {
+        page,
+        per_page: 7,
+      };
+      business_plan(p).then(res => {
         if (res.status) {
           this.planList = res.data.factory_list;
+          this.showAnimate = true;
           this.$store.dispatch('setState', {
             key: 'planInfo',
             value: {
@@ -82,6 +92,14 @@ export default {
               plan_num: res.data.plan_num,
             },
           });
+          const totalPage = Math.ceil(res.data.pagenations.total / 7);
+          this.showAnimate = true;
+          setTimeout(() => {
+            if (totalPage <= page) {
+              page = 0;
+            }
+            this.getBusinessPlan(page + 1);
+          }, 60 * 1000);
         }
       });
     },
