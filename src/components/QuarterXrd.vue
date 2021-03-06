@@ -8,65 +8,55 @@
       <div class="quarter">四季度</div>
       <div class="all-year">完成全年目标</div>
     </div>
-    <VueSeamlessScroll
-      :data="list"
-      class="max-height"
-      :class-option="classOption"
-    >
-      <ul>
-        <li v-for="(item, i) in list" :key="i" class="progress">
-          <div class="dept-name">{{ item.name }}</div>
-          <div class="flex quarter-progress">
-            <div class="quarter" v-for="(r, index) in item.season" :key="index">
-              <div
-                class="anima w0"
-                :style="{
-                  background: r.percentage > 100 ? '#07C297' : '#1999D6',
-                  color: r.percentage > 100 ? '#01144E' : '#fff',
-                  width: r.percentage <= 100 ? r.percentage + '%' : '100%',
-                }"
-              >
-                {{ r.percentage }}%
-              </div>
-            </div>
-            <div class="all-year-progress">
-              <div
-                class="anima w0"
-                :style="{
-                  height: '100%',
-                  background: item.all_percentage > 100 ? '#07C297' : '#1999D6',
-                  color: item.all_percentage > 100 ? '#01144E' : '#fff',
-                  width:
-                    item.all_percentage <= 100
-                      ? item.all_percentage + '%'
-                      : '100%',
-                }"
-              ></div>
+    <ul>
+      <li v-for="(item, i) in list" :key="i" class="progress">
+        <div class="dept-name">{{ item.name }}</div>
+        <div class="flex quarter-progress">
+          <div class="quarter" v-for="(r, index) in item.season" :key="index">
+            <div
+              class="anima w0"
+              :style="{
+                background: r.percentage > 100 ? '#07C297' : '#1999D6',
+                color: r.percentage > 100 ? '#01144E' : '#fff',
+                width: r.percentage <= 100 ? r.percentage + '%' : '100%',
+              }"
+            >
+              {{ r.percentage }}%
             </div>
           </div>
-          <div class="all-year" style="color:#CFDCFF;">
-            <span class="pr5" style="color: #5D6B95;">
-              全年
-            </span>
-            {{ item.all_percentage }}%
+          <div class="all-year-progress">
+            <div
+              class="anima w0"
+              :style="{
+                height: '100%',
+                background: item.all_percentage > 100 ? '#07C297' : '#1999D6',
+                color: item.all_percentage > 100 ? '#01144E' : '#fff',
+                width:
+                  item.all_percentage <= 100
+                    ? item.all_percentage + '%'
+                    : '100%',
+              }"
+            ></div>
           </div>
-        </li>
-      </ul>
-    </VueSeamlessScroll>
+        </div>
+        <div class="all-year" style="color:#CFDCFF;">
+          <span class="pr5" style="color: #5D6B95;">
+            全年
+          </span>
+          {{ item.all_percentage }}%
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import VueSeamlessScroll from 'vue-seamless-scroll';
 import { ScrollList } from '@/utils/mixins';
 
 // 季度分析的组件
 export default {
   name: 'QuarterXrd',
   mixins: [ScrollList],
-  components: {
-    VueSeamlessScroll,
-  },
   computed: {
     list() {
       return this.$state.quarterData;

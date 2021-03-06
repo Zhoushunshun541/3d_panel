@@ -5,6 +5,9 @@ export const Echart = {
       this.myChart.setOption(this.options);
     },
   },
+  beforeDestroy() {
+    this.myChart.dispose();
+  },
 };
 export const DealPercent = {
   methods: {

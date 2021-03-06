@@ -54,6 +54,8 @@
 <script>
 import { business_qc_bad } from '@/api/api';
 
+let mychart = null;
+let mychart1 = null;
 export default {
   name: 'BistTable',
   data() {
@@ -221,10 +223,8 @@ export default {
           ],
           false
         );
-        const myChart = this.$echart.init(
-          document.getElementById(`mbn-${item.id}`)
-        );
-        myChart.setOption(options);
+        mychart = this.$echart.init(document.getElementById(`mbn-${item.id}`));
+        mychart.setOption(options);
 
         // 年不良率
         options1.yAxis.data = [item.year_bad_percentage];
@@ -250,15 +250,17 @@ export default {
           ],
           false
         );
-        const myChart1 = this.$echart.init(
-          document.getElementById(`abn-${item.id}`)
-        );
-        myChart1.setOption(options1);
+        mychart1 = this.$echart.init(document.getElementById(`abn-${item.id}`));
+        mychart1.setOption(options1);
       });
     },
   },
   mounted() {
     this.getBusinessQcBad();
+  },
+  beforeDestroy() {
+    mychart.dispose();
+    mychart1.dispose();
   },
 };
 </script>

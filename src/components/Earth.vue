@@ -230,9 +230,12 @@ export default {
       this.myChart.setOption(this.option);
       // this.option.globe.baseTexture = this.mapChart;
 
-      this.myChart.setOption(this.option);
+      // this.myChart.setOption(this.option);
       // this.myChart.setOption(this.mapOption); // 平面展开图
     },
+  },
+  beforeDestroy() {
+    this.myChart.dispose();
   },
 };
 </script>

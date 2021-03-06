@@ -25,6 +25,7 @@ export default new Vuex.Store({
   state: {
     // 登录相关信息  start
     token: localStorage.getItem('token') || '',
+    now_year: nowDate.getFullYear(),
     year: '',
     month: MONTH[nowDate.getMonth()],
     quarter: QUARTER[Math.floor(nowDate.getMonth() / 3)],

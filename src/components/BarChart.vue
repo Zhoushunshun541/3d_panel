@@ -527,9 +527,8 @@ export default {
     showTitle() {
       return (
         this.title ||
-        `${this.$state.year}年${
-          this.$state[this.active === 0 ? 'month' : 'quarter']
-        }销售完成情况`
+        `${this.$state.year +
+          this.$state[this.active === 0 ? 'month' : 'quarter']}销售完成情况`
       );
     },
   },

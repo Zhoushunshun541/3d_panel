@@ -2,7 +2,7 @@
   <div class="target-info mt15 flex">
     <div class="bg-color flex" v-if="+type === 1">
       <div class="w120">
-        <span>2020目标</span>
+        <span>{{ $state.now_year }}目标</span>
         <span class="amount-num">
           <CountTo
             separator=","
@@ -155,7 +155,6 @@ export default {
           temp.target_percentage = this.DealPercent(
             res.data.this_year.target_percentage
           );
-          console.log(res);
           this.$store.dispatch('setState', [
             {
               key: 'waterData',

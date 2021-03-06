@@ -90,8 +90,8 @@ export default {
           data: [],
         },
         yAxis: {
-          min: 6,
-          max: 7,
+          min: 6.4,
+          max: 6.9,
           axisLine: {
             show: false,
           },
@@ -116,6 +116,8 @@ export default {
               color: '#FF6C66',
               color0: '#07C297',
               borderWidth: 0,
+              borderColor: '#8A0000',
+              borderColor0: '#008F28',
             },
             data: [], // [开盘值, 收盘值, 最低值, 最高值]
           },
@@ -137,14 +139,17 @@ export default {
   methods: {
     // 处理K线图数据
     dealKLineEchart(arr) {
-      arr.forEach(item => {
-        this.options.series[0].data.push([
-          item.start,
-          item.end,
-          item.min,
-          item.max,
-        ]);
-        this.options.xAxis.data.push(item.data_time);
+      const num = arr.length;
+      arr.forEach((item, i) => {
+        if (i > num - 30) {
+          this.options.series[0].data.push([
+            item.start,
+            item.end,
+            item.min,
+            item.max,
+          ]);
+          this.options.xAxis.data.push(item.data_time);
+        }
       });
       this.$nextTick(() => {
         this.initChart();

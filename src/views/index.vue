@@ -10,7 +10,7 @@
               <svg class="icon icon-title" aria-hidden="true">
                 <use xlink:href="#iconai-module"></use>
               </svg>
-              {{ $state.year }}年接单情况
+              {{ $state.now_year }}年接单情况
             </span>
             <div class="title_tip mt25">今年总接单</div>
             <div class="flex order-num">
@@ -63,7 +63,7 @@
         <!-- 2020年完成与目标比 -->
         <div class="meet-target flex">
           <div style="flex-grow: 1;">
-            <span class="title_1">2020年完成与目标比</span>
+            <span class="title_1">{{ $state.now_year }}年完成与目标比</span>
             <TitleTip type="1"></TitleTip>
           </div>
           <WaterPolo></WaterPolo>
@@ -85,11 +85,7 @@
               </div>
             </div>
             <Earth></Earth>
-            <video
-              class="factory-live"
-              src="http://61.160.83.154:10000/test"
-              autoplay="autoplay"
-            >
+            <video class="factory-live" src="http://61.160.83.154:10000/test">
               your browser does not support the video tag
             </video>
           </div>
@@ -140,20 +136,14 @@
               <Progress></Progress>
             </div>
             <div class="top-right_bottom">
-              <VueSeamlessScroll
-                :data="orderList"
-                class="max-height"
-                :class-option="classOption"
-              >
-                <ul class="news_warp" style="height: 180px;">
-                  <li class="mb10" v-for="(item, i) in orderList" :key="i">
-                    <div class="news-date">{{ item.date }}</div>
-                    <div style="color:rgba(207, 220, 255, 0.75);">
-                      {{ item.name }} 接单 {{ item.num }}万元
-                    </div>
-                  </li>
-                </ul>
-              </VueSeamlessScroll>
+              <ul class="news_warp" style="height: 180px;">
+                <li class="mb10" v-for="(item, i) in orderList" :key="i">
+                  <div class="news-date">{{ item.date }}</div>
+                  <div style="color:rgba(207, 220, 255, 0.75);">
+                    {{ item.name }} 接单 {{ item.num }}万元
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -164,8 +154,8 @@
                 <svg class="icon icon-title" aria-hidden="true">
                   <use xlink:href="#iconai-module"></use>
                 </svg>
-                {{ $state.year }}年{{
-                  $state[active === 0 ? 'month' : 'quarter']
+                {{
+                  $state.year + $state[active === 0 ? 'month' : 'quarter']
                 }}人均产值
               </span>
               <div class="custom-radio">
@@ -187,19 +177,20 @@
               <svg class="icon icon-title" aria-hidden="true">
                 <use xlink:href="#iconai-module"></use>
               </svg>
-              2020年10月费用公示
+              {{ $state.now_year }}年{{ $state.month }}费用公示
             </span>
             <ScrollTable></ScrollTable>
           </div>
         </div>
       </div>
+      <!-- 第三模块 -->
       <div class="index_third">
         <div class="index_third-top border_warp">
           <span class="title">
             <svg class="icon icon-title" aria-hidden="true">
               <use xlink:href="#iconai-module"></use>
             </svg>
-            {{ $state.year }}年11月～4月工厂排产计划
+            {{ $state.now_year }}11月～4月工厂排产计划
           </span>
           <TitleTip :type="3"></TitleTip>
           <div class="plan-content mt25">
@@ -215,12 +206,13 @@
             <svg class="icon icon-title" aria-hidden="true">
               <use xlink:href="#iconai-module"></use>
             </svg>
-            {{ $state.year + $state.month }}自检不良率
+            {{ $state.now_year + '年' + $state.month }}自检不良率
           </p>
           <p class="fs14">单位:万件</p>
           <BistTable></BistTable>
         </div>
       </div>
+      <!-- 第四模块 -->
       <div class="index_four">
         <div class="index_four-top border_warp">
           <div class="header mb15 flex">
@@ -267,7 +259,7 @@
               <svg class="icon icon-title" aria-hidden="true">
                 <use xlink:href="#iconai-module"></use>
               </svg>
-              {{ $state.year }}年回款超期情况
+              {{ $state.now_year }}年回款超期情况
             </span>
             <PieEchart
               @getActive="
@@ -401,7 +393,7 @@ export default {
       // 最新动态的列表
       dynamic: [],
       area_id: 1,
-      active: 0, // 0 上个月   1  上季度
+      active: 1, // 0 上个月   1  上季度
     };
   },
   methods: {

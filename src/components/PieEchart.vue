@@ -96,7 +96,7 @@ export default {
           .toFixed(1)
           .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
       }
-      business_back_paragraph().then(res => {
+      business_back_paragraph({ top: 10 }).then(res => {
         if (res.status) {
           this.options.series[0].data = res.data.list.map(arr => {
             return { name: arr.name, value: arr.num, selected: false };
