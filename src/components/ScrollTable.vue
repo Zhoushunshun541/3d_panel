@@ -141,7 +141,7 @@ export default {
               page = 0;
             }
             this.getBusinessCost(page + 1);
-          }, 60 * 1000);
+          }, this.$state.timerTask.cost);
         }
       });
     },
@@ -156,7 +156,12 @@ export default {
     // },
   },
   created() {
-    this.getBusinessCost();
+    const st = setInterval(() => {
+      if (this.$state.timerTask.cost > 0) {
+        clearInterval(st);
+        this.getBusinessCost();
+      }
+    });
   },
 };
 </script>

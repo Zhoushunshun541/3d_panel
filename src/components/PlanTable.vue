@@ -99,13 +99,25 @@ export default {
               page = 0;
             }
             this.getBusinessPlan(page + 1);
-          }, 60 * 1000);
+          }, this.$state.timerTask.plan);
         }
       });
     },
   },
-  created() {
-    this.getBusinessPlan();
+  computed: {
+    timerTask() {
+      return this.$state.timerTask;
+    },
+  },
+  watch: {
+    'timerTask.plan': {
+      handler(newValue) {
+        if (newValue) {
+          this.getBusinessPlan();
+        }
+      },
+      deep: true,
+    },
   },
 };
 </script>
@@ -164,7 +176,7 @@ export default {
 }
 .dept-name {
   text-align: right;
-  width: 60px;
+  width: 84px;
 }
 .month-capacity {
   text-align: right;
@@ -175,6 +187,6 @@ export default {
   width: 60px;
 }
 .month {
-  width: 61px;
+  width: 57px;
 }
 </style>

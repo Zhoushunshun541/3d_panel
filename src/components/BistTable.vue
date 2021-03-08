@@ -206,7 +206,7 @@ export default {
               page = 0;
             }
             this.getBusinessQcBad(page + 1);
-          }, 60 * 1000);
+          }, this.$state.timerTask.qc_bad);
         }
       });
     },
@@ -277,8 +277,15 @@ export default {
       });
     },
   },
-  mounted() {
-    this.getBusinessQcBad();
+  created() {
+    const st = setInterval(() => {
+      if (this.$state.timerTask.qc_bad > 0) {
+        clearInterval(st);
+        this.$nextTick(() => {
+          this.getBusinessQcBad();
+        });
+      }
+    });
   },
   beforeDestroy() {
     mychart.dispose();

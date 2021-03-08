@@ -21,7 +21,7 @@
                 class="anima w0"
                 :style="{
                   background: r.percentage > 100 ? '#07C297' : '#1999D6',
-                  color: r.percentage > 100 ? '#01144E' : '#fff',
+                  color: r.percentage > 100 ? '#01144E' : 'rgb(207, 220, 255)',
                   width: r.percentage <= 100 ? r.percentage + '%' : '100%',
                 }"
               >
@@ -123,11 +123,16 @@ export default {
       setTimeout(() => {
         this.showAnimate = false;
         this.getPageList(page + 1);
-      }, 30 * 1000);
+      }, this.$state.timerTask.order);
     },
   },
   created() {
-    this.getAllYearOrder();
+    const st = setInterval(() => {
+      if (this.$state.timerTask.order > 0) {
+        clearInterval(st);
+        this.getAllYearOrder();
+      }
+    });
   },
 };
 </script>

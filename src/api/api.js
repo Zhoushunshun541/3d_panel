@@ -127,3 +127,10 @@ export const business_back_paragraph = params => {
     params,
   });
 };
+
+// 定时切换时间
+export const business_timer_task = params => {
+  return http.get('/business/timer_task', {
+    params,
+  });
+};

@@ -22,38 +22,6 @@
                 ></CountTo>
                 <span class="fs24">万元</span>
               </div>
-              <!-- <div class="compare flex">
-                <div>
-                  同比：<span
-                    :class="
-                      this.$state.thisYear.percentage < 0 ? 'green' : 'red'
-                    "
-                  >
-                    <CountTo
-                      separator=","
-                      :endVal="$state.thisYear.percentage"
-                      :duration="1500"
-                    ></CountTo>
-                    %
-                  </span>
-                </div>
-                <div>
-                  相比目标：<span
-                    :class="
-                      this.$state.thisYear.target_percentage < 0
-                        ? 'green'
-                        : 'red'
-                    "
-                  >
-                    <CountTo
-                      separator=","
-                      :endVal="$state.thisYear.target_percentage"
-                      :duration="1500"
-                    ></CountTo>
-                    %
-                  </span>
-                </div>
-              </div> -->
             </div>
           </div>
           <div class="top-right">
@@ -85,9 +53,24 @@
               </div>
             </div>
             <Earth></Earth>
-            <video class="factory-live" src="http://61.160.83.154:10000/test">
-              your browser does not support the video tag
+            <video
+              id="my-video"
+              class="video-js factory-live vjs-default-skin"
+              controls
+              preload="auto"
+            >
+              <source
+                src="https://nclive.grtn.cn/typd/sd/live.m3u8?_upt=07d322ea1595884800"
+                type="application/x-mpegURL"
+              />
             </video>
+            <!-- <video
+              class="factory-live"
+              autoplay
+              src="https://file.idiot-zs.top/%E6%81%92%E7%94%B0%E4%BC%81%E4%B8%9A%E5%AE%A3%E4%BC%A0%E7%89%87%E6%97%A0%E9%85%8D%E9%9F%B3%E7%89%882017%E6%9C%80%E6%96%B0%E7%89%88.mp4"
+            >
+              your browser does not support the video tag
+            </video> -->
           </div>
           <!-- 地图右侧 -->
           <div class="top-right border_warp">
@@ -155,7 +138,8 @@
                   <use xlink:href="#iconai-module"></use>
                 </svg>
                 {{
-                  $state.year + $state[active === 0 ? 'month' : 'quarter']
+                  $state.year +
+                    $state[$state.timerTask.gdp === 0 ? 'month' : 'quarter']
                 }}人均产值
               </span>
               <div class="custom-radio">
@@ -169,7 +153,7 @@
             </div>
             <div class="content">
               <TitleTip type="2"></TitleTip>
-              <BarChart2d :type="active"></BarChart2d>
+              <BarChart2d :type="active_gdp"></BarChart2d>
             </div>
           </div>
           <div class="bottom-right border_warp">
@@ -238,7 +222,9 @@
           >
             <ul class="news_warp">
               <li class="mb10" v-for="(item, i) in dynamic" :key="i">
-                <div class="news-date">{{ item.date }}</div>
+                <div class="news-date" :class="{ 'news-top': i === 0 }">
+                  {{ item.date }}
+                </div>
                 <div>{{ item.title }}</div>
               </li>
             </ul>
@@ -318,7 +304,14 @@ import Dialog from '@/components/Dialog';
 import PieEchart from '@/components/PieEchart';
 import ExchangeRate from '@/components/ExchangeRate';
 import { ScrollList, DealPercent } from '@/utils/mixins';
-import { business_week_order, business_dynamic } from '@/api/api';
+import 'video.js/dist/video-js.css';
+import videojs from 'video.js';
+import 'videojs-contrib-hls';
+import {
+  business_week_order,
+  business_dynamic,
+  business_timer_task,
+} from '@/api/api';
 import CountTo from 'vue-count-to';
 
 export default {
@@ -395,9 +388,25 @@ export default {
       dynamic: [],
       area_id: 1,
       active: 1, // 0 上个月   1  上季度
+      active_gdp: 1, // 人均产值 0 上个月   1  上季度
     };
   },
   methods: {
+    getVideo() {
+      videojs(
+        'my-video',
+        {
+          bigPlayButton: false,
+          textTrackDisplay: false,
+          posterImage: true,
+          errorDisplay: false,
+          controlBar: false,
+        },
+        function() {
+          this.play();
+        }
+      );
+    },
     // 获取接单情况
     getWeekOrder() {
       business_week_order().then(res => {
@@ -435,9 +444,35 @@ export default {
         } else {
           this.active += 1;
         }
-
         this.autoWebPageRefresh();
-      }, 10 * 1000);
+      }, this.$state.timerTask.sales);
+    },
+    // 定时切换上个月上季度的数据
+    autoWebPageRefreshGDP() {
+      const nowDate = new Date();
+      const year = nowDate.getFullYear();
+      if (
+        (this.active_gdp === 1 && Math.floor(nowDate.getMonth() / 3) === 0) ||
+        (this.active_gdp === 0 && nowDate.getMonth() === 0)
+      ) {
+        this.$store.dispatch('setState', {
+          key: 'year',
+          value: `${year - 1}年`,
+        });
+      } else {
+        this.$store.dispatch('setState', {
+          key: 'year',
+          value: `${year}年`,
+        });
+      }
+      setTimeout(() => {
+        if (this.active_gdp) {
+          this.active_gdp -= 1;
+        } else {
+          this.active_gdp += 1;
+        }
+        this.autoWebPageRefresh();
+      }, this.$state.timerTask.gdb);
     },
     // 获取最新动态
     getBusinessDynamic() {
@@ -445,6 +480,20 @@ export default {
         if (res.status) {
           this.dynamic = res.data.list;
         }
+      });
+    },
+    // 获取各个任务的轮询切换的时间
+    getBusinessTimerTask() {
+      return new Promise(resolve => {
+        business_timer_task().then(res => {
+          if (res.status) {
+            this.$store.dispatch('setState', {
+              key: 'timerTask',
+              value: res.data,
+            });
+            resolve();
+          }
+        });
       });
     },
   },
@@ -455,13 +504,15 @@ export default {
         .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     },
   },
-  created() {
-    // setTimeout(() => {
-    //   this.showDialog = true;
-    // }, 3000);
+  async created() {
+    await this.getBusinessTimerTask();
     this.getWeekOrder();
     this.autoWebPageRefresh();
+    this.autoWebPageRefreshGDP();
     this.getBusinessDynamic();
+  },
+  mounted() {
+    this.getVideo();
   },
   computed: {
     // 超期回款列表

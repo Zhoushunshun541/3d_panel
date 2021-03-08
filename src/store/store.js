@@ -30,11 +30,22 @@ export default new Vuex.Store({
     month: MONTH[nowDate.getMonth()],
     quarter: QUARTER[Math.floor(nowDate.getMonth() / 3)],
     waterData: +sessionStorage.getItem('waterData') || 0,
-    orderInfo: +sessionStorage.getItem('orderInfo') || {
+    orderInfo: JSON.parse(sessionStorage.getItem('orderInfo')) || {
       complete_num: 0,
       from_complete: 0,
     },
-    backList: +sessionStorage.getItem('backList') || [],
+    // 各个模块的切换定时
+    timerTask: JSON.parse(sessionStorage.getItem('timerTask')) || {
+      dynamic: 0,
+      plan: 0,
+      qc_bad: 0,
+      cost: 0,
+      gdp: 0,
+      sales: 0,
+      prosperity: 0,
+      order: 0,
+    },
+    backList: JSON.parse(sessionStorage.getItem('backList')) || [],
     GDP: JSON.parse(sessionStorage.getItem('GDP')) || {
       target_percentage: 0,
       gdp_percentage: 0,
