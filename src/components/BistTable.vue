@@ -11,6 +11,7 @@
     <div class="bist-table-list mt10">
       <div class="w100 left">
         <div
+          v-if="month_bad > 0"
           class="assist-line"
           :style="{ marginLeft: `calc(${(month_bad / m_max) * 100}% - 15px)` }"
         >
@@ -20,6 +21,7 @@
       </div>
       <div class="w100 right">
         <div
+          v-if="month_bad > 0"
           class="assist-line"
           :style="{ marginLeft: `calc(${(year_bad / y_max) * 100}% - 15px)` }"
         >
@@ -172,7 +174,7 @@ export default {
       this.showAnimate = false;
       const p = {
         page,
-        per_page: 6,
+        per_page: 7,
       };
       business_qc_bad(p).then(res => {
         if (res.status) {
@@ -347,7 +349,7 @@ export default {
     color: #546781;
   }
   li {
-    margin-bottom: 24px;
+    margin-bottom: 15px;
     justify-content: space-between;
   }
   div {
