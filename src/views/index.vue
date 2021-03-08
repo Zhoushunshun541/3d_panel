@@ -56,8 +56,9 @@
             <video
               id="my-video"
               class="video-js factory-live vjs-default-skin"
-              controls
               preload="auto"
+              controls
+              muted
             >
               <source
                 src="https://nclive.grtn.cn/typd/sd/live.m3u8?_upt=07d322ea1595884800"
@@ -396,24 +397,29 @@ export default {
       active: 0, // 0 上个月   1  上季度
       active_gdp: 0, // 人均产值 0 上个月   1  上季度
       active_new: 0, // 最新动态 0 公司   1  行业
+      myPlayer: null,
     };
   },
   methods: {
     // 初始化播放器
     getVideo() {
-      videojs(
+      this.myPlayer = videojs(
         'my-video',
         {
           bigPlayButton: false,
           textTrackDisplay: false,
           posterImage: true,
           errorDisplay: false,
-          controlBar: false,
+          controlBar: true,
         },
         function() {
           this.play();
         }
       );
+      setTimeout(() => {
+        console.log(this.myPlayer);
+        this.myPlayer.volume(0.8);
+      }, 500);
     },
     // 获取接单情况
     getWeekOrder() {
@@ -483,7 +489,7 @@ export default {
   filters: {
     toThousandFilter(num) {
       return (+num || 0)
-        .toFixed(1)
+        .toFixed(2)
         .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     },
   },

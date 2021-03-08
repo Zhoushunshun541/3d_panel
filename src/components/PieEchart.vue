@@ -92,9 +92,11 @@ export default {
     getBusinessBackParagraph() {
       // 千分分隔符
       function toThousandFilter(num) {
-        return (+num || 0)
-          .toFixed(1)
-          .replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+        const str = num.toString().split('.')[1] || '';
+
+        return (
+          num.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,') + str
+        );
       }
       business_back_paragraph({ top: 10 }).then(res => {
         if (res.status) {
