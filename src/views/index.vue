@@ -138,15 +138,14 @@
                   <use xlink:href="#iconai-module"></use>
                 </svg>
                 {{
-                  $state.year +
-                    $state[$state.timerTask.gdp === 0 ? 'month' : 'quarter']
+                  gdp.year + $state[active_gdp === 0 ? 'month' : 'quarter']
                 }}人均产值
               </span>
               <div class="custom-radio">
-                <div :class="{ active: active === 0 }" @click="active = 0">
+                <div :class="{ active: active_gdp === 0 }">
                   上个月
                 </div>
-                <div :class="{ active: active === 1 }" @click="active = 1">
+                <div :class="{ active: active_gdp === 1 }">
                   上季度
                 </div>
               </div>
@@ -174,7 +173,9 @@
             <svg class="icon icon-title" aria-hidden="true">
               <use xlink:href="#iconai-module"></use>
             </svg>
-            {{ $state.now_year }}年11月～4月工厂排产计划
+            {{ $state.now_year }}年{{ now_m + 1 }}月～{{
+              now_m > 7 ? now_m - 7 : now_m + 6
+            }}月工厂排产计划
           </span>
           <TitleTip :type="3"></TitleTip>
           <div class="plan-content mt25">
@@ -207,10 +208,10 @@
               最新动态
             </span>
             <div class="custom-radio">
-              <div :class="{ active: active === 0 }" @click="active = 0">
+              <div :class="{ active: active_new === 0 }">
                 公司
               </div>
-              <div :class="{ active: active === 1 }" @click="active = 1">
+              <div :class="{ active: active_new === 1 }">
                 行业
               </div>
             </div>
@@ -341,6 +342,7 @@ export default {
     return {
       backAct: 0, // 回款超期饼图的当前选中的下标
       showDialog: false,
+      now_m: new Date().getMonth(),
       // 地区列表
       areaList: [
         {
@@ -376,6 +378,10 @@ export default {
           name: '埃及工厂',
         },
       ],
+      gdp: {
+        year: '',
+        month: '',
+      },
       // 周接单详情
       weekOrderInfo: {
         all_num: 0,
@@ -387,11 +393,13 @@ export default {
       // 最新动态的列表
       dynamic: [],
       area_id: 1,
-      active: 1, // 0 上个月   1  上季度
-      active_gdp: 1, // 人均产值 0 上个月   1  上季度
+      active: 0, // 0 上个月   1  上季度
+      active_gdp: 0, // 人均产值 0 上个月   1  上季度
+      active_new: 0, // 最新动态 0 公司   1  行业
     };
   },
   methods: {
+    // 初始化播放器
     getVideo() {
       videojs(
         'my-video',
@@ -421,64 +429,36 @@ export default {
       });
     },
     // 定时切换上个月上季度的数据
-    autoWebPageRefresh() {
-      const nowDate = new Date();
-      const year = nowDate.getFullYear();
-      if (
-        (this.active === 1 && Math.floor(nowDate.getMonth() / 3) === 0) ||
-        (this.active === 0 && nowDate.getMonth() === 0)
-      ) {
-        this.$store.dispatch('setState', {
-          key: 'year',
-          value: `${year - 1}年`,
-        });
-      } else {
-        this.$store.dispatch('setState', {
-          key: 'year',
-          value: `${year}年`,
-        });
+    autoWebPageRefresh(active, delay = 10000, obj = '') {
+      if (obj !== '') {
+        const nowDate = new Date();
+        const year = nowDate.getFullYear();
+        if (
+          (this[active] === 1 && Math.floor(nowDate.getMonth() / 3) === 0) ||
+          (this[active] === 0 && nowDate.getMonth() === 0)
+        ) {
+          this[obj].year = `${year - 1}年`;
+        } else {
+          this[obj].year = `${year}年`;
+        }
       }
       setTimeout(() => {
-        if (this.active) {
-          this.active -= 1;
+        if (this[active]) {
+          this[active] = 0;
         } else {
-          this.active += 1;
+          this[active] = 1;
         }
-        this.autoWebPageRefresh();
-      }, this.$state.timerTask.sales);
-    },
-    // 定时切换上个月上季度的数据
-    autoWebPageRefreshGDP() {
-      const nowDate = new Date();
-      const year = nowDate.getFullYear();
-      if (
-        (this.active_gdp === 1 && Math.floor(nowDate.getMonth() / 3) === 0) ||
-        (this.active_gdp === 0 && nowDate.getMonth() === 0)
-      ) {
-        this.$store.dispatch('setState', {
-          key: 'year',
-          value: `${year - 1}年`,
-        });
-      } else {
-        this.$store.dispatch('setState', {
-          key: 'year',
-          value: `${year}年`,
-        });
-      }
-      setTimeout(() => {
-        if (this.active_gdp) {
-          this.active_gdp -= 1;
-        } else {
-          this.active_gdp += 1;
-        }
-        this.autoWebPageRefresh();
-      }, this.$state.timerTask.gdb);
+        this.autoWebPageRefresh(active, delay, obj);
+      }, delay);
     },
     // 获取最新动态
     getBusinessDynamic() {
-      business_dynamic({ type: this.active }).then(res => {
+      this.dynamic = [];
+      business_dynamic({ type: this.active_new }).then(res => {
         if (res.status) {
           this.dynamic = res.data.list;
+        } else {
+          this.dynamic = [];
         }
       });
     },
@@ -491,6 +471,9 @@ export default {
               key: 'timerTask',
               value: res.data,
             });
+            this.autoWebPageRefresh('active_gdp', res.data.gdp, 'gdp');
+            this.autoWebPageRefresh('active', res.data.sales);
+            this.autoWebPageRefresh('active_new', res.data.news);
             resolve();
           }
         });
@@ -507,8 +490,6 @@ export default {
   async created() {
     await this.getBusinessTimerTask();
     this.getWeekOrder();
-    this.autoWebPageRefresh();
-    this.autoWebPageRefreshGDP();
     this.getBusinessDynamic();
   },
   mounted() {
@@ -518,6 +499,11 @@ export default {
     // 超期回款列表
     backList() {
       return this.$state.backList;
+    },
+  },
+  watch: {
+    active_new() {
+      this.getBusinessDynamic();
     },
   },
 };

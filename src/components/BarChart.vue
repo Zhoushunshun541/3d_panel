@@ -102,6 +102,7 @@ export default {
     this.$echart.graphic.registerShape('CubeRight', CubeRight);
     this.$echart.graphic.registerShape('CubeTop', CubeTop);
     return {
+      year: '',
       options: {
         backgroundColor: '',
         legend: {
@@ -531,9 +532,20 @@ export default {
   },
   computed: {
     showTitle() {
+      const nowDate = new Date();
+      const year = nowDate.getFullYear();
+      let y = '';
+      if (
+        (this.active === 1 && Math.floor(nowDate.getMonth() / 3) === 0) ||
+        (this.active === 0 && nowDate.getMonth() === 0)
+      ) {
+        y = `${year - 1}年`;
+      } else {
+        y = `${year}年`;
+      }
       return (
         this.title ||
-        `${this.$state.year +
+        `${y +
           this.$state[this.active === 0 ? 'month' : 'quarter']}销售完成情况`
       );
     },
