@@ -80,6 +80,7 @@
             separator=","
             :endVal="$state.planInfo.avg_month_num"
             :duration="1500"
+            :decimals="2"
           ></CountTo>
           <span class="fs14nc amount-num">万件</span>
         </span>
@@ -91,6 +92,7 @@
             separator=","
             :endVal="$state.planInfo.up_month_num"
             :duration="1500"
+            :decimals="2"
           ></CountTo>
           <span class="fs14nc amount-num">
             /
@@ -98,6 +100,7 @@
               separator=","
               :endVal="$state.planInfo.plan_num"
               :duration="1500"
+              :decimals="2"
             ></CountTo>
           </span>
           <span class="fs14nc">万件</span>

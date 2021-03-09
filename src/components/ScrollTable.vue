@@ -51,13 +51,21 @@
             class="pd0 w80"
             :class="item.sales_percentage.indexOf('-') > -1 ? 'green' : 'red'"
           >
-            {{ item.sales_percentage }}
+            {{
+              item.sales_percentage.indexOf('-') > -1
+                ? ''
+                : '+' + item.sales_percentage
+            }}
           </td>
           <td
             class="pd0 w60"
             :class="item.loss_percentage.indexOf('-') > -1 ? 'green' : 'red'"
           >
-            {{ item.loss_percentage }}
+            {{
+              item.loss_percentage.indexOf('-') > -1
+                ? ''
+                : '+' + item.loss_percentage
+            }}
           </td>
         </tr>
       </tbody>
