@@ -17,7 +17,7 @@
               <div class="amount">
                 <CountTo
                   separator=","
-                  :endVal="$state.thisYear.num"
+                  :endVal="+$state.thisYear.num"
                   :duration="1500"
                 ></CountTo>
                 <span class="fs24">万元</span>
@@ -84,7 +84,7 @@
               <span class="tip">
                 <CountTo
                   separator=","
-                  :endVal="weekOrderInfo.all_num"
+                  :endVal="+weekOrderInfo.all_num"
                   :duration="1500"
                 ></CountTo>
                 <span class="fs14nc">万元</span>
@@ -94,7 +94,7 @@
                 环比
                 <CountTo
                   separator=","
-                  :endVal="weekOrderInfo.all_percentage"
+                  :endVal="+weekOrderInfo.all_percentage"
                   :duration="1500"
                 ></CountTo>
                 %
@@ -129,7 +129,7 @@
                 class="max-height"
                 :class-option="classOption"
               >
-                <ul class="news_warp" style="height: 180px;overflow:hidden">
+                <ul class="news_warp">
                   <li class="mb10" v-for="(item, i) in orderList" :key="i">
                     <div class="news-date">{{ item.date }}</div>
                     <div style="color:rgba(207, 220, 255, 0.75);">

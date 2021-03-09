@@ -6,7 +6,7 @@
         <span class="amount-num">
           <CountTo
             separator=","
-            :endVal="orderInfo.complete_num"
+            :endVal="+orderInfo.complete_num"
             :duration="1500"
           ></CountTo>
           <span class="fs14nc">万元</span>
@@ -17,7 +17,7 @@
         <span class="amount-num">
           <CountTo
             separator=","
-            :endVal="orderInfo.from_complete"
+            :endVal="+orderInfo.from_complete"
             :duration="1500"
           ></CountTo>
           <span class="fs14nc">万元</span>
@@ -30,7 +30,7 @@
         <span class="amount-num">
           <CountTo
             separator=","
-            :endVal="$state.GDP.all_gdp"
+            :endVal="+$state.GDP.all_gdp"
             :duration="1500"
           ></CountTo>
           <span class="fs14nc">万美元</span>
@@ -41,7 +41,7 @@
           同比：<span :class="$state.GDP.gdp_percentage < 0 ? 'green' : 'red'">
             <CountTo
               separator=","
-              :endVal="$state.GDP.gdp_percentage"
+              :endVal="+$state.GDP.gdp_percentage"
               :duration="1500"
             ></CountTo>
             %
@@ -53,7 +53,7 @@
           >
             <CountTo
               separator=","
-              :endVal="$state.GDP.target_percentage"
+              :endVal="+$state.GDP.target_percentage"
               :duration="1500"
             ></CountTo>
             %
@@ -67,7 +67,7 @@
         <span class="amount-num">
           <CountTo
             separator=","
-            :endVal="$state.planInfo.factory_num"
+            :endVal="+$state.planInfo.factory_num"
             :duration="1500"
           ></CountTo>
           <span class="fs14nc amount-num">个</span>
@@ -78,7 +78,7 @@
         <span class="amount-num">
           <CountTo
             separator=","
-            :endVal="$state.planInfo.avg_month_num"
+            :endVal="+$state.planInfo.avg_month_num"
             :duration="1500"
             :decimals="2"
           ></CountTo>
@@ -90,7 +90,7 @@
         <span class="amount-num">
           <CountTo
             separator=","
-            :endVal="$state.planInfo.up_month_num"
+            :endVal="+$state.planInfo.up_month_num"
             :duration="1500"
             :decimals="2"
           ></CountTo>
@@ -98,7 +98,7 @@
             /
             <CountTo
               separator=","
-              :endVal="$state.planInfo.plan_num"
+              :endVal="+$state.planInfo.plan_num"
               :duration="1500"
               :decimals="2"
             ></CountTo>

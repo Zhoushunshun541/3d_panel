@@ -49,23 +49,27 @@
           <td class="table-row-cell_5">{{ item.loss_num }}</td>
           <td
             class="pd0 w80"
-            :class="item.sales_percentage.indexOf('-') > -1 ? 'green' : 'red'"
+            :class="[
+              +item.sales_percentage < 0 ? 'green' : 'red',
+              item.sales_percentage === '-' ? 'color-normal' : '',
+            ]"
           >
-            {{
-              item.sales_percentage.indexOf('-') > -1
-                ? ''
-                : '+' + item.sales_percentage
-            }}
+            <template v-if="+item.sales_percentage > 0">
+              +
+            </template>
+            {{ item.sales_percentage }}
           </td>
           <td
             class="pd0 w60"
-            :class="item.loss_percentage.indexOf('-') > -1 ? 'green' : 'red'"
+            :class="[
+              +item.loss_percentage < 0 ? 'green' : 'red',
+              item.loss_percentage === '-' ? 'color-normal' : '',
+            ]"
           >
-            {{
-              item.loss_percentage.indexOf('-') > -1
-                ? ''
-                : '+' + item.loss_percentage
-            }}
+            <template v-if="+item.loss_percentage > 0">
+              +
+            </template>
+            {{ item.loss_percentage }}
           </td>
         </tr>
       </tbody>
@@ -179,6 +183,9 @@ export default {
     display: block;
     height: 176px;
     overflow: scroll;
+  }
+  .color-normal {
+    color: rgba(207, 220, 255, 0.85) !important;
   }
   thead {
     text-align: center;
