@@ -2,11 +2,11 @@
   <div ref="dialog" v-show="show" class="order_dialog flex">
     <div class="flex show-info">
       <p>
-        恭喜<span class="fs60">{{ orderInfo.name }}</span>
+        恭喜<span class="fs60">{{ temp_info.name }}</span>
       </p>
       <p>
         接单
-        <span class="yellow fs60">{{ orderInfo.num | toThousandFilter }}</span>
+        <span class="yellow fs60">{{ temp_info.num | toThousandFilter }}</span>
         万元
       </p>
       <img class="animation-gif" src="../assets/images/prosperity.gif" alt="" />
@@ -18,20 +18,26 @@
 export default {
   name: 'Dialog',
   props: {
-    show: {
-      type: Boolean,
-      default: false,
+    orderInfo: {
+      type: Array,
+      default: () => {
+        return [{ name: '', num: 0 }];
+      },
     },
     delay: {
       type: [Number, String],
       default: 3000,
     },
-    orderInfo: {
-      type: Object,
-      default: () => {
-        return { name: '', num: 0 };
+  },
+  data() {
+    return {
+      temp_info: {
+        name: '',
+        num: 0,
       },
-    },
+      index: 0, // 当前数据的下标
+      show: false,
+    };
   },
   filters: {
     toThousandFilter(num) {
@@ -51,19 +57,34 @@ export default {
     },
     // 关闭弹窗
     closeDialog() {
-      this.$emit('update:show', false);
+      this.show = false;
       if (this.$el && this.$el.parentNode) {
         this.$el.parentNode.removeChild(this.$el);
+      }
+      this.showDialog();
+    },
+    showDialog() {
+      this.show = true;
+      this.temp_info = this.orderInfo[this.index];
+      if (this.index < this.orderInfo.length) {
+        this.index++;
+        this.innerBodyHtml();
+      } else {
+        this.temp_info = {
+          name: '',
+          num: 0,
+        };
+        this.index = 0;
       }
     },
   },
   watch: {
-    show(newValue) {
-      if (newValue) {
-        this.$nextTick(() => {
-          this.innerBodyHtml();
-        });
+    orderInfo(newValue) {
+      this.index = 0;
+      if (newValue.length === 0) {
+        return;
       }
+      this.showDialog();
     },
   },
   destroyed() {

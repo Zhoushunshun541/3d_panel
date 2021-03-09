@@ -42,7 +42,7 @@
       <div class="index_sec">
         <div class="flex top">
           <div class="top_left flex border_warp">
-            <div class="area-list">
+            <!-- <div class="area-list">
               <div
                 @click="area_id = area.id"
                 v-for="(area, i) in areaList"
@@ -51,9 +51,9 @@
               >
                 {{ area.name }}
               </div>
-            </div>
-            <Earth></Earth>
-            <video
+            </div> -->
+            <!-- <Earth></Earth> -->
+            <!-- <video
               id="my-video"
               class="video-js factory-live vjs-default-skin"
               preload="auto"
@@ -64,14 +64,17 @@
                 src="https://nclive.grtn.cn/typd/sd/live.m3u8?_upt=07d322ea1595884800"
                 type="application/x-mpegURL"
               />
-            </video>
-            <!-- <video
-              class="factory-live"
+            </video> -->
+            <video
+              class="factory-live all-h-w"
               autoplay
+              controls
+              loop
+              muted
               src="https://file.idiot-zs.top/%E6%81%92%E7%94%B0%E4%BC%81%E4%B8%9A%E5%AE%A3%E4%BC%A0%E7%89%87%E6%97%A0%E9%85%8D%E9%9F%B3%E7%89%882017%E6%9C%80%E6%96%B0%E7%89%88.mp4"
             >
               your browser does not support the video tag
-            </video> -->
+            </video>
           </div>
           <!-- 地图右侧 -->
           <div class="top-right border_warp">
@@ -120,14 +123,20 @@
               <Progress></Progress>
             </div>
             <div class="top-right_bottom">
-              <ul class="news_warp" style="height: 180px;overflow:hidden">
-                <li class="mb10" v-for="(item, i) in orderList" :key="i">
-                  <div class="news-date">{{ item.date }}</div>
-                  <div style="color:rgba(207, 220, 255, 0.75);">
-                    {{ item.name }} 接单 {{ item.num }}万元
-                  </div>
-                </li>
-              </ul>
+              <VueSeamlessScroll
+                :data="orderList"
+                class="max-height"
+                :class-option="classOption"
+              >
+                <ul class="news_warp" style="height: 180px;overflow:hidden">
+                  <li class="mb10" v-for="(item, i) in orderList" :key="i">
+                    <div class="news-date">{{ item.date }}</div>
+                    <div style="color:rgba(207, 220, 255, 0.75);">
+                      {{ item.name }} 接单 {{ item.num }}万元
+                    </div>
+                  </li>
+                </ul>
+              </VueSeamlessScroll>
             </div>
           </div>
         </div>
@@ -280,10 +289,7 @@
       </div>
     </div>
     <ZssFooter></ZssFooter>
-    <Dialog
-      :show.sync="showDialog"
-      :order-info="{ name: '无锡异步', num: 123123 }"
-    ></Dialog>
+    <Dialog :order-info="orderInfo"></Dialog>
   </div>
 </template>
 
@@ -291,7 +297,7 @@
 import Header from '@/components/Header';
 import ZssFooter from '@/components/Tabs';
 import WaterPolo from '@/components/WaterPolo';
-import Earth from '../components/Earth.vue';
+// import Earth from '../components/Earth.vue';
 import LineChart from '@/components/LineChart';
 import QuarterXrd from '@/components/QuarterXrd';
 import BarChart from '@/components/BarChart';
@@ -313,6 +319,7 @@ import {
   business_week_order,
   business_dynamic,
   business_timer_task,
+  business_prosperity,
 } from '@/api/api';
 import CountTo from 'vue-count-to';
 
@@ -323,7 +330,7 @@ export default {
     Header,
     ZssFooter,
     WaterPolo,
-    Earth,
+    // Earth,
     LineChart,
     QuarterXrd,
     BarChart,
@@ -342,7 +349,7 @@ export default {
   data() {
     return {
       backAct: 0, // 回款超期饼图的当前选中的下标
-      showDialog: false,
+      orderInfo: [], // 订单喜报的数据
       now_m: new Date().getMonth(),
       // 地区列表
       areaList: [
@@ -417,12 +424,12 @@ export default {
         }
       );
       setTimeout(() => {
-        console.log(this.myPlayer);
         this.myPlayer.volume(0.8);
       }, 500);
     },
     // 获取接单情况
     getWeekOrder() {
+      this.orderList = [];
       business_week_order().then(res => {
         if (res.status) {
           this.orderList = res.data.list ? res.data.list : [];
@@ -485,6 +492,20 @@ export default {
         });
       });
     },
+    // 获取接单喜报的接口
+    getBusinessProsperity() {
+      this.orderInfo = [];
+      business_prosperity().then(res => {
+        if (res.status) {
+          this.orderInfo = res.data.list;
+        } else {
+          this.orderInfo = [];
+        }
+        setTimeout(() => {
+          this.getBusinessProsperity();
+        }, this.$state.timerTask.prosperity);
+      });
+    },
   },
   filters: {
     toThousandFilter(num) {
@@ -497,10 +518,11 @@ export default {
     await this.getBusinessTimerTask();
     this.getWeekOrder();
     this.getBusinessDynamic();
+    this.getBusinessProsperity();
   },
-  mounted() {
-    this.getVideo();
-  },
+  // mounted() {
+  //   this.getVideo();
+  // },
   computed: {
     // 超期回款列表
     backList() {

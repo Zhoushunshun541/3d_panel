@@ -134,3 +134,10 @@ export const business_timer_task = params => {
     params,
   });
 };
+
+// 接单喜报
+export const business_prosperity = params => {
+  return http.get('/business/prosperity', {
+    params,
+  });
+};

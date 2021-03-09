@@ -101,7 +101,13 @@ export default {
       business_back_paragraph({ top: 10 }).then(res => {
         if (res.status) {
           this.options.series[0].data = res.data.list.map(arr => {
-            return { name: arr.name, value: arr.num, selected: false };
+            return {
+              name: arr.name,
+              value: arr.num,
+              selected: false,
+              label: { show: +arr.num !== 0 },
+              labelLine: { show: +arr.num !== 0 },
+            };
           });
           this.options.title.text = [
             `{a|${toThousandFilter(res.data.all_num) || 0}}{b|万元}`,

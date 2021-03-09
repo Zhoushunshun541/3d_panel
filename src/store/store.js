@@ -43,6 +43,8 @@ export default new Vuex.Store({
       sales: 0,
       prosperity: 0,
       order: 0,
+      news: 0,
+      week_order: 0,
     },
     backList: JSON.parse(sessionStorage.getItem('backList')) || [],
     GDP: JSON.parse(sessionStorage.getItem('GDP')) || {

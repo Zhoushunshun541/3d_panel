@@ -26,7 +26,7 @@ export default {
         { id: 5, name: '供应链部看板' },
         { id: 6, name: 'IE部看板' },
         { id: 7, name: '染色部看板' },
-        { id: 8, name: '制造部看板' },
+        { id: 8, name: '织造部看板' },
       ],
     };
   },
