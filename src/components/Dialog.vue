@@ -97,8 +97,8 @@ export default {
 
 <style lang="less" scoped>
 .order_dialog {
-  width: 100%;
-  height: 100%;
+  width: 3072px;
+  height: 1088px;
   z-index: 1000;
   position: absolute;
   font-size: 50px;

@@ -18,10 +18,8 @@
       <div class="month">3月</div>
       <div class="month">4月</div>
     </div>
-    <div
-      class="plan-table-list animate__animated"
-      :class="{ animate__fadeInRight: showAnimate }"
-    >
+    <div class="plan-table-list animate__animated animate__fadeInRight">
+      <!-- :class="{ animate__fadeInRight: showAnimate }" -->
       <ul>
         <li class="flex" v-for="(item, i) in planList" :key="i">
           <!-- <div class="table-index">{{ item.id }}</div> -->

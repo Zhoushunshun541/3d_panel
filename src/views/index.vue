@@ -71,10 +71,11 @@
               controls
               loop
               muted
-              src="https://file.idiot-zs.top/%E6%81%92%E7%94%B0%E4%BC%81%E4%B8%9A%E5%AE%A3%E4%BC%A0%E7%89%87%E6%97%A0%E9%85%8D%E9%9F%B3%E7%89%882017%E6%9C%80%E6%96%B0%E7%89%88.mp4"
+              src="https://www.handa.com.cn/cn/EnterprisePublicity.mp4"
             >
               your browser does not support the video tag
             </video>
+            <!-- src="https://file.idiot-zs.top/%E6%81%92%E7%94%B0%E4%BC%81%E4%B8%9A%E5%AE%A3%E4%BC%A0%E7%89%87%E6%97%A0%E9%85%8D%E9%9F%B3%E7%89%882017%E6%9C%80%E6%96%B0%E7%89%88.mp4" -->
           </div>
           <!-- 地图右侧 -->
           <div class="top-right border_warp">
@@ -518,7 +519,7 @@ export default {
     await this.getBusinessTimerTask();
     this.getWeekOrder();
     this.getBusinessDynamic();
-    this.getBusinessProsperity();
+    // this.getBusinessProsperity();
   },
   // mounted() {
   //   this.getVideo();

@@ -27,10 +27,8 @@
       </thead>
     </table>
     <!-- 表内容 -->
-    <table
-      class="table-content animate__animated"
-      :class="{ animate__fadeInRight: showAnimate }"
-    >
+    <table class="table-content animate__fadeInRight animate__animated">
+      <!-- :class="{ animate__fadeInRight: showAnimate }" -->
       <colgroup>
         <col name="dept" width="80" />
         <col name="table-row-cell_1" width="65" />

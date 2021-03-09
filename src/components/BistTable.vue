@@ -29,10 +29,8 @@
           <div>{{ year_bad }}%</div>
         </div>
       </div>
-      <ul
-        class="animate__animated"
-        :class="{ animate__fadeInRight: showAnimate }"
-      >
+      <ul class="animate__animated animate__fadeInRight">
+        <!-- :class="{ animate__fadeInRight: showAnimate }" -->
         <li class="flex" v-for="(item, i) in bistList" :key="i">
           <div class="table-index">{{ item.id }}</div>
           <div class="dept-name">{{ item.name }}</div>

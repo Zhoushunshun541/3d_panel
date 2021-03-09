@@ -9,10 +9,9 @@
       <div class="all-year">完成全年目标</div>
     </div>
     <template v-if="showList.length > 0">
-      <ul
-        class="animate__animated mt5"
-        :class="{ animate__fadeInRight: showAnimate }"
-      >
+      <ul class="animate__animated animate__fadeInRight mt5">
+        <!-- :class="{ animate__fadeInRight: showAnimate }" -->
+
         <li v-for="(item, i) in showList" :key="i" class="progress">
           <div class="dept-name">{{ item.name }}</div>
           <div class="flex quarter-progress">

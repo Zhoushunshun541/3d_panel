@@ -64,7 +64,18 @@ export default {
   },
   data() {
     return {
+      myChart: null,
+      start: 0,
+      end: 20,
+      st: null,
       options: {
+        dataZoom: [
+          {
+            type: 'inside',
+            start: 0,
+            end: 20,
+          },
+        ],
         grid: {
           left: '10%',
           right: '3%',
@@ -90,8 +101,7 @@ export default {
           data: [],
         },
         yAxis: {
-          min: 6.4,
-          max: 6.9,
+          scale: true,
           axisLine: {
             show: false,
           },
@@ -150,16 +160,27 @@ export default {
       });
       this.$nextTick(() => {
         this.initChart();
+        this.st = setInterval(() => {
+          this.start = this.start >= 80 ? 0 : this.start + 0.2;
+          this.end = this.end >= 100 ? 20 : this.end + 0.2;
+          this.myChart.dispatchAction({
+            type: 'dataZoom',
+            start: this.start,
+            end: this.end,
+          });
+        }, 200);
       });
     },
     // 获取信息
     getExchangeRate() {
+      clearInterval(this.st);
+      this.st = null;
       exchangeRate().then(res => {
         if (res.status) {
           this.exchange = res.data.frate;
           this.cash = res.data.currency;
-          this.options.yAxis.min = res.data.all_min;
-          this.options.yAxis.max = res.data.all_max;
+          // this.options.yAxis.min = res.data.all_min;
+          // this.options.yAxis.max = res.data.all_max;
           this.dealKLineEchart(res.data.movements);
         }
       });
