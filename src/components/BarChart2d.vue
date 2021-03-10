@@ -100,7 +100,7 @@ export default {
         ],
         series: [
           {
-            name: '2019',
+            name: new Date().getFullYear() - 1,
             type: 'bar',
             data: [],
             barWidth: '10px',
@@ -113,7 +113,7 @@ export default {
             },
           },
           {
-            name: '2020',
+            name: new Date().getFullYear(),
             type: 'bar',
             data: [],
             barWidth: '10px',
@@ -146,8 +146,8 @@ export default {
             {
               key: 'GDP',
               value: {
-                target_percentage: this.DealPercent(res.data.target_percentage),
-                gdp_percentage: this.DealPercent(res.data.gdp_percentage),
+                target_percentage: res.data.target_percentage || 0,
+                gdp_percentage: res.data.gdp_percentage || 0,
                 all_gdp: res.data.all_gdp,
               },
             },

@@ -26,7 +26,7 @@
     </div>
     <div class="bg-color flex" v-if="+type === 2">
       <div class="w120">
-        <span>三季度总产值</span>
+        <span>{{ $state[active === 0 ? 'month' : 'quarter'] }}总产值</span>
         <span class="amount-num">
           <CountTo
             separator=","
@@ -117,6 +117,10 @@ export default {
   name: 'TitleTip',
   props: {
     type: {
+      type: [Number, String],
+      default: 0,
+    },
+    active: {
       type: [Number, String],
       default: 0,
     },

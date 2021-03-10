@@ -359,7 +359,7 @@ export default {
   margin: 0;
 }
 .dept-name {
-  text-align: right;
+  text-align: left;
   width: 80px;
 }
 .check-num {

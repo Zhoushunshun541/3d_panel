@@ -162,7 +162,7 @@
               </div>
             </div>
             <div class="content">
-              <TitleTip type="2"></TitleTip>
+              <TitleTip :active="active_gdp" type="2"></TitleTip>
               <BarChart2d :type="active_gdp"></BarChart2d>
             </div>
           </div>
@@ -275,14 +275,18 @@
                 :class="{ active: i === backAct }"
                 :key="i"
               >
-                <span class="type_index">{{ i + 1 }}</span>
-                <div class="flex content ml15">
-                  <span class="w55">{{ item.name }}</span>
-                  <span class="ml5 w90 ta-r">
-                    {{ item.num | toThousandFilter }}万元
-                  </span>
-                  <span class="ml10 w30 ta-r as-r">{{ item.percentage }}%</span>
-                </div>
+                <template v-if="item.num > 0">
+                  <span class="type_index">{{ i + 1 }}</span>
+                  <div class="flex content ml15">
+                    <span class="w55">{{ item.name }}</span>
+                    <span class="ml5 w90 ta-r">
+                      {{ item.num | toThousandFilter }}万元
+                    </span>
+                    <span class="ml10 w30 ta-r as-r"
+                      >{{ item.percentage }}%</span
+                    >
+                  </div>
+                </template>
               </li>
             </ul>
           </div>

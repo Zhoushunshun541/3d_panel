@@ -115,7 +115,7 @@ export default {
           ].join('\n');
           this.$store.dispatch('setState', {
             key: 'backList',
-            value: res.data.list,
+            value: res.data.list.filter(item => item.num > 0),
           });
           this.$nextTick(() => {
             this.initChart();

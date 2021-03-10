@@ -163,12 +163,14 @@ export default {
     width: 92px;
   }
   .dept-name {
+    text-align: left;
     width: 90px;
     flex-shrink: 0;
     color: #5d6b95;
   }
   .all-year {
     width: 90px;
+    text-align: right;
     flex-shrink: 0;
   }
   .progress {

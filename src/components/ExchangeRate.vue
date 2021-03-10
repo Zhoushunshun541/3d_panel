@@ -69,13 +69,13 @@ export default {
       end: 20,
       st: null,
       options: {
-        dataZoom: [
-          {
-            type: 'inside',
-            start: 0,
-            end: 20,
-          },
-        ],
+        // dataZoom: [
+        //   {
+        //     type: 'inside',
+        //     start: 0,
+        //     end: 20,
+        //   },
+        // ],
         grid: {
           left: '10%',
           right: '3%',
@@ -160,15 +160,15 @@ export default {
       });
       this.$nextTick(() => {
         this.initChart();
-        this.st = setInterval(() => {
-          this.start = this.start >= 80 ? 0 : this.start + 0.2;
-          this.end = this.end >= 100 ? 20 : this.end + 0.2;
-          this.myChart.dispatchAction({
-            type: 'dataZoom',
-            start: this.start,
-            end: this.end,
-          });
-        }, 200);
+        // this.st = setInterval(() => {
+        //   this.start = this.start >= 80 ? 0 : this.start + 0.2;
+        //   this.end = this.end >= 100 ? 20 : this.end + 0.2;
+        //   this.myChart.dispatchAction({
+        //     type: 'dataZoom',
+        //     start: this.start,
+        //     end: this.end,
+        //   });
+        // }, 200);
       });
     },
     // 获取信息

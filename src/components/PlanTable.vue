@@ -173,7 +173,7 @@ export default {
   margin: 0;
 }
 .dept-name {
-  text-align: right;
+  text-align: left;
   width: 84px;
 }
 .month-capacity {
