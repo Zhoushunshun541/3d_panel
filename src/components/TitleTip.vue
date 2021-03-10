@@ -38,25 +38,21 @@
       </div>
       <div class="compare flex">
         <div>
-          同比：<span :class="$state.GDP.gdp_percentage < 0 ? 'green' : 'red'">
-            <CountTo
-              separator=","
-              :endVal="+$state.GDP.gdp_percentage"
-              :duration="1500"
-            ></CountTo>
-            %
+          同比：<span
+            :class="
+              $state.GDP.gdp_percentage.indexOf('-') !== -1 ? 'green' : 'red'
+            "
+          >
+            {{ $state.GDP.gdp_percentage }}
           </span>
         </div>
         <div>
           相比目标：<span
-            :class="$state.GDP.target_percentage < 0 ? 'green' : 'red'"
+            :class="
+              $state.GDP.target_percentage.indexOf('-') !== -1 ? 'green' : 'red'
+            "
           >
-            <CountTo
-              separator=","
-              :endVal="+$state.GDP.target_percentage"
-              :duration="1500"
-            ></CountTo>
-            %
+            {{ $state.GDP.target_percentage }}
           </span>
         </div>
       </div>

@@ -523,7 +523,7 @@ export default {
     await this.getBusinessTimerTask();
     this.getWeekOrder();
     this.getBusinessDynamic();
-    // this.getBusinessProsperity();
+    this.getBusinessProsperity();
   },
   // mounted() {
   //   this.getVideo();
