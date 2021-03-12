@@ -48,6 +48,7 @@ http.interceptors.response.use(
           return error.response.data;
       }
     }
+    console.log(error);
     return error.response.data;
   }
 );

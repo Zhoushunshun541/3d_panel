@@ -11,12 +11,14 @@
         <p>上月产出</p>
         <p>(万件)</p>
       </div>
-      <div class="month ml15">11月</div>
-      <div class="month">12月</div>
-      <div class="month">1月</div>
-      <div class="month">2月</div>
-      <div class="month">3月</div>
-      <div class="month">4月</div>
+      <div
+        v-for="(m, i) in now_m_l"
+        class="month"
+        :key="i"
+        :class="{ ml15: i === 0 }"
+      >
+        {{ m }}月
+      </div>
     </div>
     <div class="plan-table-list animate__animated animate__fadeInRight">
       <!-- :class="{ animate__fadeInRight: showAnimate }" -->
@@ -105,6 +107,16 @@ export default {
   computed: {
     timerTask() {
       return this.$state.timerTask;
+    },
+    now_m_l() {
+      let empty = [];
+      const m_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+      const m = new Date().getMonth();
+      if (m > 6) {
+        empty = m_list.slice(m, m_list.length);
+        return empty.concat(m_list.slice(0, 6 - empty.length));
+      }
+      return m_list.splice(m, 6);
     },
   },
   watch: {

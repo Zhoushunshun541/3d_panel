@@ -268,7 +268,7 @@
             ></PieEchart>
           </div>
           <div>
-            <ul style="height:220px">
+            <ul class="flex back-status">
               <li
                 v-for="(item, i) in backList"
                 class="flex"

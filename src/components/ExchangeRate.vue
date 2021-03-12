@@ -14,7 +14,9 @@
         </span>
       </div>
       <div style="font-weight:400;" class="ml10">
-        <p>{{ exchange.diffPer + ' ' + exchange.diffAmo }}</p>
+        <p :class="exchange.closePri > exchange.yesPic ? 'red' : 'green'">
+          {{ exchange.diffPer + ' （' + exchange.diffAmo + '）' }}
+        </p>
         <p>{{ exchange.date + '  ' + exchange.datatime }}</p>
       </div>
       <div class="ml20">
