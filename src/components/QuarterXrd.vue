@@ -8,187 +8,130 @@
       <div class="quarter">四季度</div>
       <div class="all-year">完成全年目标</div>
     </div>
-    <vue-seamless-scroll
-      :data="list"
-      class="max-height"
-      :class-option="classOption"
-    >
-      <ul>
-        <li v-for="(item, i) in list" :key="i" class="progress">
+    <template v-if="showList.length > 0">
+      <ul class="animate__animated animate__fadeInRight mt5">
+        <!-- :class="{ animate__fadeInRight: showAnimate }" -->
+
+        <li v-for="(item, i) in showList" :key="i" class="progress">
           <div class="dept-name">{{ item.name }}</div>
           <div class="flex quarter-progress">
-            <div class="quarter">
+            <div class="quarter" v-for="(r, index) in item.season" :key="index">
               <div
+                class="anima w0"
                 :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
+                  background: r.percentage > 100 ? '#07C297' : '#1999D6',
+                  color: r.percentage > 100 ? '#01144E' : 'rgb(207, 220, 255)',
+                  width: r.percentage <= 100 ? r.percentage + '%' : '100%',
                 }"
               >
-                {{ item.one * 100 }}%
-              </div>
-            </div>
-            <div class="quarter">
-              <div
-                :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
-                }"
-              >
-                {{ item.one * 100 }}%
-              </div>
-            </div>
-            <div class="quarter">
-              <div
-                :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
-                }"
-              >
-                {{ item.one * 100 }}%
-              </div>
-            </div>
-            <div class="quarter">
-              <div
-                :style="{
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
-                }"
-              >
-                {{ item.one * 100 }}%
+                <span style="padding-left:5px">{{ r.percentage }}%</span>
               </div>
             </div>
             <div class="all-year-progress">
               <div
+                class="anima w0"
                 :style="{
                   height: '100%',
-                  background: item.one > 1 ? '#07C297' : '#1999D6',
-                  color: item.one > 1 ? '#01144E' : '#fff',
-                  width: item.one <= 1 ? item.one * 100 + '%' : '100%',
+                  background: item.all_percentage > 100 ? '#07C297' : '#1999D6',
+                  color: item.all_percentage > 100 ? '#01144E' : '#fff',
+                  width:
+                    item.all_percentage <= 100
+                      ? item.all_percentage + '%'
+                      : '100%',
                 }"
               ></div>
             </div>
           </div>
-          <div class="all-year">
-            <span class="pr5">全年</span>
-            {{ item.one }}
+          <div class="all-year" style="color:#CFDCFF;">
+            <span class="pr5" style="color: #5D6B95;">
+              全年
+            </span>
+            {{ item.all_percentage }}%
           </div>
         </li>
       </ul>
-    </vue-seamless-scroll>
+    </template>
   </div>
 </template>
 
 <script>
-import vueSeamlessScroll from 'vue-seamless-scroll';
+import { business_order } from '@/api/api';
+import { DealPercent } from '@/utils/mixins';
 // 季度分析的组件
 export default {
   name: 'QuarterXrd',
-  components: {
-    vueSeamlessScroll,
-  },
+  mixins: [DealPercent],
   data() {
     return {
-      list: [
-        {
-          name: '无锡总部111',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-        {
-          name: '无锡总部',
-          one: 1.7,
-          two: 0,
-          three: 0,
-          fource: 0,
-          p: 0,
-        },
-      ],
+      showAnimate: false,
+      list: [],
+      showList: [], // 分页数据
     };
   },
-  computed: {
-    classOption() {
-      return {
-        step: 0.2, // 数值越大速度滚动越快
-        limitMoveNum: 2, // 开始无缝滚动的数据量 this.dataList.length
-        hoverStop: true, // 是否开启鼠标悬停stop
-        direction: 1, // 0向下 1向上 2向左 3向右
-        openWatch: true, // 开启数据实时监控刷新dom
-        singleHeight: 0, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
-        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
-        waitTime: 1000, // 单步运动停止的时间(默认值1000ms)
-      };
+  methods: {
+    // 获取接单详情 水球图那里
+    getAllYearOrder() {
+      business_order().then(res => {
+        if (res.status) {
+          // 将百分比转number
+          const temp = JSON.parse(JSON.stringify(res.data.this_year));
+          temp.percentage = this.DealPercent(res.data.this_year.percentage);
+          temp.target_percentage = this.DealPercent(
+            res.data.this_year.target_percentage
+          );
+          this.list = res.data.list;
+          this.getPageList();
+          this.$store.dispatch('setState', [
+            {
+              key: 'waterData',
+              value: +res.data.percentage,
+            },
+            {
+              key: 'thisYear',
+              value: temp,
+            },
+            {
+              key: 'orderInfo',
+              value: {
+                complete_num: parseFloat(res.data.complete_num),
+                from_complete: parseFloat(res.data.from_complete),
+              },
+            },
+          ]);
+        }
+      });
     },
+    // 获取分页数据
+    getPageList(page = 0) {
+      // 获取全部数据
+      const list = JSON.parse(JSON.stringify(this.list));
+      // 获取总页数
+      const total = Math.ceil(this.list.length / 7);
+      // 获取相应页的数据  如果是不足一页 取值要注意
+      if (page * 7 < this.list.length) {
+        this.showList = list.splice(page * 7, 7);
+      } else {
+        this.showList = list.splice(page * 7, this.list.length);
+      }
+      if (page >= total - 1) {
+        page = -1;
+      }
+      this.$nextTick(() => {
+        this.showAnimate = true;
+      });
+      setTimeout(() => {
+        this.showAnimate = false;
+        this.getPageList(page + 1);
+      }, this.$state.timerTask.order);
+    },
+  },
+  created() {
+    const st = setInterval(() => {
+      if (this.$state.timerTask.order > 0) {
+        clearInterval(st);
+        this.getAllYearOrder();
+      }
+    });
   },
 };
 </script>
@@ -200,7 +143,6 @@ export default {
   margin-top: 10px;
   font-size: 14px;
   text-align: center;
-  color: #cfdcff;
   li {
     display: flex;
     align-items: center;
@@ -215,31 +157,39 @@ export default {
   .fix-title {
     display: flex;
     align-items: center;
+    color: #5d6b95;
   }
   .quarter {
-    width: 102px;
+    width: 92px;
   }
   .dept-name {
-    width: 50px;
+    text-align: left;
+    width: 90px;
     flex-shrink: 0;
+    color: #5d6b95;
   }
   .all-year {
     width: 90px;
+    text-align: right;
     flex-shrink: 0;
   }
   .progress {
     height: 28px;
     .quarter {
-      border: 1px dotted rgba(255, 255, 255, 0.1);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
     }
     .quarter-progress {
       flex-wrap: wrap;
     }
+    .anima {
+      transition: all 0.5s;
+    }
     .all-year-progress {
+      transition: all 0.5s;
       margin-top: 2px;
-      width: 408px;
+      width: 368px;
       height: 5px;
-      border: 1px dotted rgba(255, 255, 255, 0.1);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
     }
   }
 }

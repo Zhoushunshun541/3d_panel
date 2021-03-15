@@ -4,7 +4,7 @@
 
 <script>
 import 'echarts-liquidfill';
-import { Echart } from '../utils/echart';
+import { Echart } from '../utils/mixins';
 
 export default {
   name: 'WaterPolo',
@@ -15,33 +15,44 @@ export default {
       default: 'WaterPolo',
     },
   },
-  data() {
-    return {
-      options: {
+  computed: {
+    options() {
+      return {
         backgroundColor: '',
-        title: {
-          text: '',
-          textStyle: {
-            fontWeight: 'normal',
-            fontSize: 25,
-            color: 'rgb(97, 142, 205)',
-          },
-        },
         series: [
           {
             type: 'liquidFill',
-            radius: '90%',
+            radius: '80%',
             center: ['50%', '50%'],
-            data: [0.5, 0.5, 0.5], // data个数代表波浪数
+            data: [this.$state.waterData / 100, this.$state.waterData / 100], // data个数代表波浪数
+            color: ['#139EEB', '#139EEB'],
             backgroundStyle: {
               borderWidth: 1,
-              color: 'rgb(255,0,255,0.1)',
+              color: '#00224A',
             },
             label: {
               normal: {
-                formatter: `${(0.5 * 100).toFixed(2)}% \n完成与目标比`,
-                textStyle: {
-                  fontSize: 12,
+                formatter: [
+                  `{${
+                    this.$state.waterData < 60 ? 'wa' : 'a'
+                  }|${this.$state.waterData.toFixed(2)}%}`,
+                  `{${this.$state.waterData < 60 ? 'wb' : 'b'}|完成与目标比}`,
+                ].join('\n'),
+                rich: {
+                  a: {
+                    fontSize: 16,
+                  },
+                  b: {
+                    fontSize: 10,
+                  },
+                  wa: {
+                    fontSize: 16,
+                    color: 'rgba(207, 220, 255, 0.85)',
+                  },
+                  wb: {
+                    fontSize: 10,
+                    color: 'rgba(207, 220, 255, 0.85)',
+                  },
                 },
               },
             },
@@ -52,78 +63,78 @@ export default {
           {
             type: 'pie',
             center: ['50%', '50%'],
-            radius: ['96%', '100%'],
+            radius: ['95%', '100%'],
             hoverAnimation: false,
             data: [
               {
                 name: '',
-                value: 500,
+                value: this.$state.waterData,
                 labelLine: {
                   show: false,
                 },
                 itemStyle: {
-                  color: '#5886f0',
+                  color: '#139EEB',
                 },
                 emphasis: {
                   labelLine: {
                     show: false,
                   },
                   itemStyle: {
-                    color: '#5886f0',
+                    color: '#139EEB',
                   },
                 },
               },
               {
                 // 画中间的图标
                 name: '',
-                value: 1,
+                value: 0.01,
                 labelLine: {
                   show: false,
                 },
                 itemStyle: {
                   color: '#ffffff',
                   normal: {
-                    color: '#5886f0',
-                    borderColor: '#5886f0',
+                    color: '#139EEB',
+                    borderColor: '#139EEB',
                     borderWidth: 4,
-                    borderRadius: '100%',
+                    borderRadius: 2,
                   },
                 },
                 label: {
-                  borderRadius: '100%',
+                  borderRadius: 2,
                 },
                 emphasis: {
                   labelLine: {
                     show: false,
                   },
                   itemStyle: {
-                    color: '#5886f0',
+                    color: '#139EEB',
                   },
                 },
               },
               {
                 // 解决圆点过大后续部分显示明显的问题
                 name: '',
-                value: 4,
+                value: 0.8,
                 labelLine: {
                   show: false,
                 },
                 itemStyle: {
-                  color: '#5886f0',
+                  color: '#139EEB',
                 },
                 emphasis: {
                   labelLine: {
                     show: false,
                   },
                   itemStyle: {
-                    color: '#5886f0',
+                    color: '#139EEB',
                   },
                 },
               },
               {
                 // 画剩余的刻度圆环
                 name: '',
-                value: 88,
+                value: 100 - this.$state.waterData,
                 itemStyle: {
                   color: '#050038',
                 },
@@ -145,15 +156,19 @@ export default {
             ],
           },
         ],
-      },
-    };
+      };
+    },
+  },
+  mounted() {
+    this.initChart();
   },
 };
 </script>
 
 <style lang="less" scoped>
 .water-polo_page {
-  width: 115px;
-  height: 115px;
+  margin-top: 30px;
+  width: 100px;
+  height: 100px;
 }
 </style>

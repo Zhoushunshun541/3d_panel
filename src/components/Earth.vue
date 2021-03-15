@@ -10,10 +10,10 @@
 </template>
 
 <script>
-// import { Echart } from '../utils/echart';
+// import { Echart } from '../utils/mixins';
 
 export default {
-  name: 'WaterPolo',
+  name: 'Earth',
   // mixins: [Echart],
   props: {
     id: {
@@ -22,11 +22,11 @@ export default {
     },
     height: {
       type: [String, Number],
-      default: '523',
+      default: '100%',
     },
     width: {
       type: [String, Number],
-      default: '860',
+      default: '100%',
     },
   },
   data() {
@@ -35,7 +35,6 @@ export default {
       myChart: null,
       // 立体球形纹路
       option: {
-        backgroundColor: '#000',
         globe: {
           displacementScale: 0.01,
           globeRadius: 60,
@@ -74,38 +73,26 @@ export default {
           },
         },
         series: [
-          // {
-          //   type: 'scatter3D',
-          //   coordinateSystem: 'globe',
-          //   blendMode: 'lighter',
-          //   symbolSize: 20,
-          //   symbol: 'pin',
-          //   silent: false,
-          //   itemStyle: {
-          //     color(params) {
-          //       const colorList = ['rgb(246, 153, 180)', 'rgb(118,77,209)'];
-          //       if (params.dataIndex % 2 !== 0) {
-          //         return colorList[0];
-          //       }
-          //       return colorList[1];
-          //     },
-          //     opacity: 1,
-          //   },
-          //   label: {
-          //     show: false,
-          //     textStyle: {
-          //       fontSize: 20,
-          //     },
-          //     formatter(params) {
-          //       if (params.dataIndex % 2 !== 0) {
-          //         return `Destination:\n${params.name}`;
-          //       }
-          //       return `Departure:\n${params.name}`;
-          //     },
-          //     position: 'top',
-          //   },
-          //   data: [],
-          // },
+          {
+            type: 'scatter3D',
+            coordinateSystem: 'globe',
+            blendMode: 'source-over',
+            symbolSize: 10,
+            symbol: 'circle',
+            silent: false,
+            itemStyle: {
+              color: 'red',
+              borderWidth: 2,
+              borderColor: 'red',
+            },
+            data: [
+              [120.26, 32.54],
+              [138.252924, 36.204824],
+              [121.480237, 31.236305],
+              [30.802498, 26.820553],
+              [95.956223, 21.913965],
+            ],
+          },
           {
             name: 'lines3D',
             type: 'lines3D',
@@ -120,11 +107,52 @@ export default {
             },
             blendMode: 'lighter',
             lineStyle: {
-              width: 1,
+              width: 3,
               color: '#007b98',
               opacity: 1,
             },
-            data: [],
+            data: [
+              {
+                coords: [
+                  // 江苏到日本
+                  [120.26, 32.54],
+                  [138.252924, 36.204824],
+                ],
+                value: 0,
+              },
+              {
+                coords: [
+                  // 日本到上海
+                  [138.252924, 36.204824],
+                  [121.480237, 31.236305],
+                ],
+                value: 0,
+              },
+              {
+                coords: [
+                  // 上海到埃及
+                  [121.480237, 31.236305],
+                  [30.802498, 26.820553],
+                ],
+                value: 0,
+              },
+              {
+                coords: [
+                  // 埃及到缅甸
+                  [30.802498, 26.820553],
+                  [95.956223, 21.913965],
+                ],
+                value: 0,
+              },
+              {
+                coords: [
+                  // 缅甸到江苏
+                  [95.956223, 21.913965],
+                  [120.26, 32.54],
+                ],
+                value: 0,
+              },
+            ],
           },
         ],
       },
@@ -202,34 +230,12 @@ export default {
       this.myChart.setOption(this.option);
       // this.option.globe.baseTexture = this.mapChart;
 
-      // 随机划多条线
-      for (let i = 0; i < 50; i++) {
-        this.option.series[0].data = this.option.series[0].data.concat(
-          this.rodamData()
-        );
-      }
-
-      this.myChart.setOption(this.option);
+      // this.myChart.setOption(this.option);
       // this.myChart.setOption(this.mapOption); // 平面展开图
     },
-
-    // 调用划线方法
-    rodamData() {
-      // let name = '随机点' + Math.random().toFixed(5) * 100000
-      // let longitude = Math.random() * 62 + 73
-      const longitude = 105.18;
-      const latitude = Math.random() * 360 - 180;
-      // let latitude = Math.random() * 50 + 3.52
-      const longitude1 = 90.21;
-      const latitude1 = Math.random() * 360 - 90;
-      return {
-        coords: [
-          [longitude, latitude],
-          [longitude1, latitude1],
-        ],
-        value: (Math.random() * 3000).toFixed(2),
-      };
-    },
+  },
+  beforeDestroy() {
+    this.myChart.dispose();
   },
 };
 </script>
