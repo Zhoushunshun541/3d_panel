@@ -29,10 +29,12 @@
         <span>{{ $state[active === 0 ? 'month' : 'quarter'] }}总产值</span>
         <span class="amount-num">
           <CountTo
+            v-if="+$state.GDP.all_gdp !== 0"
             separator=","
             :endVal="+$state.GDP.all_gdp"
             :duration="1500"
           ></CountTo>
+          <span v-else>0</span>
           <span class="fs14nc">万美元</span>
         </span>
       </div>
